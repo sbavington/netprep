@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+{% block title %}Admin — NetPrep{% endblock %}
+{% block head %}
+<style>
+.page-title{font-size:28px;font-weight:800;margin-bottom:4px;}
+.page-sub{color:var(--muted);font-size:13px;margin-bottom:32px;}
+.section-title{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;margin-top:32px;}
+.stats-row{display:flex;gap:16px;margin-bottom:8px;flex-wrap:wrap;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 24px;min-width:120px;}
+.stat-num{font-size:28px;font-weight:800;color:var(--accent);font-family:var(--mono);}
+.stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+.invite-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:24px;}
+.inv-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--border);}
+.inv-tab{background:none;border:none;color:var(--muted);padding:8px 16px;font-family:var(--mono);font-size:12px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.inv-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.inv-body{display:none;}
+.inv-body.active{display:block;}
+.invite-form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+.invite-form input{flex:1;min-width:160px;background:#0d1424;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-family:var(--body);font-size:13px;outline:none;}
+.invite-form input:focus{border-color:rgba(0,212,255,.4);}
+.field-group{display:flex;flex-direction:column;gap:4px;flex:1;min-width:160px;}
+.field-group label{font-size:10px;color:var(--muted);letter-spacing:1px;font-family:var(--mono);text-transform:uppercase;}
+.btn-invite{background:var(--accent);color:#000;border:none;padding:8px 18px;border-radius:6px;font-family:var(--body);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;height:36px;}
+.course-checks{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.course-check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);cursor:pointer;}
+.course-check input{accent-color:var(--accent);}
+.course-check span{color:var(--text);}
+.bulk-hint{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.bulk-textarea{width:100%;background:#0d1424;border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:6px;font-family:var(--mono);font-size:12px;outline:none;height:120px;resize:vertical;margin-bottom:10px;}
+
+.student-table{width:100%;border-collapse:collapse;background:var(--surface);border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.student-table th{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;background:var(--surface);}
+.student-table td{padding:12px 14px;border-bottom:1px solid rgba(30,41,59,.5);font-size:13px;vertical-align:middle;}
+.student-table tr:last-child td{border-bottom:none;}
+.student-table tr:hover td{background:rgba(255,255,255,.02);}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;}
+.badge-active{background:rgba(16,185,129,.1);color:#34d399;border:1px solid rgba(16,185,129,.2);}
+.badge-pending{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.2);}
+.badge-course{background:rgba(0,212,255,.08);color:var(--accent);border:1px solid rgba(0,212,255,.15);margin:1px;}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;min-width:80px;}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;}
+.filter-input{background:#0d1424;border:1px solid var(--border);color:var(--text);padding:8px 12px;border-radius:6px;font-size:13px;outline:none;width:100%;margin-bottom:14px;}
+</style>
+{% endblock %}
+{% block content %}
+<div class="container-wide" style="padding-top:24px;">
+  <span style="font-family:var(--mono);font-size:10px;color:var(--warn);letter-spacing:2px;text-transform:uppercase;">⬡ ADMIN DASHBOARD</span>
+  <div class="page-title" style="margin-top:8px;">Student Overview</div>
+  <div class="page-sub">NetPrep Training Platform</div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">{{ users|length }}</div><div class="stat-label">Enrolled</div></div>
+    <div class="stat-box"><div class="stat-num">{{ users|selectattr('is_active')|list|length }}</div><div class="stat-label">Active</div></div>
+    <div class="stat-box"><div class="stat-num">{{ users|rejectattr('is_active')|list|length }}</div><div class="stat-label">Invite Pending</div></div>
+    <div class="stat-box"><div class="stat-num">{{ courses|length }}</div><div class="stat-label">Courses</div></div>
+  </div>
+
+  <div class="section-title">// Invite Students</div>
+  <div class="invite-panel">
+    <div class="inv-tabs">
+      <button class="inv-tab active" onclick="showTab('single',this)">Single Invite</button>
+      <button class="inv-tab" onclick="showTab('bulk',this)">Bulk Invite</button>
+    </div>
+
+    <div class="inv-body active" id="tab-single">
+      <form class="invite-form" method="POST" action="{{ url_for('admin_invite') }}">
+        <div class="field-group">
+          <label>Full Name</label>
+          <input type="text" name="name" placeholder="Student full name" required>
+        </div>
+        <div class="field-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="student@example.com" required>
+        </div>
+        <div style="align-self:flex-end;">
+          <button class="btn-invite" type="submit">Generate Invite Link</button>
+        </div>
+      </form>
+      <div class="course-checks" style="margin-top:14px;">
+        <span style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center;">ENROL IN:</span>
+        {% for cid, course in courses.items() %}
+        <label class="course-check">
+          <input type="checkbox" name="courses" value="{{ cid }}" form="single-form" checked>
+          <span>{{ course.icon }} {{ course.title }}</span>
+        </label>
+        {% endfor %}
+      </div>
+      <script>
+        // attach checkboxes to the single form properly
+        document.querySelectorAll('.course-check input').forEach(cb => {
+          cb.removeAttribute('form');
+          cb.closest('.course-check').closest('.course-checks').previousElementSibling.querySelector('form') && null;
+        });
+      </script>
+      <form id="single-form" class="invite-form" method="POST" action="{{ url_for('admin_invite') }}" style="display:none;"></form>
+    </div>
+
+    <div class="inv-body" id="tab-bulk">
+      <form method="POST" action="{{ url_for('admin_invite_bulk') }}">
+        <p class="bulk-hint">One student per line: <strong>Full Name, email@example.com</strong> or tab-separated</p>
+        <textarea class="bulk-textarea" name="bulk" placeholder="Stephen Bavington, sbavington@mac.com&#10;Jane Smith, jane@example.com"></textarea>
+        <div class="course-checks" style="margin-bottom:12px;">
+          <span style="font-size:11px;color:var(--muted);font-family:var(--mono);align-self:center;">ENROL IN:</span>
+          {% for cid, course in courses.items() %}
+          <label class="course-check">
+            <input type="checkbox" name="bulk_courses" value="{{ cid }}" checked>
+            <span>{{ course.icon }} {{ course.title }}</span>
+          </label>
+          {% endfor %}
+        </div>
+        <button class="btn-invite" type="submit">Create All Invite Links</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="section-title">// Student Roster</div>
+  <input class="filter-input" type="text" id="filter" placeholder="Filter by name or email..." onkeyup="filterTable()">
+  <table class="student-table" id="student-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Courses</th>
+        <th>Progress</th>
+        <th>Status</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr onclick="window.location='/admin/user/{{ u.id }}'" style="cursor:pointer;">
+        <td><strong>{{ u.name }}</strong></td>
+        <td style="color:var(--muted);">{{ u.email }}</td>
+        <td>
+          {% for cid in u.courses %}
+            {% if cid in courses %}
+            <span class="badge badge-course">{{ courses[cid].icon }} {{ courses[cid].title }}</span>
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>
+          <div class="prog-bar"><div class="prog-fill" style="width:{% if u.total_lessons %}{{ (u.lessons_done/u.total_lessons*100)|int }}{% else %}0{% endif %}%"></div></div>
+          <span style="font-size:11px;color:var(--muted);">{{ u.lessons_done }}/{{ u.total_lessons }}</span>
+        </td>
+        <td><span class="badge {% if u.is_active %}badge-active{% else %}badge-pending{% endif %}">{% if u.is_active %}active{% else %}invite pending{% endif %}</span></td>
+        <td style="color:var(--muted);font-size:12px;">{{ u.created_at[:10] if u.created_at else '' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.inv-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.inv-body').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+function filterTable() {
+  const q = document.getElementById('filter').value.toLowerCase();
+  document.querySelectorAll('#student-table tbody tr').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+}
+
+// Fix single invite form to include course checkboxes
+document.querySelector('#tab-single form.invite-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const checks = document.querySelectorAll('#tab-single .course-check input:checked');
+  checks.forEach(cb => {
+    const inp = document.createElement('input');
+    inp.type = 'hidden';
+    inp.name = 'courses';
+    inp.value = cb.value;
+    this.appendChild(inp);
+  });
+  this.submit();
+});
+</script>
+{% endblock %}
