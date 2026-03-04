@@ -169,6 +169,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
 <script>
 const TOTAL = {{ total }};
 const CONTENT = {{ lesson_content|tojson }};
+const COURSE_ID = '{{ course.id }}';
 let currentLessonId = null;
 let saveTimer = null;
 
@@ -185,7 +186,7 @@ async function saveProgress(lessonId, action) {
     const res = await fetch('/api/progress', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({lesson_id: lessonId, action})
+      body: JSON.stringify({course_id: COURSE_ID, lesson_id: lessonId, action})
     });
     const data = await res.json();
     const pct = Math.round((data.completed / TOTAL) * 100);

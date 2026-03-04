@@ -474,12 +474,16 @@ def curriculum(course_id):
     completed = {r['lesson_id'] for r in rows}
     course = COURSES[course_id]
     total = course_total(course_id)
-    return render_template('curriculum.html',
+    from flask import make_response
+    resp = make_response(render_template('curriculum.html',
         course=course, modules=course['modules'],
         completed=completed, total=total,
         user_name=session['user_name'],
         lesson_content=CONTENT.get(course_id, {}),
-        is_admin=session.get('is_admin', False))
+        is_admin=session.get('is_admin', False)))
+    resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    resp.headers['Pragma'] = 'no-cache'
+    return resp
 
 @app.route('/api/progress', methods=['POST'])
 @login_required

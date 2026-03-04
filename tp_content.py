@@ -1,5 +1,5 @@
 LESSON_CONTENT = {
-    "1-1": {
+    "tp-1-1": {
         "notes": "TippingPoint is an Intrusion Prevention System (IPS) made by Trend Micro. Unlike a firewall, which controls access based on rules about who can connect where, an IPS inspects the actual content of network traffic and blocks attacks in real time. Unlike an IDS (Intrusion Detection System), which only alerts you when it sees something suspicious, an IPS sits inline in the network and actively drops malicious packets before they reach their destination.\n\nThink of it this way: a firewall is a bouncer checking IDs at the door, an IDS is a security camera that records incidents, and an IPS is a guard that physically stops attacks as they happen. TippingPoint combines deep packet inspection with a continuously updated threat intelligence database (Digital Vaccine) to stop exploits, malware, and attacks across thousands of known vulnerabilities — without requiring you to manually write rules for each one.",
         "terms": [
             ("IPS", "Intrusion Prevention System — inline device that inspects and blocks malicious traffic in real time"),
@@ -20,7 +20,7 @@ LESSON_CONTENT = {
             ("NIST — IPS Guide", "https://csrc.nist.gov/publications/detail/sp/800-94/final"),
         ]
     },
-    "1-2": {
+    "tp-1-2": {
         "notes": "The TippingPoint product family includes several hardware appliances designed for different network speeds and deployment scenarios. The TPS (Threat Protection System) series is the current generation, available in models ranging from 100Mbps to 100Gbps throughput. The older IPS series (2500N, 5100N, 8200ZX etc.) is still widely deployed. The Virtual TPS (vTPS) runs as a virtual machine for cloud and virtualised environments.\n\nAll TippingPoint devices share the same core architecture: high-speed custom ASICs for packet processing, a management plane running Linux, and the SMS (Security Management System) for centralised management of multiple devices. The TX Series represents the latest generation with enhanced performance and cloud integration. Understanding which platform you're working with matters because CLI commands, hardware ports, and capabilities differ between generations.",
         "terms": [
             ("TPS", "Threat Protection System — current generation TippingPoint hardware appliances"),
@@ -38,10 +38,10 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Datasheet", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
         ]
     },
-    "1-3": {
+    "tp-1-3": {
         "notes": "TippingPoint operates in Layer 2 bridge mode — it is completely transparent to the network. Traffic flows into one segment port and out another, and the device is invisible to everything around it (no IP address on the data path interfaces). This means you can insert TippingPoint into an existing network without changing IP addresses, routing, or any other configuration on surrounding devices.\n\nWhen a packet arrives, TippingPoint's inspection engine checks it against all active Digital Vaccine filters simultaneously using parallel processing. If the packet matches a threat filter with a Block action set, it is dropped and a log entry is created. If it matches a Rate Limit filter, bandwidth is restricted. If no filter matches, or if the filter action is Permit, the packet passes through unmodified. The entire process happens in microseconds. Understanding this traffic flow is essential for placement decisions and troubleshooting.",
         "terms": [
             ("Layer 2 Bridge", "TippingPoint's transparent inline mode — no IP on data interfaces, invisible to network"),
@@ -57,12 +57,12 @@ LESSON_CONTENT = {
             ("What is a segment port?", "A physical port pair on TippingPoint through which traffic flows — one port receives traffic, the other sends it onward"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Cloudflare — What is Deep Packet Inspection?", "https://www.cloudflare.com/learning/network-layer/what-is-deep-packet-inspection/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "1-4": {
+    "tp-1-4": {
         "notes": "Module 1 review quiz. Make sure you can clearly explain what TippingPoint does, how it differs from a firewall and IDS, and the basic traffic flow through an inline IPS before moving on to hardware installation.",
         "terms": [
             ("IPS vs Firewall", "Firewall controls access by rules; IPS inspects content and blocks attacks"),
@@ -77,11 +77,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "2-1": {
+    "tp-2-1": {
         "notes": "TippingPoint appliances are designed for standard 1U or 2U rack mounting. Before installation, plan your cabling carefully — the device has separate management ports and segment (data) ports. The management port connects to your management network and is used for SSH, HTTPS, and SMS communication. Segment ports connect inline in your traffic path.\n\nPhysical requirements: adequate rack space (measure U-height for your model), power (check whether the model requires redundant PSUs), and proper grounding. Cable management matters — label every cable before installation. Copper segment ports use standard Cat6 cables; fibre segment ports require the appropriate SFP modules (check whether single-mode or multimode fibre is needed for your environment). Always power down properly — never hard-power a TippingPoint device as the database may corrupt.",
         "terms": [
             ("Management Port", "Dedicated Ethernet port for SSH, HTTPS, and SMS management traffic — not in the data path"),
@@ -97,12 +97,12 @@ LESSON_CONTENT = {
             ("What must you check before ordering fibre SFP modules?", "Whether the fibre runs are single-mode or multimode, and the required distance/wavelength"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Rack Unit Calculator", "https://www.racksolutions.com/news/data-center-hardware/rack-unit-explained/"),
         ]
     },
-    "2-2": {
+    "tp-2-2": {
         "notes": "Network placement is one of the most important decisions when deploying TippingPoint. The device must be placed inline in the traffic path you want to protect. Common placements: between the internet router and the core switch (protects all traffic), between the DMZ and internal network (protects servers), or between network segments (east-west protection).\n\nEach physical segment port pair represents one network segment. A single TippingPoint appliance can protect multiple segments simultaneously — check your model's segment count. When planning, consider: which traffic flows need inspection, what throughput each segment carries (don't exceed the device's rated capacity), and whether you need bypass capability during maintenance. Virtual segments allow you to logically divide a physical segment and apply different policies to different traffic types.",
         "terms": [
             ("Network Segment", "A traffic flow that TippingPoint inspects inline between two network points"),
@@ -118,12 +118,12 @@ LESSON_CONTENT = {
             ("Why is throughput planning important?", "If traffic exceeds the device's rated capacity, the IPS may drop packets or fail to inspect all traffic"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Cloudflare — DMZ Explained", "https://www.cloudflare.com/learning/security/glossary/dmz-network/"),
         ]
     },
-    "2-3": {
+    "tp-2-3": {
         "notes": "When you first power on a TippingPoint device, it goes through a POST (Power-On Self Test) and then boots its operating system. The console port (serial, RJ45 or DB9 depending on model) provides access during initial setup before network connectivity is configured. Console settings: 9600 baud, 8 data bits, no parity, 1 stop bit (9600 8N1).\n\nThe initial boot takes 2-5 minutes. You'll see boot messages on the console, then a login prompt. Default credentials vary by firmware version — check the quick start guide for your specific model. The first login typically forces a password change. After logging in via console, your first task is to configure the management IP address so you can switch to SSH or HTTPS management. The system will display the current software version during boot — record this for support purposes.",
         "terms": [
             ("POST", "Power-On Self Test — hardware diagnostics run at startup"),
@@ -139,12 +139,12 @@ LESSON_CONTENT = {
             ("What should you do after the first login?", "Change the default password and configure the management IP address"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
-    "2-4": {
+    "tp-2-4": {
         "notes": "This lab covers the physical installation of a TippingPoint appliance. If you have access to a physical unit, follow the steps in order. If working in a lab environment, document each step as if performing the installation.\n\nLab steps: 1) Verify physical condition of the appliance on receipt. 2) Mount in rack — attach rack ears, slide in, secure with screws. 3) Connect console cable to your laptop (use PuTTY or screen on Linux). 4) Connect management port to management switch. 5) Plan segment port cabling — draw a diagram showing what connects where. 6) Connect power — do NOT power on yet. 7) Verify all connections. 8) Power on and observe boot sequence on console. 9) Record the firmware version displayed during boot. 10) Verify login prompt appears.",
         "terms": [
             ("Rack Ears", "Metal brackets attached to the appliance sides for rack mounting"),
@@ -159,11 +159,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "3-1": {
+    "tp-3-1": {
         "notes": "Once the management IP is configured, you have two ways to access TippingPoint: SSH for CLI access and HTTPS for the web-based Local Security Manager (LSM). SSH is the primary tool for initial configuration and troubleshooting. To connect: ssh admin@<management-ip>. The default SSH port is 22.\n\nThe LSM (Local Security Manager) is a web interface running on the device itself — not to be confused with SMS, which is the centralised management system for multiple devices. The LSM is useful for initial setup and when SMS is unavailable. In production environments, most administration is done through SMS. For console access during the initial setup phase before network is configured, connect your serial cable and use a terminal emulator (PuTTY on Windows, screen or minicom on Linux/Mac).",
         "terms": [
             ("SSH", "Secure Shell — encrypted remote CLI access; connect with ssh admin@<ip>"),
@@ -180,11 +180,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "3-2": {
+    "tp-3-2": {
         "notes": "The TippingPoint CLI uses a hierarchical command structure similar to Cisco IOS. Key commands to know: `show version` displays firmware version and system info. `show system` shows CPU, memory, and uptime. `show interface` shows interface status and statistics. `show segment` displays segment configuration and traffic counters. `show filter` lists active filters and their states.\n\nConfiguration commands require you to enter configuration mode: `conf t` (or `configure terminal`). Changes take effect immediately but must be saved with `write memory` (or `copy running startup`). The `show log` command displays system and security event logs. `ping <ip>` tests management connectivity. `traceroute <ip>` traces the management path. The `debug` commands provide detailed troubleshooting output but should be used carefully in production as they can impact performance.",
         "terms": [
             ("show version", "Displays firmware version, serial number, uptime, and hardware info"),
@@ -200,12 +200,12 @@ LESSON_CONTENT = {
             ("What command shows segment port status and traffic statistics?", "show segment"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "3-3": {
+    "tp-3-3": {
         "notes": "Setting the management IP, DNS, and NTP are the three critical initial configuration tasks. Management IP: in configuration mode, use `ip address <ip> <mask>` on the management interface, then set the default gateway with `ip default-gateway <ip>`. Verify with `show interface management`.\n\nDNS configuration: `dns server <primary-ip> <secondary-ip>`. NTP is critical — TippingPoint's log timestamps and certificate validation depend on accurate time. Configure with `ntp server <ip>`. Verify time sync with `show ntp`. The hostname can be set with `hostname <name>` — use something descriptive like the device's physical location. After setting these, test connectivity: `ping 8.8.8.8` for internet, `ping <dns-server>` for DNS, and verify `show ntp` shows the clock is synchronised.",
         "terms": [
             ("Management Interface", "The dedicated interface for administrative traffic, separate from data segment ports"),
@@ -221,12 +221,12 @@ LESSON_CONTENT = {
             ("After configuring DNS, how do you test it works?", "ping a hostname (e.g. ping updates.trendmicro.com) — if it resolves and responds, DNS is working"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("NTP Pool Project", "https://www.ntppool.org/"),
         ]
     },
-    "3-4": {
+    "tp-3-4": {
         "notes": "Management access control is critical for security. By default, TippingPoint allows SSH and HTTPS access from any IP on the management network. In production, restrict this using access control lists (ACLs) to only allow connections from specific management hosts or subnets.\n\nUser accounts: TippingPoint supports role-based access control with SuperUser, Administrator, and Operator roles. SuperUser has full access. Administrator can manage security policies but not system config. Operator can view but not change. Create separate accounts for each administrator — never share credentials. RADIUS authentication can be configured for centralised user management. HTTPS certificate: replace the self-signed certificate with a proper one signed by your internal CA to eliminate browser warnings and improve security. Always disable Telnet if it's enabled — only SSH should be used.",
         "terms": [
             ("RBAC", "Role-Based Access Control — different permission levels for different user roles"),
@@ -242,12 +242,12 @@ LESSON_CONTENT = {
             ("How do you restrict which hosts can access TippingPoint management?", "Configure ACLs on the management interface to only allow specific IP addresses or subnets"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("NIST — Access Control Guide", "https://csrc.nist.gov/publications/detail/sp/800-162/final"),
         ]
     },
-    "3-5": {
+    "tp-3-5": {
         "notes": "This lab covers initial CLI configuration of a TippingPoint device. Work through these tasks in order, verifying each step before moving on.\n\nLab tasks: 1) Connect via SSH: `ssh admin@<ip>`. 2) Run `show version` — record firmware version. 3) Run `show system` — note CPU and memory. 4) Run `show interface` — verify management interface is up. 5) Enter config mode: `conf t`. 6) Set hostname: `hostname LAB-TPS-01`. 7) Configure NTP: `ntp server 216.239.35.0`. 8) Configure DNS: `dns server 8.8.8.8 8.8.4.4`. 9) Save: `write memory`. 10) Verify NTP: `show ntp`. 11) Run `show segment` — note segment status. 12) Create a test user with Operator role. 13) Log out and log back in as the new user to verify access.",
         "terms": [
             ("SSH Verification", "Always run show version after connecting to confirm you're on the right device"),
@@ -260,12 +260,12 @@ LESSON_CONTENT = {
             ("How do you verify NTP is synchronised?", "show ntp — look for a * or + next to the NTP server indicating it's the active time source"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
-    "4-1": {
+    "tp-4-1": {
         "notes": "The Security Management System (SMS) is the centralised management platform for TippingPoint. Instead of logging into each IPS device individually, SMS provides a single pane of glass for managing security policies, distributing Digital Vaccine updates, monitoring events, and generating reports across your entire TippingPoint deployment.\n\nSMS runs on a dedicated server — either a physical SMS appliance or as a virtual machine (vSMS) on VMware or Hyper-V. The SMS server communicates with each managed TippingPoint device over an encrypted channel on TCP port 9898. Key SMS components: the SMS application (web-based GUI), the database (stores events, configuration, and policies), and the device management service (handles communication with IPS devices). SMS uses a client-server model — administrators connect to SMS, not directly to individual IPS devices.",
         "terms": [
             ("SMS", "Security Management System — centralised management for all TippingPoint IPS devices"),
@@ -281,12 +281,12 @@ LESSON_CONTENT = {
             ("Can SMS run as a virtual machine?", "Yes — vSMS runs on VMware or Hyper-V and has the same functionality as the physical appliance"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
-    "4-2": {
+    "tp-4-2": {
         "notes": "Installing SMS requires a dedicated server meeting minimum hardware requirements: typically 8+ CPU cores, 16GB+ RAM, 500GB+ storage (more for large deployments with high event volumes). The SMS software is installed on Windows Server or as a pre-built virtual appliance.\n\nLicensing: TippingPoint uses a subscription-based licensing model. You need a licence for SMS itself and separate licences for Digital Vaccine (threat filter updates). Licences are managed through the Trend Micro licencing portal and imported into SMS. Without a valid DV licence, the device cannot receive new threat filter updates — the existing filters remain active but won't be updated. After installing SMS, import your licence file via the SMS GUI: Administration → Licenses → Import. Then configure the Digital Vaccine download schedule to automatically fetch updates from Trend Micro.",
         "terms": [
             ("SMS Licence", "Required for SMS functionality and Digital Vaccine update access"),
@@ -303,11 +303,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Licensing Portal", "https://clp.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "4-3": {
+    "tp-4-3": {
         "notes": "Adding a TippingPoint device to SMS is called 'registering' the device. The process: 1) In SMS, go to Devices → Add Device. 2) Enter the device's management IP address. 3) SMS connects to the device over port 9898 and verifies the connection. 4) Accept the device's SSL certificate. 5) Enter the device's admin credentials. 6) SMS retrieves the device's configuration and registers it.\n\nPrerequisites: the IPS device must have its management IP configured and must be reachable from the SMS server. Port 9898 must be open between SMS and all managed devices (check firewall rules). Once registered, SMS takes over policy management — you should no longer make policy changes via LSM. System configuration (IP, NTP, DNS) can still be done via CLI or LSM. Best practice: create a dedicated SMS-managed account on each device rather than using the admin account.",
         "terms": [
             ("Device Registration", "Process of adding a TippingPoint IPS to SMS management"),
@@ -322,12 +322,12 @@ LESSON_CONTENT = {
             ("What is the first thing to verify before attempting to register a device?", "That the device management IP is reachable from the SMS server (ping the device from the SMS server)"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "4-4": {
+    "tp-4-4": {
         "notes": "The SMS dashboard provides an overview of your entire TippingPoint deployment. Key areas: the Device Summary panel shows all registered devices and their status (green = online and healthy, yellow = warning, red = error or offline). The Events panel shows recent security events across all devices. The DV Status panel shows the current Digital Vaccine version installed on each device.\n\nNavigation: Devices → [device name] drills into a specific device. Events → Event Log shows all security events with filtering by severity, device, filter name, and time range. Reports → Generate creates scheduled or on-demand reports. Policies → Security Profiles manages your security configurations. Understanding the dashboard layout is essential — in a real incident, you need to navigate quickly to find the relevant events and understand what's being blocked.",
         "terms": [
             ("Device Summary", "SMS dashboard panel showing all devices and their health status"),
@@ -342,12 +342,12 @@ LESSON_CONTENT = {
             ("What is a Security Profile in SMS?", "A named collection of Digital Vaccine filter settings that can be applied to one or more devices"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
-    "4-5": {
+    "tp-4-5": {
         "notes": "SMS setup lab. Work through these tasks using your SMS instance.\n\nLab tasks: 1) Log into SMS via HTTPS. 2) Navigate the dashboard — identify Device Summary, Event Log, and DV Status panels. 3) Go to Devices → Add Device and register your TippingPoint appliance. 4) Verify the device shows as green/online in the dashboard. 5) Navigate to the registered device and review its configuration. 6) Check Administration → Licenses — verify DV licence is valid. 7) Go to Digital Vaccine → Download/Install — note the current DV version. 8) Create a test user account in SMS with Administrator role. 9) Log out and log back in as the test user. 10) Generate a test report from Reports → Device Summary.",
         "terms": [
             ("HTTPS Access", "SMS is accessed via web browser over HTTPS — accept the certificate warning on first access"),
@@ -360,12 +360,12 @@ LESSON_CONTENT = {
             ("Why create separate SMS user accounts for each administrator?", "Accountability and audit trail — each action in SMS is logged against the user account that performed it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Licensing Portal", "https://clp.trendmicro.com/"),
         ]
     },
-    "5-1": {
+    "tp-5-1": {
         "notes": "TippingPoint's security policy has three key concepts: Profiles, Segments, and Policies. A Security Profile is a collection of filter settings — which Digital Vaccine filters are active, and what action each filter takes. A Segment is a physical port pair on the device through which traffic flows. A Policy connects a profile to a segment — it defines which security profile applies to which network segment.\n\nThis separation is powerful: you can create different profiles for different traffic types (e.g. a strict profile for internet-facing traffic, a less strict profile for internal traffic) and apply them to the appropriate segments. Changes to a profile automatically apply to all segments using that profile. The default profile is a starting point, but you should create custom profiles for your environment rather than modifying the default.",
         "terms": [
             ("Security Profile", "A named set of filter configurations defining which filters are active and their actions"),
@@ -380,12 +380,12 @@ LESSON_CONTENT = {
             ("Can the same profile be applied to multiple segments?", "Yes — one profile can be applied to many segments, and changes to the profile affect all segments using it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "5-2": {
+    "tp-5-2": {
         "notes": "Creating a security profile in SMS: navigate to Policies → Security Profiles → New. Give it a descriptive name (e.g. INTERNET-INBOUND-STRICT). Select the base filters to include — typically start with all Critical and High severity filters set to Block, Medium filters set to Block or Notify, and Low filters set to Permit or Notify.\n\nApplying a profile: once created, go to the device, select the target segment, and set the policy to use your new profile. Click Distribute to push the policy to the device — this is the step that actually sends the configuration to the IPS hardware. Always verify distribution completed successfully. Test the profile: generate some known benign traffic and verify it passes, then check the Event Log for any unexpected blocks. The Audit Trail in SMS records every policy change with timestamp and user — use this to track changes.",
         "terms": [
             ("Distribute", "The SMS action that pushes policy changes to the physical TippingPoint device"),
@@ -400,12 +400,12 @@ LESSON_CONTENT = {
             ("How do you track who made policy changes in SMS?", "The Audit Trail logs every change with the user account, timestamp, and details of what changed"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "5-3": {
+    "tp-5-3": {
         "notes": "Action Sets define what TippingPoint does when a filter matches. The four action types are Block (drop the packet and log), Permit (allow and optionally log), Rate Limit (restrict bandwidth for matching traffic), and Notify (allow but send an alert/notification). You can also combine actions — e.g. Block + Notify sends an email or SNMP trap when a filter fires.\n\nCustom action sets are powerful: create an action set that blocks traffic AND sends an email to the security team AND logs to syslog. Or create a rate-limit action set for bandwidth-heavy but not malicious traffic (e.g. P2P). Action sets are reusable — one action set can be assigned to hundreds of filters. Best practice: create a small number of well-named action sets (BLOCK-AND-ALERT, PERMIT-AND-LOG, RATE-LIMIT-1MBPS) rather than creating custom ones for every filter.",
         "terms": [
             ("Block", "Action that drops the matching packet and creates a log entry"),
@@ -421,12 +421,12 @@ LESSON_CONTENT = {
             ("Why use reusable action sets rather than creating new ones for each filter?", "Consistency and easier management — changing one action set updates all filters that use it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "5-4": {
+    "tp-5-4": {
         "notes": "Even with excellent threat filters, legitimate traffic sometimes triggers false positives — a filter fires on traffic that is not actually malicious. Policy exceptions (also called Permit Lists or Exemptions) allow you to exclude specific traffic from specific filters. Common use case: a vulnerability scanner triggering attack signatures when it scans your own network, or a legacy application using protocols that trigger filters.\n\nCreating an exception: in SMS, go to the filter that's causing the false positive, add an exception for the specific source IP, destination IP, or traffic pattern. Be precise — never create a blanket 'Permit All' exception; always be as specific as possible. Document every exception with the reason and date. Review exceptions quarterly and remove any that are no longer needed. Exceptions are a security risk — each one is a hole in your protection.",
         "terms": [
             ("False Positive", "A filter firing on legitimate traffic that is not actually a threat"),
@@ -441,12 +441,12 @@ LESSON_CONTENT = {
             ("Why should exceptions be reviewed regularly?", "Exceptions are security gaps — old exceptions that are no longer needed should be removed to maintain protection"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "5-5": {
+    "tp-5-5": {
         "notes": "Policy management lab. Complete these tasks in your SMS environment.\n\nLab tasks: 1) Create a new Security Profile named LAB-PROFILE-01. 2) Set all Critical filters to Block action set. 3) Set all High filters to Block action set. 4) Set all Medium filters to Notify action set. 5) Create a custom action set named BLOCK-AND-LOG with Block + Syslog actions. 6) Apply BLOCK-AND-LOG to three Critical filters of your choice. 7) Apply LAB-PROFILE-01 to a segment on your device. 8) Click Distribute and verify it completes successfully. 9) Check the Event Log for any immediate filter activity. 10) Create a test exception for your workstation IP on one filter. 11) Document the exception with reason and date in the exception comments field. 12) Review the Audit Trail to see your changes recorded.",
         "terms": [
             ("Profile Creation Checklist", "Name, base filter settings, custom action sets, exceptions, distribution, verification"),
@@ -458,12 +458,12 @@ LESSON_CONTENT = {
             ("What should you always include when creating a policy exception?", "The reason for the exception, the date it was created, and who approved it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "6-1": {
+    "tp-6-1": {
         "notes": "The Digital Vaccine (DV) is TippingPoint's core threat intelligence. It's a regularly updated package of filters developed by Trend Micro's TippingPoint DVLabs team. Each DV package contains thousands of filters covering exploits, malware, protocol anomalies, and policy violations.\n\nDV filters are different from traditional AV signatures — instead of matching known malware files, they protect at the vulnerability level. A single DV filter can block all exploits targeting a specific vulnerability, even zero-day variants, because it targets the vulnerable code path rather than specific malware samples. DVLabs releases emergency DV packages (called Digital Vaccine Advisories or DVAs) for critical vulnerabilities like major zero-days, sometimes before vendors release patches. This is TippingPoint's strongest value proposition: protection before patches.",
         "terms": [
             ("Digital Vaccine (DV)", "TippingPoint's threat filter package — thousands of filters updated regularly by DVLabs"),
@@ -480,11 +480,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro DVLabs", "https://www.trendmicro.com/en_us/research.html"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
-    "6-2": {
+    "tp-6-2": {
         "notes": "DV filters are organised into categories and assigned severity levels. Categories include: Exploits (targeting specific vulnerabilities), Reconnaissance (scanning and probing), DoS (denial of service attacks), Backdoors (remote access trojans), Spyware (data-stealing malware), P2P (peer-to-peer applications), IM (instant messaging), and Policy (traffic that violates acceptable use policies).\n\nSeverity levels: Critical (immediate system compromise possible), High (significant risk), Medium (moderate risk or policy violation), Low (informational or minor risk), Informational (logging only, no blocking). In a default deployment, Critical and High should always be Block, Medium depends on your environment, and Low/Informational are typically Permit or Notify. The CVE number (Common Vulnerabilities and Exposures) is often referenced in filter descriptions — you can look these up at cve.mitre.org to understand exactly what vulnerability each filter protects against.",
         "terms": [
             ("Filter Category", "Classification of what type of threat the filter addresses (Exploit, DoS, Spyware, etc.)"),
@@ -505,7 +505,7 @@ LESSON_CONTENT = {
             ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
-    "6-3": {
+    "tp-6-3": {
         "notes": "Filter tuning is the ongoing process of optimising your TippingPoint deployment to minimise false positives while maintaining security. The process: 1) Review the Event Log for high-volume filter hits. 2) Investigate each high-volume filter — is it a real threat or a false positive? 3) For false positives: create a specific exception (not a blanket disable). 4) For real threats being blocked: verify the block action is correct and no exceptions are needed.\n\nIn SMS, the Filter Search feature lets you find filters by CVE, name, or keyword. Click any filter to see its description, affected systems, and recommended action. The Reputation filter category uses Trend Micro's cloud-based threat intelligence to block traffic from known malicious IPs — keep this enabled. Adaptive Filter (AFS) automatically adjusts filter sensitivity based on traffic patterns — useful for reducing false positives in complex environments. Never disable a Critical filter without a very strong reason and management approval.",
         "terms": [
             ("Filter Tuning", "Ongoing process of optimising filters to reduce false positives while maintaining security"),
@@ -520,12 +520,12 @@ LESSON_CONTENT = {
             ("What should you never do without management approval?", "Disable a Critical severity filter"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("CVE Database — MITRE", "https://cve.mitre.org/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "6-4": {
+    "tp-6-4": {
         "notes": "Digital Vaccine updates must be applied regularly to maintain protection against new threats. Trend Micro releases weekly DV updates and emergency DVA packages for critical vulnerabilities. In SMS, configure automatic DV download and distribution: go to Digital Vaccine → Schedule, set download frequency (weekly minimum, daily recommended), and enable automatic distribution to all managed devices.\n\nThe DV update process: SMS downloads the new package from Trend Micro's update servers, verifies the digital signature, and then distributes it to all managed devices. Devices apply the new filters without requiring a reboot or interrupting traffic. Monitor the DV Status panel in SMS to verify all devices are running the same (latest) DV version. If a device shows a different version, trigger a manual distribution. Maintain a change log for all DV updates — required for compliance audits.",
         "terms": [
             ("DV Schedule", "Automated configuration for downloading and distributing DV updates"),
@@ -541,12 +541,12 @@ LESSON_CONTENT = {
             ("What should you do if one device shows an older DV version than others?", "Trigger a manual DV distribution from SMS to that device, then verify the version updates"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
-    "6-5": {
+    "tp-6-5": {
         "notes": "Filter tuning lab. Work through these tasks to develop hands-on filter management skills.\n\nLab tasks: 1) In SMS, navigate to Policies → Security Profiles → your profile. 2) Use Filter Search to find the filter for CVE-2021-44228 (Log4Shell) — note its severity and current action. 3) Find all Critical filters currently set to Permit — change them to Block. 4) Review the Event Log for the last 24 hours — identify the top 5 most triggered filters. 5) For each high-volume filter, investigate whether it's a real threat or false positive. 6) Create an appropriate exception for any confirmed false positives. 7) In Digital Vaccine → Schedule, verify auto-update is configured for weekly download. 8) Manually trigger a DV update check. 9) Verify all devices show the same DV version in the DV Status panel. 10) Document your findings and any changes made.",
         "terms": [
             ("Log4Shell", "CVE-2021-44228 — critical Apache Log4j vulnerability; all TippingPoint should have this filter active"),
@@ -559,11 +559,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("CVE-2021-44228 — Log4Shell Detail", "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "7-1": {
+    "tp-7-1": {
         "notes": "High Availability (HA) ensures TippingPoint continues to function even if a device fails or needs maintenance. TippingPoint supports two key HA features: Zero Power HA (ZPHA) and Layer 2 Fallback.\n\nZero Power HA (ZPHA) uses a hardware bypass mechanism — if the TippingPoint device loses power or fails completely, the segment ports physically connect together using relays, allowing traffic to pass through uninspected. This prevents a device failure from taking down the network, at the cost of temporarily losing IPS protection. Layer 2 Fallback is a software mechanism — if the inspection engine becomes overloaded or a software issue occurs, traffic passes through in bypass mode while the device is still powered on. For full HA with continuous protection, deploy two TippingPoint devices in an Active/Standby pair — if the active device fails, the standby takes over inspection.",
         "terms": [
             ("ZPHA", "Zero Power HA — hardware bypass that passes traffic if device loses power"),
@@ -579,12 +579,12 @@ LESSON_CONTENT = {
             ("When is an Active/Standby pair needed?", "When you need continuous IPS protection even during a device failure — ZPHA and Layer 2 Fallback allow traffic but without inspection"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "7-2": {
+    "tp-7-2": {
         "notes": "Configuring an HA pair requires two identical TippingPoint appliances (same model, same firmware version). The HA link is a dedicated Ethernet connection between the two devices used for heartbeat and state synchronisation. Setup process: 1) Configure both devices with the same firmware version. 2) Connect the HA link between the two devices. 3) On the primary device, enable HA and configure the HA IP address. 4) On the secondary device, enable HA and point it to the primary. 5) Verify the HA status shows Active (primary) and Standby (secondary).\n\nSMS manages HA pairs as a single logical device — policy changes are pushed to both devices simultaneously. The HA state is shown in the SMS device summary. Both devices share the same security policy but maintain separate management IPs. Firmware upgrades on an HA pair should be done in a specific sequence to avoid downtime.",
         "terms": [
             ("HA Link", "Dedicated Ethernet cable between HA pair members for heartbeat and synchronisation"),
@@ -599,12 +599,12 @@ LESSON_CONTENT = {
             ("How does SMS handle an HA pair?", "As a single logical device — policy changes are distributed to both members simultaneously"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "7-3": {
+    "tp-7-3": {
         "notes": "Testing HA failover before relying on it in production is essential — never assume HA works until you've tested it. Testing procedure: 1) Verify HA is in normal state (Active + Standby showing green). 2) Generate continuous traffic through the device (ping flood, or use a traffic generator). 3) Simulate failure on the active device: either unplug power or use the CLI command to force failover. 4) Observe: traffic should continue flowing with a brief interruption (typically <1 second for planned failover). 5) Verify the standby device is now Active in SMS. 6) Restore the original active device. 7) Verify it comes up as Standby. 8) Force failback if desired.\n\nDocument the failover time — this is your RTO (Recovery Time Objective) for this component. Schedule HA testing at least annually, and after any firmware upgrades. A failover event is also logged in SMS — check the event log for HA state changes.",
         "terms": [
             ("Failover", "The process of the Standby device taking over from the failed Active device"),
@@ -619,12 +619,12 @@ LESSON_CONTENT = {
             ("How often should HA failover be tested?", "At least annually, and after any firmware upgrades or significant configuration changes"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "7-4": {
+    "tp-7-4": {
         "notes": "HA configuration lab.\n\nLab tasks: 1) Verify current HA status: `show ha` on CLI. 2) In SMS, view the HA pair status in the device summary. 3) Document which device is currently Active and which is Standby. 4) Generate continuous ping traffic through the segment. 5) Force a failover using the CLI: `ha force-failover`. 6) Observe the failover — note how long traffic interruption lasts. 7) Verify the secondary is now Active in SMS. 8) Check the SMS Event Log for the HA state change event. 9) Allow the original primary to come up as Standby. 10) Force failback: `ha force-failover` on the new Active to return to original state. 11) Record the failover time in your lab notes as the measured RTO.",
         "terms": [
             ("show ha", "CLI command to display HA status, role, and health"),
@@ -636,12 +636,12 @@ LESSON_CONTENT = {
             ("What should you observe during a failover test?", "Traffic interruption duration, which device becomes Active in SMS, and the HA state change event in the event log"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "8-1": {
+    "tp-8-1": {
         "notes": "TippingPoint generates several types of logs. Security Event logs record filter matches — every time a filter fires, a log entry is created with: timestamp, filter name, filter ID, source IP, destination IP, source port, destination port, protocol, action taken, and segment. System logs record device health events: reboots, HA state changes, DV updates, configuration changes. Audit logs record all administrative actions.\n\nIn SMS, the Event Log viewer provides powerful filtering: filter by device, time range, severity, filter category, source/destination IP, and action. The Drill-Down feature lets you click on any event to see full details including the raw packet data (if packet capture is enabled). Understanding how to read and filter security events is the most important day-to-day skill for a TippingPoint administrator — it's how you distinguish real attacks from false positives and track threat patterns over time.",
         "terms": [
             ("Security Event Log", "Record of every filter match including source/dest IP, ports, action, and filter details"),
@@ -656,12 +656,12 @@ LESSON_CONTENT = {
             ("How do you investigate a specific security event in SMS?", "Find it in the Event Log, apply filters to narrow results, then click the event to drill down into full details"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "8-2": {
+    "tp-8-2": {
         "notes": "Common TippingPoint issues and their solutions. Issue 1: Device shows offline in SMS. Check: is the management IP reachable? (ping from SMS server). Is port 9898 open? (telnet <device-ip> 9898). Did the device reboot? (check system log). Issue 2: High CPU on device. Check: is traffic volume within rated capacity? Are there high-volume filters firing? Consider enabling Adaptive Filter. Issue 3: Legitimate traffic being blocked. Check: which filter is blocking it? Is it a false positive? Add a specific exception. Issue 4: DV update failing. Check: can the SMS server reach updates.trendmicro.com? (proxy settings?). Is the DV licence valid?\n\nIssue 5: HA not failing over. Check: is the HA link cable connected? Are both devices running the same firmware? Is the heartbeat IP reachable? Issue 6: Event Log shows no events. Check: is the profile distributed to the device? Are filters set to log? Is the device sending events to SMS (port 9898 open)? Issue 7: Segment shows as down. Check: is the connected switch port up? Is the cable good? Try swapping the cable.",
         "terms": [
             ("Port 9898", "Test with telnet <ip> 9898 — if it fails, check firewall rules between SMS and device"),
@@ -678,10 +678,10 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
         ]
     },
-    "8-3": {
+    "tp-8-3": {
         "notes": "Packet capture on TippingPoint allows you to capture the actual packets that triggered a security event. This is invaluable for investigating false positives and confirming real attacks. Enable packet capture in SMS: go to the security profile, enable 'Packet Trace' for specific filters or globally. Captured packets are stored on the device and viewable in SMS — you can download them as .pcap files and open them in Wireshark.\n\nCLI diagnostics: `show interface` shows port statistics including error counts — high error rates indicate physical layer problems. `show segment stats` shows per-segment traffic counters and drop counts. `debug traffic` captures traffic at the CLI level (use carefully — high overhead). `show cpu` monitors processor usage. `show memory` shows memory utilisation. For serious issues, Trend Micro support may request a `support bundle` — generate with `support bundle generate` and upload to the support portal.",
         "terms": [
             ("Packet Trace", "TippingPoint feature that captures packets matching specific filters for analysis"),
@@ -702,7 +702,7 @@ LESSON_CONTENT = {
             ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
         ]
     },
-    "8-4": {
+    "tp-8-4": {
         "notes": "Troubleshooting lab. Work through a simulated troubleshooting scenario.\n\nLab tasks: 1) Run `show system` — note CPU, memory, and uptime. 2) Run `show interface` — check for any error counters. 3) Run `show segment stats` — note traffic counters and any drops. 4) In SMS, filter the Event Log to show only Critical events in the last 24 hours. 5) Identify the top 3 most triggered Critical filters. 6) For each, determine if it's a real threat or false positive. 7) Check the DV Status panel — verify all devices are on the same version. 8) Navigate to a device in SMS — check the last heartbeat time. 9) Generate a support bundle: `support bundle generate`. 10) Simulate a segment issue by disconnecting one cable — observe the segment status change in SMS. 11) Reconnect and verify the segment returns to up state.",
         "terms": [
             ("Error Counters", "Non-zero values in show interface output indicate physical layer problems"),
@@ -715,11 +715,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Wireshark — Free Download", "https://www.wireshark.org/download.html"),
         ]
     },
-    "9-1": {
+    "tp-9-1": {
         "notes": "Syslog integration sends TippingPoint security events to an external log management system in real time. This is essential for compliance (PCI DSS, HIPAA, ISO 27001 all require centralised logging), incident response (correlate IPS events with other data sources), and long-term retention (TippingPoint's internal log storage is limited).\n\nConfiguring syslog in SMS: go to Administration → Notifications → Syslog. Add your syslog server IP, port (UDP 514 by default, TCP 514 or 6514 for reliable/encrypted), and select the message format (CEF is recommended for compatibility with most SIEMs). Choose which event types to forward: Security Events, System Events, Audit Events. Test the configuration by clicking 'Send Test Message' — verify it appears in your syslog server. CEF (Common Event Format) is preferred over the legacy TippingPoint format as it's supported by Splunk, QRadar, ArcSight, and others natively.",
         "terms": [
             ("Syslog", "Protocol for forwarding log messages to a central log server; UDP 514 by default"),
@@ -735,12 +735,12 @@ LESSON_CONTENT = {
             ("What port does syslog use by default?", "UDP 514 — use TCP 514 or 6514 for reliable delivery or encrypted transport"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Graylog — Free SIEM/Log Management", "https://graylog.org/products/open-source/"),
         ]
     },
-    "9-2": {
+    "tp-9-2": {
         "notes": "SNMP (Simple Network Management Protocol) allows your network management system (NMS) to monitor TippingPoint device health — CPU, memory, interface status, and system alarms. TippingPoint supports SNMPv2c and SNMPv3. Always use SNMPv3 — it provides authentication and encryption unlike v2c which sends community strings in plaintext.\n\nConfiguration in SMS: Administration → SNMP. Configure SNMP v3 with: username, authentication protocol (SHA recommended), authentication password, privacy protocol (AES recommended), privacy password, and the IP of your SNMP manager. Also configure SNMP traps — these are alerts sent from TippingPoint to your NMS when significant events occur (device offline, high CPU, HA state change, DV update). Test by forcing a trap condition and verifying receipt in your NMS. TippingPoint's MIB files are available from Trend Micro support — import them into your NMS for proper OID descriptions.",
         "terms": [
             ("SNMP", "Simple Network Management Protocol — monitors device health via polling and traps"),
@@ -756,12 +756,12 @@ LESSON_CONTENT = {
             ("What are MIB files used for?", "Importing into your NMS to get human-readable descriptions of TippingPoint's SNMP metrics"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("PRTG — Free Network Monitor (up to 100 sensors)", "https://www.paessler.com/prtg"),
         ]
     },
-    "9-3": {
+    "tp-9-3": {
         "notes": "Splunk and IBM QRadar are the two most common SIEMs in enterprise environments. Both support TippingPoint integration via syslog in CEF format. For Splunk: install the Trend Micro TippingPoint Add-on from Splunkbase — this provides pre-built field extractions, dashboards, and alert rules for TippingPoint data. Configure TippingPoint SMS to send syslog to your Splunk indexer or heavy forwarder on UDP/TCP 514.\n\nFor QRadar: TippingPoint uses a pre-built Device Support Module (DSM) in QRadar. Configure the log source in QRadar pointing to the SMS syslog output. QRadar will automatically parse TippingPoint events and map them to the QRadar taxonomy. Key dashboards to build in your SIEM: Top Blocked Sources (which IPs are being blocked most), Top Triggered Filters (which threats are most active), Geo-map of blocked sources, and Trend over time charts. Correlate TippingPoint block events with firewall and endpoint data for full incident context.",
         "terms": [
             ("Splunk", "Leading SIEM and log analysis platform; TippingPoint add-on available on Splunkbase"),
@@ -778,11 +778,11 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Splunk — TippingPoint Add-on (Splunkbase)", "https://splunkbase.splunk.com/app/4077/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/enterprise/tippingpoint.aspx"),
+            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
-    "9-4": {
+    "tp-9-4": {
         "notes": "SIEM integration lab.\n\nLab tasks: 1) In SMS, go to Administration → Notifications → Syslog. 2) Add a syslog destination — use your lab syslog server IP, port 514, format CEF. 3) Enable forwarding of Security Events and System Events. 4) Click 'Send Test Message' and verify it arrives at your syslog server. 5) Configure SNMPv3: Administration → SNMP. Set up a v3 user with SHA auth and AES encryption. 6) Configure your NMS to poll TippingPoint via SNMP. 7) Verify CPU and memory OIDs return values. 8) Configure an SNMP trap destination. 9) Trigger a test trap and verify receipt. 10) If Splunk is available: install the TippingPoint add-on, configure the log source, and verify events appear. 11) Build a simple search showing top 10 blocked source IPs from the last 7 days.",
         "terms": [
             ("CEF Test Message", "Verify format and connectivity before relying on it for production monitoring"),
