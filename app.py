@@ -474,10 +474,13 @@ def curriculum(course_id):
     completed = {r['lesson_id'] for r in rows}
     course = COURSES[course_id]
     total = course_total(course_id)
+    done_count = len(completed)
+    pct = int(done_count / total * 100) if total else 0
     from flask import make_response
     resp = make_response(render_template('curriculum.html',
         course=course, modules=course['modules'],
         completed=completed, total=total,
+        done_count=done_count, pct=pct,
         user_name=session['user_name'],
         lesson_content=CONTENT.get(course_id, {}),
         is_admin=session.get('is_admin', False)))
@@ -663,3 +666,30 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 init_db()
+
+@app.route('/diploma/<course_id>')
+@login_required
+def diploma(course_id):
+    if course_id not in COURSES:
+        return redirect(url_for('my_courses'))
+    db = get_db()
+    enrolment = db.execute('SELECT 1 FROM enrolments WHERE user_id=? AND course_id=?',
+                           (session['user_id'], course_id)).fetchone()
+    if not enrolment and not session.get('is_admin'):
+        return redirect(url_for('my_courses'))
+    total = course_total(course_id)
+    done = db.execute('SELECT COUNT(*) FROM progress WHERE user_id=? AND course_id=?',
+                      (session['user_id'], course_id)).fetchone()[0]
+    if done < total and not session.get('is_admin'):
+        flash('Complete all lessons to unlock your certificate.', 'error')
+        return redirect(url_for('curriculum', course_id=course_id))
+    last = db.execute('''SELECT completed_at FROM progress WHERE user_id=? AND course_id=?
+                         ORDER BY completed_at DESC LIMIT 1''',
+                      (session['user_id'], course_id)).fetchone()
+    completed_date = last['completed_at'][:10] if last else datetime.utcnow().strftime('%Y-%m-%d')
+    return render_template('diploma.html',
+        course=COURSES[course_id],
+        user_name=session['user_name'],
+        lessons_completed=done,
+        completed_date=completed_date)
+

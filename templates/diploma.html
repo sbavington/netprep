@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Certificate of Completion — {{ course.title }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0a0a0f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-print { background: var(--accent); color: #000; }
+  .btn-back  { background: rgba(255,255,255,.08); color: #94a3b8; }
+
+  /* ── Certificate ── */
+  .cert-wrap {
+    width: 100%;
+    max-width: 860px;
+    position: relative;
+  }
+
+  .cert {
+    background: #fdfaf4;
+    width: 100%;
+    aspect-ratio: 1.414 / 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 80px;
+  }
+
+  /* corner ornaments */
+  .cert::before, .cert::after,
+  .cert-inner::before, .cert-inner::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-color: var(--cert-color);
+    border-style: solid;
+  }
+  .cert::before  { top: 20px;    left: 20px;    border-width: 2px 0 0 2px; }
+  .cert::after   { top: 20px;    right: 20px;   border-width: 2px 2px 0 0; }
+  .cert-inner::before { bottom: 20px; left: 20px;  border-width: 0 0 2px 2px; }
+  .cert-inner::after  { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+  /* inner border */
+  .cert-border {
+    position: absolute;
+    inset: 32px;
+    border: 1px solid var(--cert-color);
+    opacity: .3;
+    pointer-events: none;
+  }
+
+  /* background pattern */
+  .cert-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 85%, rgba(var(--cert-rgb), .06) 0%, transparent 50%),
+      radial-gradient(circle at 85% 15%, rgba(var(--cert-rgb), .06) 0%, transparent 50%);
+  }
+
+  .cert-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    width: 100%;
+  }
+
+  .cert-platform {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cert-color);
+    margin-bottom: 20px;
+    opacity: .7;
+  }
+
+  .cert-rule {
+    width: 80px;
+    height: 1px;
+    background: var(--cert-color);
+    margin: 0 auto 20px;
+    opacity: .4;
+  }
+
+  .cert-presents {
+    font-size: 13px;
+    color: #8a7a5a;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .cert-name {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 300;
+    color: #1a1208;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+
+  .cert-body {
+    font-size: 14px;
+    color: #6b5e3e;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .cert-course {
+    font-size: clamp(18px, 3vw, 28px);
+    font-weight: 600;
+    color: var(--cert-color);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+
+  .cert-subtitle {
+    font-size: 12px;
+    color: #8a7a5a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .cert-rule2 {
+    width: 120px;
+    height: 1px;
+    background: #c4a96a;
+    margin: 0 auto 24px;
+    opacity: .5;
+  }
+
+  .cert-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #a09070;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .cert-sig {
+    text-align: center;
+    flex: 1;
+  }
+
+  .cert-sig-line {
+    width: 140px;
+    height: 1px;
+    background: #c4a96a;
+    margin: 0 auto 6px;
+    opacity: .6;
+  }
+
+  .cert-sig-name {
+    font-size: 11px;
+    color: #8a7a5a;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .cert-seal {
+    width: 70px;
+    height: 70px;
+    border: 2px solid var(--cert-color);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: .6;
+    flex-shrink: 0;
+  }
+
+  .cert-seal-icon { font-size: 24px; line-height: 1; }
+  .cert-seal-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cert-color);
+    margin-top: 2px;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .actions { display: none; }
+    .cert { aspect-ratio: auto; min-height: 100vh; }
+    .cert-wrap { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+{% set color_map = {
+  'network': '#0891b2',
+  'tippingpoint': '#c2410c',
+  'ddi': '#7c3aed'
+} %}
+{% set rgb_map = {
+  'network': '8,145,178',
+  'tippingpoint': '194,65,12',
+  'ddi': '124,58,237'
+} %}
+
+{% set cert_color = color_map.get(course.id, '#0891b2') %}
+{% set cert_rgb   = rgb_map.get(course.id, '8,145,178') %}
+
+<style>
+  :root {
+    --accent: {{ cert_color }};
+    --cert-color: {{ cert_color }};
+    --cert-rgb: {{ cert_rgb }};
+  }
+</style>
+
+<div class="actions">
+  <a class="btn btn-back" href="{{ url_for('curriculum', course_id=course.id) }}">← Back to Course</a>
+  <button class="btn btn-print" onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<div class="cert-wrap">
+  <div class="cert">
+    <div class="cert-bg"></div>
+    <div class="cert-border"></div>
+    <div class="cert-inner">
+
+      <div class="cert-platform">NetPrep Training Platform</div>
+      <div class="cert-rule"></div>
+
+      <div class="cert-presents">Certificate of Completion</div>
+
+      <div class="cert-name">{{ user_name }}</div>
+
+      <div class="cert-body">has successfully completed all modules of</div>
+
+      <div class="cert-course">{{ course.title }}</div>
+      <div class="cert-subtitle">{{ course.subtitle }}</div>
+
+      <div class="cert-rule2"></div>
+
+      <div class="cert-meta">
+        {{ lessons_completed }} lessons · ~{{ course.hours }} hours · Completed {{ completed_date }}
+      </div>
+
+      <div class="cert-footer">
+        <div class="cert-sig">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-name">NetPrep Platform</div>
+        </div>
+
+        <div class="cert-seal">
+          <div class="cert-seal-icon">{{ course.icon }}</div>
+          <div class="cert-seal-text">Verified</div>
+        </div>
+
+        <div class="cert-sig">
+          <div class="cert-sig-line"></div>
+          <div class="cert-sig-name">Course Instructor</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
