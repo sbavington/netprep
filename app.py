@@ -608,6 +608,8 @@ def admin_invite_bulk():
         sent = send_invite_email(name, email, course_ids, invite_url)
         status = 'emailed' if sent else 'link generated'
         results.append(f'{name} ({email}): {status} — {invite_url}')
+        if sent:
+            import time; time.sleep(2)
     flash('\n'.join(results), 'info')
     return redirect(url_for('admin'))
 
