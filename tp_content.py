@@ -17,7 +17,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
             ("Cloudflare — What is an IPS?", "https://www.cloudflare.com/learning/security/glossary/intrusion-detection-prevention/"),
-            ("NIST — IPS Guide", "https://csrc.nist.gov/publications/detail/sp/800-94/final"),
+            ("NIST — IPS Guide", "https://csrc.nist.gov/pubs/sp/800/94/r1/final"),
         ]
     },
     "tp-1-2": {
@@ -202,7 +202,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-3-3": {
@@ -244,7 +244,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("NIST — Access Control Guide", "https://csrc.nist.gov/publications/detail/sp/800-162/final"),
+            ("NIST — Access Control Guide", "https://csrc.nist.gov/publications/detail/sp/800-162/r1/final"),
         ]
     },
     "tp-3-5": {
@@ -302,7 +302,7 @@ LESSON_CONTENT = {
             ("What is the recommended way to deploy SMS in a new environment?", "Using the virtual appliance image — it simplifies installation and is easier to back up and restore"),
         ],
         "links": [
-            ("Trend Micro Licensing Portal", "https://clp.trendmicro.com/"),
+            ("Trend Micro Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
@@ -324,7 +324,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-4-4": {
@@ -362,7 +362,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Licensing Portal", "https://clp.trendmicro.com/"),
+            ("Trend Micro Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
     "tp-5-1": {
@@ -382,7 +382,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-2": {
@@ -402,7 +402,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-3": {
@@ -423,7 +423,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-4": {
@@ -443,7 +443,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-5": {
@@ -460,7 +460,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-6-1": {
@@ -581,7 +581,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-2": {
@@ -601,7 +601,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-3": {
@@ -621,7 +621,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-4": {
@@ -638,7 +638,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-1": {
@@ -658,7 +658,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-2": {
@@ -677,7 +677,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
         ]
     },
@@ -699,7 +699,7 @@ LESSON_CONTENT = {
         "links": [
             ("Wireshark — Free Download", "https://www.wireshark.org/download.html"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[TippingPoint]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-4": {

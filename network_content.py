@@ -36,7 +36,7 @@ LESSON_CONTENT = {
         "links": [
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
             ("Cloudflare Learning Center", "https://www.cloudflare.com/learning/"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },
     "1-3": {
@@ -94,8 +94,8 @@ LESSON_CONTENT = {
             ("What are the 4 layers of the TCP/IP model?", "Network Access, Internet, Transport, Application"),
         ],
         "links": [
-            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/practice-exams/network-plus-practice-exams/"),
-            ("ExamCompass — Free Network+ Quizzes", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
+            ("ExamCompass — Free Network+ Quizzes", "https://www.comptia.org/training/certmaster-practice/network"),
             ("CompTIA CertMaster Learn (Official)", "https://www.comptia.org/training/certmaster-learn/network"),
         ]
     },
@@ -262,7 +262,7 @@ LESSON_CONTENT = {
         "links": [
             ("Cloudflare — TCP vs UDP", "https://www.cloudflare.com/learning/ddos/glossary/user-datagram-protocol-udp/"),
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },
     "3-3": {
@@ -284,7 +284,7 @@ LESSON_CONTENT = {
         "links": [
             ("IANA — Official Port Number Registry", "https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml"),
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },
     "3-4": {
@@ -554,7 +554,7 @@ LESSON_CONTENT = {
         "links": [
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
             ("Cloudflare — What is 802.1X?", "https://www.cloudflare.com/learning/access-management/what-is-802.1x/"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },
     "6-4": {
@@ -594,8 +594,8 @@ LESSON_CONTENT = {
             ("What does DHCP snooping prevent?", "Rogue DHCP servers — only trusted ports can send DHCP offers"),
         ],
         "links": [
-            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/practice-exams/network-plus-practice-exams/"),
-            ("ExamCompass — Free Network+ Quizzes", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
+            ("ExamCompass — Free Network+ Quizzes", "https://www.comptia.org/training/certmaster-practice/network"),
             ("CompTIA Network+ Exam Objectives (Free PDF)", "https://www.comptia.org/training/resources/exam-objectives"),
         ]
     },
@@ -616,7 +616,7 @@ LESSON_CONTENT = {
         "links": [
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
             ("CompTIA Network+ Exam Objectives (Free PDF)", "https://www.comptia.org/training/resources/exam-objectives"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },
     "7-2": {
@@ -675,7 +675,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Professor Messer — Network+ Course (Free)", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
-            ("ExamCompass — Free Network+ Practice", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("ExamCompass — Free Network+ Practice", "https://www.comptia.org/training/certmaster-practice/network"),
             ("Packet Tracer — Free Cisco Network Simulator", "https://www.netacad.com/courses/packet-tracer"),
         ]
     },
@@ -712,8 +712,8 @@ LESSON_CONTENT = {
             ("What should you do after reviewing wrong answers?", "Understand WHY each wrong answer was wrong, not just what the right answer is — this prevents the same mistake twice"),
         ],
         "links": [
-            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/practice-exams/network-plus-practice-exams/"),
-            ("ExamCompass — Free Network+ Quizzes", "https://www.examcompass.com/comptia/network-plus-certification/free-network-plus-practice-tests"),
+            ("Professor Messer — Free Practice Exams", "https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/"),
+            ("ExamCompass — Free Network+ Quizzes", "https://www.comptia.org/training/certmaster-practice/network"),
             ("CompTIA CertMaster Practice (Official)", "https://www.comptia.org/training/certmaster-practice/network"),
         ]
     },

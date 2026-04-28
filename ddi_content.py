@@ -57,7 +57,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Connected Threat Defence", "https://www.trendmicro.com/en_us/business/technologies/connected-threat-defense.html"),
-            ("Trend Micro Apex Central", "https://www.trendmicro.com/en_us/business/products/user-protection/sps/apex-central.html"),
+            ("Trend Micro Apex Central", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
         ]
     },
@@ -117,7 +117,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Network TAP vs SPAN Explained", "https://www.corelight.com/resources/blog/tap-vs-span"),
+            ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
         ]
     },
     "ddi-2-3": {
@@ -137,7 +137,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Network TAP vs SPAN Explained", "https://www.corelight.com/resources/blog/tap-vs-span"),
+            ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
         ]
     },
@@ -195,7 +195,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-3-3": {
@@ -254,7 +254,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-1": {
@@ -334,7 +334,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-5": {
@@ -351,7 +351,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-1": {
@@ -392,7 +392,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-3": {
@@ -412,7 +412,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-4": {
@@ -469,7 +469,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-2": {
@@ -509,7 +509,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-4": {
@@ -526,7 +526,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-7-1": {
@@ -623,7 +623,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Network TAP vs SPAN Explained", "https://www.corelight.com/resources/blog/tap-vs-span"),
+            ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
         ]
     },
     "ddi-8-2": {
@@ -643,7 +643,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-8-3": {
@@ -663,7 +663,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-8-4": {
@@ -680,7 +680,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-1": {
@@ -700,7 +700,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-2": {
@@ -719,7 +719,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
         ]
     },
@@ -740,7 +740,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-4": {
@@ -757,7 +757,7 @@ LESSON_CONTENT = {
         "links": [
             ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
             ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/dcx/s/search#t=All&f:Product=[Deep%20Discovery%20Inspector]"),
+            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
 }
