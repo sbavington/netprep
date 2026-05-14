@@ -98,7 +98,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
 <div class="stats fade-in">
   <div class="stat"><span class="stat-num">9</span><span class="stat-label">Modules</span></div>
   <div class="stat"><span class="stat-num">{{ total }}</span><span class="stat-label">Lessons</span></div>
-  <div class="stat"><span class="stat-num">~38h</span><span class="stat-label">Study Time</span></div>
+  <div class="stat"><span class="stat-num"></span><span class="stat-label">Study Time</span></div>
   <div class="stat"><span class="stat-num" id="pct-display">{{ pct }}%</span><span class="stat-label">Complete</span></div>
 </div>
 
@@ -139,7 +139,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
       <div class="module-icon">{{ mod.icon }}</div>
       <div class="module-info">
         <div class="module-title">{{ mod.title }}</div>
-        <div class="module-meta">{{ mod_lessons|length }} lessons · ~{{ mod.hours }}h · {{ mod_done }}/{{ mod_total }} done</div>
+        <div class="module-meta">{{ mod_lessons|length }} lessons · ~h · {{ mod_done }}/{{ mod_total }} done</div>
       </div>
       {% if is_complete %}<span class="mod-status s-done">COMPLETE</span>
       {% elif unlocked %}<span class="mod-status s-active">{{ 'START HERE' if is_first else 'IN PROGRESS' }}</span>

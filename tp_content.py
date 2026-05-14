@@ -21,7 +21,7 @@ LESSON_CONTENT = {
         ]
     },
     "tp-1-2": {
-        "notes": "The TippingPoint product family includes several hardware appliances designed for different network speeds and deployment scenarios. The TPS (Threat Protection System) series is the current generation, available in models ranging from 100Mbps to 100Gbps throughput. The older IPS series (2500N, 5100N, 8200ZX etc.) is still widely deployed. The Virtual TPS (vTPS) runs as a virtual machine for cloud and virtualised environments.\n\nAll TippingPoint devices share the same core architecture: high-speed custom ASICs for packet processing, a management plane running Linux, and the SMS (Security Management System) for centralised management of multiple devices. The TX Series represents the latest generation with enhanced performance and cloud integration. Understanding which platform you're working with matters because CLI commands, hardware ports, and capabilities differ between generations.",
+        "notes": "The TippingPoint product family includes several hardware appliances designed for different network speeds and deployment scenarios. The TPS (Threat Protection System) series is the current generation, available in models ranging from 100Mbps to 100Gbps throughput. The older IPS series (2500N, 5100N, 8200ZX etc.) is still widely deployed. The Virtual TPS (vTPS) runs as a virtual machine for cloud and virtualised environments.\n\nAll TippingPoint devices share the same core architecture: high-speed custom ASICs for packet processing, a management plane running Linux, and the SMS (Security Management System) for centralised management of multiple devices. The TXE Series represents the latest generation with enhanced performance and cloud integration. Understanding which platform you're working with matters because CLI commands, hardware ports, and capabilities differ between generations.",
         "terms": [
             ("TPS", "Threat Protection System — current generation TippingPoint hardware appliances"),
             ("vTPS", "Virtual TippingPoint — software IPS for virtualised and cloud environments"),
@@ -124,17 +124,17 @@ LESSON_CONTENT = {
         ]
     },
     "tp-2-3": {
-        "notes": "When you first power on a TippingPoint device, it goes through a POST (Power-On Self Test) and then boots its operating system. The console port (serial, RJ45 or DB9 depending on model) provides access during initial setup before network connectivity is configured. Console settings: 9600 baud, 8 data bits, no parity, 1 stop bit (9600 8N1).\n\nThe initial boot takes 2-5 minutes. You'll see boot messages on the console, then a login prompt. Default credentials vary by firmware version — check the quick start guide for your specific model. The first login typically forces a password change. After logging in via console, your first task is to configure the management IP address so you can switch to SSH or HTTPS management. The system will display the current software version during boot — record this for support purposes.",
+        "notes": "When you first power on a TippingPoint device, it goes through a POST (Power-On Self Test) and then boots its operating system. The console port (serial, RJ45 or DB9 depending on model) provides access during initial setup before network connectivity is configured. Console settings: 115,200 baud, 8 data bits, no parity, 1 stop bit (115,200 8N1).\n\nThe initial boot takes 2-5 minutes. You'll see boot messages on the console, then a login prompt. Default credentials vary by firmware version — check the quick start guide for your specific model. The first login typically forces a password change. After logging in via console, your first task is to configure the management IP address so you can switch to SSH or HTTPS management. The system will display the current software version during boot — record this for support purposes.",
         "terms": [
             ("POST", "Power-On Self Test — hardware diagnostics run at startup"),
             ("Console Port", "Serial port for out-of-band management access during initial setup"),
-            ("9600 8N1", "Console port settings: 9600 baud, 8 data bits, No parity, 1 stop bit"),
+            ("115,200 8N1", "Console port settings: 9600 baud, 8 data bits, No parity, 1 stop bit"),
             ("Out-of-Band Management", "Management access via a separate path from production traffic"),
             ("Boot Sequence", "The startup process: POST, BIOS, OS load, application start"),
             ("Management IP", "IP address assigned to the management interface for SSH/HTTPS access"),
         ],
         "questions": [
-            ("What are the console port settings for TippingPoint?", "9600 baud, 8 data bits, no parity, 1 stop bit (9600 8N1)"),
+            ("What are the console port settings for TippingPoint?", "115,200 baud, 8 data bits, no parity, 1 stop bit (115,200 8N1)"),
             ("What is the purpose of the console port?", "Out-of-band management access, especially during initial setup before network access is configured"),
             ("What should you do after the first login?", "Change the default password and configure the management IP address"),
         ],
@@ -155,7 +155,7 @@ LESSON_CONTENT = {
         "questions": [
             ("What should you do before powering on a newly racked appliance?", "Verify all connections are secure, power cables are connected, and console access is ready to observe the boot"),
             ("Why document your cabling before and after installation?", "For troubleshooting, audits, and future maintenance — you must know what is connected where"),
-            ("What tool do you need for console access on Windows?", "PuTTY (or similar serial terminal emulator) configured for 9600 8N1"),
+            ("What tool do you need for console access on Windows?", "PuTTY (or similar serial terminal emulator) configured for 115,200 8N1"),
         ],
         "links": [
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
@@ -266,17 +266,17 @@ LESSON_CONTENT = {
         ]
     },
     "tp-4-1": {
-        "notes": "The Security Management System (SMS) is the centralised management platform for TippingPoint. Instead of logging into each IPS device individually, SMS provides a single pane of glass for managing security policies, distributing Digital Vaccine updates, monitoring events, and generating reports across your entire TippingPoint deployment.\n\nSMS runs on a dedicated server — either a physical SMS appliance or as a virtual machine (vSMS) on VMware or Hyper-V. The SMS server communicates with each managed TippingPoint device over an encrypted channel on TCP port 9898. Key SMS components: the SMS application (web-based GUI), the database (stores events, configuration, and policies), and the device management service (handles communication with IPS devices). SMS uses a client-server model — administrators connect to SMS, not directly to individual IPS devices.",
+        "notes": "The SMS Console is the main receiver. The Security Management System (SMS) is the centralised management platform for TippingPoint. Instead of logging into each IPS device individually, SMS provides a single pane of glass for managing security policies, distributing Digital Vaccine updates, monitoring events, and generating reports across your entire TippingPoint deployment.\n\nSMS runs on a dedicated server — either a physical SMS appliance or as a virtual machine (vSMS) on VMware or Hyper-V. The SMS server communicates with each managed TippingPoint device over an encrypted channel on TCP port 443. Key SMS components: the SMS application (web-based GUI), the database (stores events, configuration, and policies), and the device management service (handles communication with IPS devices). SMS uses a client-server model — administrators connect to SMS, not directly to individual IPS devices.",
         "terms": [
             ("SMS", "Security Management System — centralised management for all TippingPoint IPS devices"),
             ("vSMS", "Virtual SMS — SMS running as a VM on VMware or Hyper-V"),
-            ("Port 9898", "TCP port used for communication between SMS and managed TippingPoint devices"),
+            ("Port 443", "TCP port used for communication between SMS and managed TippingPoint devices"),
             ("Single Pane of Glass", "Managing all devices from one central interface"),
             ("SMS Database", "Stores events, configuration, policies, and reports for all managed devices"),
             ("Device Management Service", "SMS component that handles encrypted communication with IPS devices"),
         ],
         "questions": [
-            ("What port does SMS use to communicate with TippingPoint devices?", "TCP port 9898"),
+            ("What port does SMS use to communicate with TippingPoint devices?", "TCP port 443"),
             ("What is the advantage of using SMS over managing each device individually?", "Centralised management, consistent policy deployment, unified event monitoring, and easier Digital Vaccine distribution"),
             ("Can SMS run as a virtual machine?", "Yes — vSMS runs on VMware or Hyper-V and has the same functionality as the physical appliance"),
         ],
@@ -308,16 +308,16 @@ LESSON_CONTENT = {
         ]
     },
     "tp-4-3": {
-        "notes": "Adding a TippingPoint device to SMS is called 'registering' the device. The process: 1) In SMS, go to Devices → Add Device. 2) Enter the device's management IP address. 3) SMS connects to the device over port 9898 and verifies the connection. 4) Accept the device's SSL certificate. 5) Enter the device's admin credentials. 6) SMS retrieves the device's configuration and registers it.\n\nPrerequisites: the IPS device must have its management IP configured and must be reachable from the SMS server. Port 9898 must be open between SMS and all managed devices (check firewall rules). Once registered, SMS takes over policy management — you should no longer make policy changes via LSM. System configuration (IP, NTP, DNS) can still be done via CLI or LSM. Best practice: create a dedicated SMS-managed account on each device rather than using the admin account.",
+        "notes": "Adding a TippingPoint device to SMS is called 'registering' the device. The process: 1) In SMS, go to Devices → Add Device. 2) Enter the device's management IP address. 3) SMS connects to the device over port 443 and verifies the connection. 4) Accept the device's SSL certificate. 5) Enter the device's admin credentials. 6) SMS retrieves the device's configuration and registers it.\n\nPrerequisites: the IPS device must have its management IP configured and must be reachable from the SMS server. Port 443 must be open between SMS and all managed devices (check firewall rules). Once registered, SMS takes over policy management — you should no longer make policy changes via LSM. System configuration (IP, NTP, DNS) can still be done via CLI or LSM. Best practice: create a dedicated SMS-managed account on each device rather than using the admin account.",
         "terms": [
             ("Device Registration", "Process of adding a TippingPoint IPS to SMS management"),
-            ("Port 9898", "Must be open between SMS server and all managed TippingPoint devices"),
+            ("Port 443", "Must be open between SMS server and all managed TippingPoint devices"),
             ("SSL Certificate Acceptance", "During registration, verify and accept the device's SSL certificate"),
             ("LSM vs SMS", "After SMS registration, policy changes should only be made in SMS, not LSM"),
             ("Managed Device", "A TippingPoint IPS that has been registered and is controlled by SMS"),
         ],
         "questions": [
-            ("What port must be open for SMS to communicate with managed devices?", "TCP port 9898"),
+            ("What port must be open for SMS to communicate with managed devices?", "TCP port 443"),
             ("After registering a device in SMS, where should policy changes be made?", "In SMS only — making changes via LSM after SMS registration can cause conflicts"),
             ("What is the first thing to verify before attempting to register a device?", "That the device management IP is reachable from the SMS server (ping the device from the SMS server)"),
         ],
@@ -416,7 +416,7 @@ LESSON_CONTENT = {
             ("Compound Action", "Combining multiple actions — e.g. Block + Notify + Syslog"),
         ],
         "questions": [
-            ("What is the difference between Block and Notify action sets?", "Block drops the packet; Notify allows it through but sends an alert"),
+            ("What is the difference between Block and Permit action sets?", "When a filter triggers and is set to Block drops the packet; Permit triggers and permits the packet through"),
             ("When would you use Rate Limit instead of Block?", "For traffic that is not a direct threat but consumes excessive bandwidth — you want to control it, not stop it entirely"),
             ("Why use reusable action sets rather than creating new ones for each filter?", "Consistency and easier management — changing one action set updates all filters that use it"),
         ],
@@ -464,10 +464,10 @@ LESSON_CONTENT = {
         ]
     },
     "tp-6-1": {
-        "notes": "The Digital Vaccine (DV) is TippingPoint's core threat intelligence. It's a regularly updated package of filters developed by Trend Micro's TippingPoint DVLabs team. Each DV package contains thousands of filters covering exploits, malware, protocol anomalies, and policy violations.\n\nDV filters are different from traditional AV signatures — instead of matching known malware files, they protect at the vulnerability level. A single DV filter can block all exploits targeting a specific vulnerability, even zero-day variants, because it targets the vulnerable code path rather than specific malware samples. DVLabs releases emergency DV packages (called Digital Vaccine Advisories or DVAs) for critical vulnerabilities like major zero-days, sometimes before vendors release patches. This is TippingPoint's strongest value proposition: protection before patches.",
+        "notes": "The Digital Vaccine (DV) is TippingPoint's core threat intelligence. It's a regularly updated package of filters developed by Trend Micro's TippingPoint TrendLabs team. Each DV package contains thousands of filters covering exploits, malware, protocol anomalies, and policy violations.\n\nDV filters are different from traditional AV signatures — instead of matching known malware files, they protect at the vulnerability level. A single DV filter can block all exploits targeting a specific vulnerability, even zero-day variants, because it targets the vulnerable code path rather than specific malware samples. TrendLabs releases emergency DV packages (called Digital Vaccine Advisories or DVAs) for critical vulnerabilities like major zero-days, sometimes before vendors release patches. This is TippingPoint's strongest value proposition: protection before patches.",
         "terms": [
-            ("Digital Vaccine (DV)", "TippingPoint's threat filter package — thousands of filters updated regularly by DVLabs"),
-            ("DVLabs", "Trend Micro's research team that creates and maintains Digital Vaccine filters"),
+            ("Digital Vaccine (DV)", "TippingPoint's threat filter package — thousands of filters updated regularly by TrendLabs"),
+            ("TrendLabs", "Trend Micro's research team that creates and maintains Digital Vaccine filters"),
             ("Vulnerability-Based Filter", "Filter that blocks all exploits targeting a vulnerability, not just known samples"),
             ("DVA", "Digital Vaccine Advisory — emergency DV package for critical zero-day vulnerabilities"),
             ("Zero-Day", "Vulnerability exploited before a vendor patch is available"),
@@ -479,7 +479,7 @@ LESSON_CONTENT = {
             ("What is meant by pre-patch protection?", "TippingPoint can block exploitation of a vulnerability before the software vendor releases a patch to fix it"),
         ],
         "links": [
-            ("Trend Micro DVLabs", "https://www.trendmicro.com/en_us/research.html"),
+            ("Trend Micro TrendLabs", "https://www.trendmicro.com/en_us/research.html"),
             ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
@@ -509,7 +509,7 @@ LESSON_CONTENT = {
         "notes": "Filter tuning is the ongoing process of optimising your TippingPoint deployment to minimise false positives while maintaining security. The process: 1) Review the Event Log for high-volume filter hits. 2) Investigate each high-volume filter — is it a real threat or a false positive? 3) For false positives: create a specific exception (not a blanket disable). 4) For real threats being blocked: verify the block action is correct and no exceptions are needed.\n\nIn SMS, the Filter Search feature lets you find filters by CVE, name, or keyword. Click any filter to see its description, affected systems, and recommended action. The Reputation filter category uses Trend Micro's cloud-based threat intelligence to block traffic from known malicious IPs — keep this enabled. Adaptive Filter (AFS) automatically adjusts filter sensitivity based on traffic patterns — useful for reducing false positives in complex environments. Never disable a Critical filter without a very strong reason and management approval.",
         "terms": [
             ("Filter Tuning", "Ongoing process of optimising filters to reduce false positives while maintaining security"),
-            ("Adaptive Filter (AFS)", "Feature that automatically adjusts filter sensitivity based on observed traffic"),
+            ("Adaptive Filter (AFS)", "Feature that automatically adjusts filter sensitivity based on observed traffic. This is set in AFC adaptive filter configuration"),
             ("Reputation Filter", "Uses cloud threat intelligence to block traffic from known malicious IPs"),
             ("Filter Search", "SMS feature to find filters by CVE number, name, or keyword"),
             ("High-Volume Hits", "Filters firing frequently — may indicate attacks or false positives needing investigation"),
@@ -536,7 +536,7 @@ LESSON_CONTENT = {
             ("Change Log", "Record of all DV updates applied — required for compliance audits"),
         ],
         "questions": [
-            ("How often should DV updates be applied at minimum?", "Weekly — daily is recommended. Emergency DVAs should be applied immediately when released"),
+            ("How often should DV updates be applied at minimum?", "Mainline DVs are weekly including AUX, RepDVs are ~2-3 hours. Emergency DVAs should be applied immediately when released"),
             ("Does applying a DV update require a device reboot?", "No — DV updates are applied without interrupting traffic or requiring a reboot"),
             ("What should you do if one device shows an older DV version than others?", "Trigger a manual DV distribution from SMS to that device, then verify the version updates"),
         ],
@@ -662,9 +662,9 @@ LESSON_CONTENT = {
         ]
     },
     "tp-8-2": {
-        "notes": "Common TippingPoint issues and their solutions. Issue 1: Device shows offline in SMS. Check: is the management IP reachable? (ping from SMS server). Is port 9898 open? (telnet <device-ip> 9898). Did the device reboot? (check system log). Issue 2: High CPU on device. Check: is traffic volume within rated capacity? Are there high-volume filters firing? Consider enabling Adaptive Filter. Issue 3: Legitimate traffic being blocked. Check: which filter is blocking it? Is it a false positive? Add a specific exception. Issue 4: DV update failing. Check: can the SMS server reach updates.trendmicro.com? (proxy settings?). Is the DV licence valid?\n\nIssue 5: HA not failing over. Check: is the HA link cable connected? Are both devices running the same firmware? Is the heartbeat IP reachable? Issue 6: Event Log shows no events. Check: is the profile distributed to the device? Are filters set to log? Is the device sending events to SMS (port 9898 open)? Issue 7: Segment shows as down. Check: is the connected switch port up? Is the cable good? Try swapping the cable.",
+        "notes": "Common TippingPoint issues and their solutions. Issue 1: Device shows offline in SMS. Check: is the management IP reachable? (ping from SMS server). Is port 443 open? (telnet <device-ip> 443). Did the device reboot? (check system log). Issue 2: High CPU on device. Check: is traffic volume within rated capacity? Are there high-volume filters firing? Consider enabling Adaptive Filter. Issue 3: Legitimate traffic being blocked. Check: which filter is blocking it? Is it a false positive? Add a specific exception. Issue 4: DV update failing. Check: can the SMS server reach updates.trendmicro.com? (proxy settings?). Is the DV licence valid?\n\nIssue 5: HA not failing over. Check: is the HA link cable connected? Are both devices running the same firmware? Is the heartbeat IP reachable? Issue 6: Event Log shows no events. Check: is the profile distributed to the device? Are filters set to log? Is the device sending events to SMS (port 443 open)? Issue 7: Segment shows as down. Check: is the connected switch port up? Is the cable good? Try swapping the cable.",
         "terms": [
-            ("Port 9898", "Test with telnet <ip> 9898 — if it fails, check firewall rules between SMS and device"),
+            ("Port 443", "Test with telnet <ip> 443 — if it fails, check firewall rules between SMS and device"),
             ("Adaptive Filter", "Enable to reduce CPU load from high-volume traffic"),
             ("DV Licence Check", "Administration → Licenses in SMS — verify expiry date"),
             ("Segment Down", "Physical layer problem — check cables and connected switch ports first"),
@@ -672,7 +672,7 @@ LESSON_CONTENT = {
         ],
         "questions": [
             ("A device shows offline in SMS. What is your first troubleshooting step?", "Ping the device management IP from the SMS server — determine if it's a connectivity issue or an SMS communication issue"),
-            ("What command tests whether port 9898 is reachable?", "telnet <device-management-ip> 9898 — if it connects, the port is open"),
+            ("What command tests whether port 443 is reachable?", "telnet <device-management-ip> 443 — if it connects, the port is open"),
             ("High CPU on a TippingPoint device — what should you check?", "Traffic volume vs rated capacity, number of high-volume filter hits, and whether Adaptive Filter is enabled"),
         ],
         "links": [

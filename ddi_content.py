@@ -159,17 +159,17 @@ LESSON_CONTENT = {
         ]
     },
     "ddi-3-1": {
-        "notes": "On first boot, DDI presents a setup wizard via the console or web browser. The management interface needs an IP address before you can use HTTPS. Connect via console first: serial settings are typically 9600 8N1 (same as TippingPoint). The initial setup wizard walks you through: setting the management IP, subnet mask, and default gateway; setting the admin password; configuring basic network settings.\n\nOnce the management IP is set, you can access the DDI web console via HTTPS at https://<management-ip>. DDI uses a self-signed certificate by default — your browser will warn you. Accept the certificate or install a proper one from your internal CA. The web console is the primary management interface for DDI — unlike TippingPoint, most DDI configuration is done through the GUI rather than CLI. The CLI is available via SSH but is used mainly for diagnostics.",
+        "notes": "On first boot, DDI presents a setup wizard via the console or web browser. The management interface needs an IP address before you can use HTTPS. Connect via console first: serial settings are typically 115,200 8N1 (same as TippingPoint). The initial setup wizard walks you through: setting the management IP, subnet mask, and default gateway; setting the admin password; configuring basic network settings.\n\nOnce the management IP is set, you can access the DDI web console via HTTPS at https://<management-ip>. DDI uses a self-signed certificate by default — your browser will warn you. Accept the certificate or install a proper one from your internal CA. The web console is the primary management interface for DDI — unlike TippingPoint, most DDI configuration is done through the GUI rather than CLI. The CLI is available via SSH but is used mainly for diagnostics.",
         "terms": [
             ("Setup Wizard", "First-boot configuration wizard for initial DDI setup"),
             ("Web Console", "HTTPS-based management GUI — primary interface for DDI administration"),
-            ("9600 8N1", "Console port settings: 9600 baud, 8 data bits, No parity, 1 stop bit"),
+            ("115,200 8N1", "Console port settings: 115,200 baud, 8 data bits, No parity, 1 stop bit"),
             ("Self-Signed Certificate", "Default HTTPS cert — replace with CA-signed cert in production"),
             ("Management IP", "IP address for administrative access to DDI web console and SSH"),
         ],
         "questions": [
             ("What is the primary management interface for DDI?", "The web console — HTTPS-based GUI accessed at https://<management-ip>"),
-            ("What console settings does DDI use?", "9600 baud, 8 data bits, no parity, 1 stop bit (9600 8N1)"),
+            ("What console settings does DDI use?", "115,200 baud, 8 data bits, no parity, 1 stop bit (115,200 8N1)"),
             ("Why does DDI use a web console rather than primarily CLI?", "DDI's complexity — threat dashboards, sandbox results, reports — is better suited to a graphical interface than a command line"),
         ],
         "links": [
