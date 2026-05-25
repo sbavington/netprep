@@ -143,10 +143,8 @@ COURSES = {
             ]},
             {"id":7,"title":"High Availability & Clustering","icon":"⚡","hours":4,"lessons":[
                 {"id":"tp-7-1","title":"HA modes — Layer 2 fallback and zeropower","type":"concept"},
-                {"id":"tp-7-2","title":"Configuring HA pairs","type":"concept"},
-                {"id":"tp-7-3","title":"Testing failover and resilience","type":"concept"},
-                {"id":"tp-7-4","title":"HA configuration lab","type":"lab"},
-            ]},
+                        {"id":"tp-7-3","title":"Testing failover and resilience","type":"concept"},
+                    ]},
             {"id":8,"title":"Troubleshooting & Diagnostics","icon":"🔬","hours":4,"lessons":[
                 {"id":"tp-8-1","title":"Reading and interpreting logs","type":"concept"},
                 {"id":"tp-8-2","title":"Common issues and solutions","type":"concept"},
