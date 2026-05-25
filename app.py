@@ -103,7 +103,7 @@ COURSES = {
         'modules': [
             {"id":1,"title":"Introduction to TippingPoint & IPS","icon":"🛡️","hours":3,"lessons":[
                 {"id":"tp-1-1","title":"What is TippingPoint? IPS vs IDS vs Firewall","type":"concept"},
-                {"id":"tp-1-2","title":"TippingPoint product family overview","type":"concept"},
+                {"id":"tp-1-2","title":"TXE Series","type":"concept"},
                 {"id":"tp-1-3","title":"How inline IPS works — traffic flow explained","type":"concept"},
                 {"id":"tp-1-4","title":"Module 1 Quiz","type":"quiz"},
             ]},
