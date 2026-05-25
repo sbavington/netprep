@@ -1,13 +1,13 @@
 LESSON_CONTENT = {
     "tp-1-1": {
-        "notes": "TippingPoint is an Intrusion Prevention System (IPS) made by Trend Micro. Unlike a firewall, which controls access based on rules about who can connect where, an IPS inspects the actual content of network traffic and blocks attacks in real time. Unlike an IDS (Intrusion Detection System), which only alerts you when it sees something suspicious, an IPS sits inline in the network and actively drops malicious packets before they reach their destination.\n\nThink of it this way: a firewall is a bouncer checking IDs at the door, an IDS is a security camera that records incidents, and an IPS is a guard that physically stops attacks as they happen. TippingPoint combines deep packet inspection with a continuously updated threat intelligence database (Digital Vaccine) to stop exploits, malware, and attacks across thousands of known vulnerabilities — without requiring you to manually write rules for each one.",
+        "notes": "TippingPoint is an Intrusion Prevention System (IPS) made by TrendAI. Unlike a firewall, which controls access based on rules about who can connect where, an IPS inspects the actual content of network traffic and blocks attacks in real time. Unlike an IDS (Intrusion Detection System), which only alerts you when it sees something suspicious, an IPS sits inline in the network and actively drops malicious packets before they reach their destination.\n\nThink of it this way: a firewall is a bouncer checking IDs at the door, an IDS is a security camera that records incidents, and an IPS is a guard that physically stops attacks as they happen. TippingPoint combines deep packet inspection with a continuously updated threat intelligence database (Digital Vaccine) to stop exploits, malware, and attacks across thousands of known vulnerabilities — without requiring you to manually write rules for each one.",
         "terms": [
             ("IPS", "Intrusion Prevention System — inline device that inspects and blocks malicious traffic in real time"),
             ("IDS", "Intrusion Detection System — monitors traffic and generates alerts but does not block"),
             ("Inline Mode", "Device sits directly in the traffic path; can drop packets before they reach the destination"),
             ("Deep Packet Inspection", "Examining packet payloads (not just headers) to identify threats and attacks"),
-            ("TippingPoint", "Trend Micro's IPS product line, formerly owned by 3Com and HP"),
-            ("Digital Vaccine (DV)", "TippingPoint's threat intelligence filter package, updated regularly by Trend Micro"),
+            ("TippingPoint", "TrendAI's IPS product line, formerly owned by 3Com and HP"),
+            ("Digital Vaccine (DV)", "TippingPoint's threat intelligence filter package, updated regularly by TrendAI"),
         ],
         "questions": [
             ("What is the key difference between an IPS and an IDS?", "An IPS actively blocks threats inline; an IDS only detects and alerts without blocking"),
@@ -15,7 +15,7 @@ LESSON_CONTENT = {
             ("What is the Digital Vaccine?", "TippingPoint's regularly updated filter package containing signatures and rules for thousands of known threats"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
             ("Cloudflare — What is an IPS?", "https://www.cloudflare.com/learning/security/glossary/intrusion-detection-prevention/"),
             ("NIST — IPS Guide", "https://csrc.nist.gov/pubs/sp/800/94/r1/final"),
         ]
@@ -36,9 +36,9 @@ LESSON_CONTENT = {
             ("Why does TippingPoint use custom ASICs?", "To perform deep packet inspection at line rate without introducing significant latency"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Datasheet", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI TippingPoint Datasheet", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
         ]
     },
     "tp-1-3": {
@@ -57,9 +57,9 @@ LESSON_CONTENT = {
             ("What is a segment port?", "A physical port pair on TippingPoint through which traffic flows — one port receives traffic, the other sends it onward"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Cloudflare — What is Deep Packet Inspection?", "https://www.cloudflare.com/learning/network-layer/what-is-deep-packet-inspection/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-1-4": {
@@ -72,13 +72,13 @@ LESSON_CONTENT = {
         "questions": [
             ("What are the three possible actions TippingPoint can take on a packet?", "Block (drop it), Permit (allow it), or Rate Limit (restrict bandwidth)"),
             ("Can TippingPoint be inserted into a network without changing IP addresses?", "Yes — it operates as a transparent Layer 2 bridge"),
-            ("What is the Digital Vaccine?", "Trend Micro's regularly updated filter package with signatures for thousands of known threats"),
+            ("What is the Digital Vaccine?", "TrendAI's regularly updated filter package with signatures for thousands of known threats"),
             ("At which OSI layer does TippingPoint primarily operate?", "Layer 2 (bridge) for placement, but it inspects up to Layer 7 (application layer) for content"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-2-1": {
@@ -97,8 +97,8 @@ LESSON_CONTENT = {
             ("What must you check before ordering fibre SFP modules?", "Whether the fibre runs are single-mode or multimode, and the required distance/wavelength"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Rack Unit Calculator", "https://www.racksolutions.com/news/data-center-hardware/rack-unit-explained/"),
         ]
     },
@@ -118,8 +118,8 @@ LESSON_CONTENT = {
             ("Why is throughput planning important?", "If traffic exceeds the device's rated capacity, the IPS may drop packets or fail to inspect all traffic"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Cloudflare — DMZ Explained", "https://www.cloudflare.com/learning/security/glossary/dmz-network/"),
         ]
     },
@@ -139,8 +139,8 @@ LESSON_CONTENT = {
             ("What should you do after the first login?", "Change the default password and configure the management IP address"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
@@ -159,8 +159,8 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-3-1": {
@@ -180,8 +180,8 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-3-2": {
@@ -200,9 +200,9 @@ LESSON_CONTENT = {
             ("What command shows segment port status and traffic statistics?", "show segment"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-3-3": {
@@ -221,8 +221,8 @@ LESSON_CONTENT = {
             ("After configuring DNS, how do you test it works?", "ping a hostname (e.g. ping updates.trendmicro.com) — if it resolves and responds, DNS is working"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("NTP Pool Project", "https://www.ntppool.org/"),
         ]
     },
@@ -242,8 +242,8 @@ LESSON_CONTENT = {
             ("How do you restrict which hosts can access TippingPoint management?", "Configure ACLs on the management interface to only allow specific IP addresses or subnets"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("NIST — Access Control Guide", "https://csrc.nist.gov/publications/detail/sp/800-162/r1/final"),
         ]
     },
@@ -260,8 +260,8 @@ LESSON_CONTENT = {
             ("How do you verify NTP is synchronised?", "show ntp — look for a * or + next to the NTP server indicating it's the active time source"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
@@ -281,13 +281,13 @@ LESSON_CONTENT = {
             ("Can SMS run as a virtual machine?", "Yes — vSMS runs on VMware or Hyper-V and has the same functionality as the physical appliance"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
     "tp-4-2": {
-        "notes": "Installing SMS requires a dedicated server meeting minimum hardware requirements: typically 8+ CPU cores, 16GB+ RAM, 500GB+ storage (more for large deployments with high event volumes). The SMS software is installed on Windows Server or as a pre-built virtual appliance.\n\nLicensing: TippingPoint uses a subscription-based licensing model. You need a licence for SMS itself and separate licences for Digital Vaccine (threat filter updates). Licences are managed through the Trend Micro licencing portal and imported into SMS. Without a valid DV licence, the device cannot receive new threat filter updates — the existing filters remain active but won't be updated. After installing SMS, import your licence file via the SMS GUI: Administration → Licenses → Import. Then configure the Digital Vaccine download schedule to automatically fetch updates from Trend Micro.",
+        "notes": "Installing SMS requires a dedicated server meeting minimum hardware requirements: typically 8+ CPU cores, 16GB+ RAM, 500GB+ storage (more for large deployments with high event volumes). The SMS software is installed on Windows Server or as a pre-built virtual appliance.\n\nLicensing: TippingPoint uses a subscription-based licensing model. You need a licence for SMS itself and separate licences for Digital Vaccine (threat filter updates). Licences are managed through the TrendAI licencing portal and imported into SMS. Without a valid DV licence, the device cannot receive new threat filter updates — the existing filters remain active but won't be updated. After installing SMS, import your licence file via the SMS GUI: Administration → Licenses → Import. Then configure the Digital Vaccine download schedule to automatically fetch updates from TrendAI.",
         "terms": [
             ("SMS Licence", "Required for SMS functionality and Digital Vaccine update access"),
             ("Digital Vaccine Licence", "Subscription for receiving updated threat filter packages"),
@@ -302,9 +302,9 @@ LESSON_CONTENT = {
             ("What is the recommended way to deploy SMS in a new environment?", "Using the virtual appliance image — it simplifies installation and is easier to back up and restore"),
         ],
         "links": [
-            ("Trend Micro Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-4-3": {
@@ -322,9 +322,9 @@ LESSON_CONTENT = {
             ("What is the first thing to verify before attempting to register a device?", "That the device management IP is reachable from the SMS server (ping the device from the SMS server)"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-4-4": {
@@ -342,9 +342,9 @@ LESSON_CONTENT = {
             ("What is a Security Profile in SMS?", "A named collection of Digital Vaccine filter settings that can be applied to one or more devices"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI SMS Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
     "tp-4-5": {
@@ -356,13 +356,13 @@ LESSON_CONTENT = {
         ],
         "questions": [
             ("After registering a device, what should you immediately verify?", "That the device shows as green/online in the SMS dashboard and that the DV version displayed is current"),
-            ("What should you do if the SMS licence shows as expired?", "Contact Trend Micro or your reseller to renew — then re-import the new licence file via Administration → Licenses"),
+            ("What should you do if the SMS licence shows as expired?", "Contact TrendAI or your reseller to renew — then re-import the new licence file via Administration → Licenses"),
             ("Why create separate SMS user accounts for each administrator?", "Accountability and audit trail — each action in SMS is logged against the user account that performed it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Licensing Portal", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
         ]
     },
     "tp-5-1": {
@@ -380,9 +380,9 @@ LESSON_CONTENT = {
             ("Can the same profile be applied to multiple segments?", "Yes — one profile can be applied to many segments, and changes to the profile affect all segments using it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-2": {
@@ -400,9 +400,9 @@ LESSON_CONTENT = {
             ("How do you track who made policy changes in SMS?", "The Audit Trail logs every change with the user account, timestamp, and details of what changed"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-3": {
@@ -421,9 +421,9 @@ LESSON_CONTENT = {
             ("Why use reusable action sets rather than creating new ones for each filter?", "Consistency and easier management — changing one action set updates all filters that use it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-4": {
@@ -441,9 +441,9 @@ LESSON_CONTENT = {
             ("Why should exceptions be reviewed regularly?", "Exceptions are security gaps — old exceptions that are no longer needed should be removed to maintain protection"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-5-5": {
@@ -458,16 +458,16 @@ LESSON_CONTENT = {
             ("What should you always include when creating a policy exception?", "The reason for the exception, the date it was created, and who approved it"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-6-1": {
-        "notes": "The Digital Vaccine (DV) is TippingPoint's core threat intelligence. It's a regularly updated package of filters developed by Trend Micro's TippingPoint TrendLabs team. Each DV package contains thousands of filters covering exploits, malware, protocol anomalies, and policy violations.\n\nDV filters are different from traditional AV signatures — instead of matching known malware files, they protect at the vulnerability level. A single DV filter can block all exploits targeting a specific vulnerability, even zero-day variants, because it targets the vulnerable code path rather than specific malware samples. TrendLabs releases emergency DV packages (called Digital Vaccine Advisories or DVAs) for critical vulnerabilities like major zero-days, sometimes before vendors release patches. This is TippingPoint's strongest value proposition: protection before patches.",
+        "notes": "The Digital Vaccine (DV) is TippingPoint's core threat intelligence. It's a regularly updated package of filters developed by TrendAI's TippingPoint TrendLabs team. Each DV package contains thousands of filters covering exploits, malware, protocol anomalies, and policy violations.\n\nDV filters are different from traditional AV signatures — instead of matching known malware files, they protect at the vulnerability level. A single DV filter can block all exploits targeting a specific vulnerability, even zero-day variants, because it targets the vulnerable code path rather than specific malware samples. TrendLabs releases emergency DV packages (called Digital Vaccine Advisories or DVAs) for critical vulnerabilities like major zero-days, sometimes before vendors release patches. This is TippingPoint's strongest value proposition: protection before patches.",
         "terms": [
             ("Digital Vaccine (DV)", "TippingPoint's threat filter package — thousands of filters updated regularly by TrendLabs"),
-            ("TrendLabs", "Trend Micro's research team that creates and maintains Digital Vaccine filters"),
+            ("TrendLabs", "TrendAI's research team that creates and maintains Digital Vaccine filters"),
             ("Vulnerability-Based Filter", "Filter that blocks all exploits targeting a vulnerability, not just known samples"),
             ("DVA", "Digital Vaccine Advisory — emergency DV package for critical zero-day vulnerabilities"),
             ("Zero-Day", "Vulnerability exploited before a vendor patch is available"),
@@ -479,9 +479,9 @@ LESSON_CONTENT = {
             ("What is meant by pre-patch protection?", "TippingPoint can block exploitation of a vulnerability before the software vendor releases a patch to fix it"),
         ],
         "links": [
-            ("Trend Micro TrendLabs", "https://www.trendmicro.com/en_us/research.html"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
+            ("TrendAI TrendLabs", "https://www.trendmicro.com/en_us/research.html"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
     "tp-6-2": {
@@ -502,11 +502,11 @@ LESSON_CONTENT = {
         "links": [
             ("CVE Database — MITRE", "https://cve.mitre.org/"),
             ("NVD — NIST Vulnerability Database", "https://nvd.nist.gov/"),
-            ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
+            ("TrendAI Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
     "tp-6-3": {
-        "notes": "Filter tuning is the ongoing process of optimising your TippingPoint deployment to minimise false positives while maintaining security. The process: 1) Review the Event Log for high-volume filter hits. 2) Investigate each high-volume filter — is it a real threat or a false positive? 3) For false positives: create a specific exception (not a blanket disable). 4) For real threats being blocked: verify the block action is correct and no exceptions are needed.\n\nIn SMS, the Filter Search feature lets you find filters by CVE, name, or keyword. Click any filter to see its description, affected systems, and recommended action. The Reputation filter category uses Trend Micro's cloud-based threat intelligence to block traffic from known malicious IPs — keep this enabled. Adaptive Filter (AFS) automatically adjusts filter sensitivity based on traffic patterns — useful for reducing false positives in complex environments. Never disable a Critical filter without a very strong reason and management approval.",
+        "notes": "Filter tuning is the ongoing process of optimising your TippingPoint deployment to minimise false positives while maintaining security. The process: 1) Review the Event Log for high-volume filter hits. 2) Investigate each high-volume filter — is it a real threat or a false positive? 3) For false positives: create a specific exception (not a blanket disable). 4) For real threats being blocked: verify the block action is correct and no exceptions are needed.\n\nIn SMS, the Filter Search feature lets you find filters by CVE, name, or keyword. Click any filter to see its description, affected systems, and recommended action. The Reputation filter category uses TrendAI's cloud-based threat intelligence to block traffic from known malicious IPs — keep this enabled. Adaptive Filter (AFS) automatically adjusts filter sensitivity based on traffic patterns — useful for reducing false positives in complex environments. Never disable a Critical filter without a very strong reason and management approval.",
         "terms": [
             ("Filter Tuning", "Ongoing process of optimising filters to reduce false positives while maintaining security"),
             ("Adaptive Filter (AFS)", "Feature that automatically adjusts filter sensitivity based on observed traffic. This is set in AFC adaptive filter configuration"),
@@ -520,13 +520,13 @@ LESSON_CONTENT = {
             ("What should you never do without management approval?", "Disable a Critical severity filter"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("CVE Database — MITRE", "https://cve.mitre.org/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-6-4": {
-        "notes": "Digital Vaccine updates must be applied regularly to maintain protection against new threats. Trend Micro releases weekly DV updates and emergency DVA packages for critical vulnerabilities. In SMS, configure automatic DV download and distribution: go to Digital Vaccine → Schedule, set download frequency (weekly minimum, daily recommended), and enable automatic distribution to all managed devices.\n\nThe DV update process: SMS downloads the new package from Trend Micro's update servers, verifies the digital signature, and then distributes it to all managed devices. Devices apply the new filters without requiring a reboot or interrupting traffic. Monitor the DV Status panel in SMS to verify all devices are running the same (latest) DV version. If a device shows a different version, trigger a manual distribution. Maintain a change log for all DV updates — required for compliance audits.",
+        "notes": "Digital Vaccine updates must be applied regularly to maintain protection against new threats. TrendAI releases weekly DV updates and emergency DVA packages for critical vulnerabilities. In SMS, configure automatic DV download and distribution: go to Digital Vaccine → Schedule, set download frequency (weekly minimum, daily recommended), and enable automatic distribution to all managed devices.\n\nThe DV update process: SMS downloads the new package from TrendAI's update servers, verifies the digital signature, and then distributes it to all managed devices. Devices apply the new filters without requiring a reboot or interrupting traffic. Monitor the DV Status panel in SMS to verify all devices are running the same (latest) DV version. If a device shows a different version, trigger a manual distribution. Maintain a change log for all DV updates — required for compliance audits.",
         "terms": [
             ("DV Schedule", "Automated configuration for downloading and distributing DV updates"),
             ("Digital Signature", "Cryptographic verification ensuring the DV package is genuine and unmodified"),
@@ -541,9 +541,9 @@ LESSON_CONTENT = {
             ("What should you do if one device shows an older DV version than others?", "Trigger a manual DV distribution from SMS to that device, then verify the version updates"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
     "tp-6-5": {
@@ -559,8 +559,8 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("CVE-2021-44228 — Log4Shell Detail", "https://nvd.nist.gov/vuln/detail/CVE-2021-44228"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-1": {
@@ -579,9 +579,9 @@ LESSON_CONTENT = {
             ("When is an Active/Standby pair needed?", "When you need continuous IPS protection even during a device failure — ZPHA and Layer 2 Fallback allow traffic but without inspection"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-2": {
@@ -599,9 +599,9 @@ LESSON_CONTENT = {
             ("How does SMS handle an HA pair?", "As a single logical device — policy changes are distributed to both members simultaneously"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-3": {
@@ -619,9 +619,9 @@ LESSON_CONTENT = {
             ("How often should HA failover be tested?", "At least annually, and after any firmware upgrades or significant configuration changes"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-7-4": {
@@ -636,9 +636,9 @@ LESSON_CONTENT = {
             ("What should you observe during a failover test?", "Traffic interruption duration, which device becomes Active in SMS, and the HA state change event in the event log"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-1": {
@@ -656,9 +656,9 @@ LESSON_CONTENT = {
             ("How do you investigate a specific security event in SMS?", "Find it in the Event Log, apply filters to narrow results, then click the event to drill down into full details"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-2": {
@@ -668,7 +668,7 @@ LESSON_CONTENT = {
             ("Adaptive Filter", "Enable to reduce CPU load from high-volume traffic"),
             ("DV Licence Check", "Administration → Licenses in SMS — verify expiry date"),
             ("Segment Down", "Physical layer problem — check cables and connected switch ports first"),
-            ("Proxy Settings", "SMS may need proxy configured to reach Trend Micro update servers"),
+            ("Proxy Settings", "SMS may need proxy configured to reach TrendAI update servers"),
         ],
         "questions": [
             ("A device shows offline in SMS. What is your first troubleshooting step?", "Ping the device management IP from the SMS server — determine if it's a connectivity issue or an SMS communication issue"),
@@ -676,30 +676,30 @@ LESSON_CONTENT = {
             ("High CPU on a TippingPoint device — what should you check?", "Traffic volume vs rated capacity, number of high-volume filter hits, and whether Adaptive Filter is enabled"),
         ],
         "links": [
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
         ]
     },
     "tp-8-3": {
-        "notes": "Packet capture on TippingPoint allows you to capture the actual packets that triggered a security event. This is invaluable for investigating false positives and confirming real attacks. Enable packet capture in SMS: go to the security profile, enable 'Packet Trace' for specific filters or globally. Captured packets are stored on the device and viewable in SMS — you can download them as .pcap files and open them in Wireshark.\n\nCLI diagnostics: `show interface` shows port statistics including error counts — high error rates indicate physical layer problems. `show segment stats` shows per-segment traffic counters and drop counts. `debug traffic` captures traffic at the CLI level (use carefully — high overhead). `show cpu` monitors processor usage. `show memory` shows memory utilisation. For serious issues, Trend Micro support may request a `support bundle` — generate with `support bundle generate` and upload to the support portal.",
+        "notes": "Packet capture on TippingPoint allows you to capture the actual packets that triggered a security event. This is invaluable for investigating false positives and confirming real attacks. Enable packet capture in SMS: go to the security profile, enable 'Packet Trace' for specific filters or globally. Captured packets are stored on the device and viewable in SMS — you can download them as .pcap files and open them in Wireshark.\n\nCLI diagnostics: `show interface` shows port statistics including error counts — high error rates indicate physical layer problems. `show segment stats` shows per-segment traffic counters and drop counts. `debug traffic` captures traffic at the CLI level (use carefully — high overhead). `show cpu` monitors processor usage. `show memory` shows memory utilisation. For serious issues, TrendAI support may request a `support bundle` — generate with `support bundle generate` and upload to the support portal.",
         "terms": [
             ("Packet Trace", "TippingPoint feature that captures packets matching specific filters for analysis"),
             ("pcap", "Packet capture file format — open with Wireshark for analysis"),
             ("show segment stats", "CLI command showing per-segment traffic, drop, and error counters"),
-            ("Support Bundle", "Diagnostic package generated by TippingPoint for Trend Micro support analysis"),
+            ("Support Bundle", "Diagnostic package generated by TippingPoint for TrendAI support analysis"),
             ("debug traffic", "CLI command for packet-level debugging — high overhead, use briefly"),
             ("show cpu", "CLI command showing current and historical CPU utilisation"),
         ],
         "questions": [
             ("How do you capture packets for a specific filter in TippingPoint?", "Enable Packet Trace on that filter in the security profile in SMS, then reproduce the traffic — captured packets appear in the event details"),
             ("What format are captured packets saved in?", "pcap format — can be downloaded from SMS and opened in Wireshark"),
-            ("When would you generate a support bundle?", "When Trend Micro support requests diagnostic information to investigate a complex issue"),
+            ("When would you generate a support bundle?", "When TrendAI support requests diagnostic information to investigate a complex issue"),
         ],
         "links": [
             ("Wireshark — Free Download", "https://www.wireshark.org/download.html"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "tp-8-4": {
@@ -714,8 +714,8 @@ LESSON_CONTENT = {
             ("If show interface shows high error counts on a segment port, what should you check?", "The physical cable and the connected switch port — high error rates are usually a Layer 1 problem"),
         ],
         "links": [
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
             ("Wireshark — Free Download", "https://www.wireshark.org/download.html"),
         ]
     },
@@ -735,13 +735,13 @@ LESSON_CONTENT = {
             ("What port does syslog use by default?", "UDP 514 — use TCP 514 or 6514 for reliable delivery or encrypted transport"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Graylog — Free SIEM/Log Management", "https://graylog.org/products/open-source/"),
         ]
     },
     "tp-9-2": {
-        "notes": "SNMP (Simple Network Management Protocol) allows your network management system (NMS) to monitor TippingPoint device health — CPU, memory, interface status, and system alarms. TippingPoint supports SNMPv2c and SNMPv3. Always use SNMPv3 — it provides authentication and encryption unlike v2c which sends community strings in plaintext.\n\nConfiguration in SMS: Administration → SNMP. Configure SNMP v3 with: username, authentication protocol (SHA recommended), authentication password, privacy protocol (AES recommended), privacy password, and the IP of your SNMP manager. Also configure SNMP traps — these are alerts sent from TippingPoint to your NMS when significant events occur (device offline, high CPU, HA state change, DV update). Test by forcing a trap condition and verifying receipt in your NMS. TippingPoint's MIB files are available from Trend Micro support — import them into your NMS for proper OID descriptions.",
+        "notes": "SNMP (Simple Network Management Protocol) allows your network management system (NMS) to monitor TippingPoint device health — CPU, memory, interface status, and system alarms. TippingPoint supports SNMPv2c and SNMPv3. Always use SNMPv3 — it provides authentication and encryption unlike v2c which sends community strings in plaintext.\n\nConfiguration in SMS: Administration → SNMP. Configure SNMP v3 with: username, authentication protocol (SHA recommended), authentication password, privacy protocol (AES recommended), privacy password, and the IP of your SNMP manager. Also configure SNMP traps — these are alerts sent from TippingPoint to your NMS when significant events occur (device offline, high CPU, HA state change, DV update). Test by forcing a trap condition and verifying receipt in your NMS. TippingPoint's MIB files are available from TrendAI support — import them into your NMS for proper OID descriptions.",
         "terms": [
             ("SNMP", "Simple Network Management Protocol — monitors device health via polling and traps"),
             ("SNMPv3", "Secure SNMP with authentication and encryption — always prefer over v2c"),
@@ -756,13 +756,13 @@ LESSON_CONTENT = {
             ("What are MIB files used for?", "Importing into your NMS to get human-readable descriptions of TippingPoint's SNMP metrics"),
         ],
         "links": [
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("PRTG — Free Network Monitor (up to 100 sensors)", "https://www.paessler.com/prtg"),
         ]
     },
     "tp-9-3": {
-        "notes": "Splunk and IBM QRadar are the two most common SIEMs in enterprise environments. Both support TippingPoint integration via syslog in CEF format. For Splunk: install the Trend Micro TippingPoint Add-on from Splunkbase — this provides pre-built field extractions, dashboards, and alert rules for TippingPoint data. Configure TippingPoint SMS to send syslog to your Splunk indexer or heavy forwarder on UDP/TCP 514.\n\nFor QRadar: TippingPoint uses a pre-built Device Support Module (DSM) in QRadar. Configure the log source in QRadar pointing to the SMS syslog output. QRadar will automatically parse TippingPoint events and map them to the QRadar taxonomy. Key dashboards to build in your SIEM: Top Blocked Sources (which IPs are being blocked most), Top Triggered Filters (which threats are most active), Geo-map of blocked sources, and Trend over time charts. Correlate TippingPoint block events with firewall and endpoint data for full incident context.",
+        "notes": "Splunk and IBM QRadar are the two most common SIEMs in enterprise environments. Both support TippingPoint integration via syslog in CEF format. For Splunk: install the TrendAI TippingPoint Add-on from Splunkbase — this provides pre-built field extractions, dashboards, and alert rules for TippingPoint data. Configure TippingPoint SMS to send syslog to your Splunk indexer or heavy forwarder on UDP/TCP 514.\n\nFor QRadar: TippingPoint uses a pre-built Device Support Module (DSM) in QRadar. Configure the log source in QRadar pointing to the SMS syslog output. QRadar will automatically parse TippingPoint events and map them to the QRadar taxonomy. Key dashboards to build in your SIEM: Top Blocked Sources (which IPs are being blocked most), Top Triggered Filters (which threats are most active), Geo-map of blocked sources, and Trend over time charts. Correlate TippingPoint block events with firewall and endpoint data for full incident context.",
         "terms": [
             ("Splunk", "Leading SIEM and log analysis platform; TippingPoint add-on available on Splunkbase"),
             ("QRadar", "IBM SIEM platform; pre-built TippingPoint DSM for automatic event parsing"),
@@ -772,14 +772,14 @@ LESSON_CONTENT = {
             ("CEF", "Common Event Format — the recommended format for TippingPoint syslog to SIEM"),
         ],
         "questions": [
-            ("What Splunk component do you need for TippingPoint integration?", "The Trend Micro TippingPoint Add-on from Splunkbase — provides field extractions and dashboards"),
+            ("What Splunk component do you need for TippingPoint integration?", "The TrendAI TippingPoint Add-on from Splunkbase — provides field extractions and dashboards"),
             ("What is a QRadar DSM?", "Device Support Module — pre-built parser that automatically extracts fields from TippingPoint log entries"),
             ("Name three useful SIEM dashboards for TippingPoint data.", "Top Blocked Sources, Top Triggered Filters, Geographic map of blocked IPs, Trend over time charts"),
         ],
         "links": [
             ("Splunk — TippingPoint Add-on (Splunkbase)", "https://splunkbase.splunk.com/app/4077/"),
-            ("Trend Micro TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "tp-9-4": {
@@ -795,7 +795,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Splunk — TippingPoint Add-on (Splunkbase)", "https://splunkbase.splunk.com/app/4077/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Graylog — Free SIEM/Log Management", "https://graylog.org/products/open-source/"),
         ]
     },

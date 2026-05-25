@@ -96,7 +96,7 @@ COURSES = {
     'tippingpoint': {
         'id': 'tippingpoint',
         'title': 'TippingPoint IPS',
-        'subtitle': 'Trend Micro · Installation & Configuration',
+        'subtitle': 'TrendAI · Installation & Configuration',
         'icon': '🛡️',
         'color': '#ff6b35',
         'hours': 38,
@@ -164,7 +164,7 @@ COURSES = {
     'ddi': {
         'id': 'ddi',
         'title': 'Deep Discovery Inspector',
-        'subtitle': 'Trend Micro · APT Detection & Response',
+        'subtitle': 'TrendAI · APT Detection & Response',
         'icon': '🔎',
         'color': '#a855f7',
         'hours': 38,

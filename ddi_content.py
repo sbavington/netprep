@@ -1,8 +1,8 @@
 LESSON_CONTENT = {
     "ddi-1-1": {
-        "notes": "Deep Discovery Inspector (DDI) is Trend Micro's network traffic analysis appliance designed to detect Advanced Persistent Threats (APTs) and targeted attacks that bypass traditional security controls. Traditional security — firewalls, antivirus, IPS — works well against known threats but struggles with sophisticated, customised attacks. APTs use spear phishing, zero-day exploits, and custom malware specifically crafted to evade signature-based detection.\n\nDDI operates out-of-band (passively monitoring a copy of network traffic) and uses multiple detection methods simultaneously: pattern matching against known threats, heuristic analysis for suspicious behaviour, and sandbox detonation of unknown files in an isolated virtual environment. This layered approach catches threats that each individual method would miss. DDI generates detailed threat intelligence alerts with full context — what happened, when, which systems were involved, and what data may have been accessed.",
+        "notes": "Deep Discovery Inspector (DDI) is TrendAI's network traffic analysis appliance designed to detect Advanced Persistent Threats (APTs) and targeted attacks that bypass traditional security controls. Traditional security — firewalls, antivirus, IPS — works well against known threats but struggles with sophisticated, customised attacks. APTs use spear phishing, zero-day exploits, and custom malware specifically crafted to evade signature-based detection.\n\nDDI operates out-of-band (passively monitoring a copy of network traffic) and uses multiple detection methods simultaneously: pattern matching against known threats, heuristic analysis for suspicious behaviour, and sandbox detonation of unknown files in an isolated virtual environment. This layered approach catches threats that each individual method would miss. DDI generates detailed threat intelligence alerts with full context — what happened, when, which systems were involved, and what data may have been accessed.",
         "terms": [
-            ("DDI", "Deep Discovery Inspector — Trend Micro's network threat detection appliance for APTs and targeted attacks"),
+            ("DDI", "Deep Discovery Inspector — TrendAI's network threat detection appliance for APTs and targeted attacks"),
             ("APT", "Advanced Persistent Threat — sophisticated, long-term targeted attack by skilled adversaries"),
             ("Out-of-Band", "DDI receives a copy of traffic for analysis without being in the traffic path"),
             ("Sandbox", "Isolated virtual environment where suspicious files are executed safely to observe behaviour"),
@@ -15,19 +15,19 @@ LESSON_CONTENT = {
             ("What three detection methods does DDI use?", "Pattern matching (known threats), heuristic analysis (suspicious behaviour), and sandbox detonation (unknown files)"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
-            ("Trend Micro — What is an APT?", "https://www.trendmicro.com/vinfo/us/security/definition/advanced-persistent-threat"),
+            ("TrendAI Deep Discovery Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
+            ("TrendAI — What is an APT?", "https://www.trendmicro.com/vinfo/us/security/definition/advanced-persistent-threat"),
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
         ]
     },
     "ddi-1-2": {
-        "notes": "DDI uses several detection engines working together. The Network Content Inspection Engine (NCIE) examines network traffic for known malicious patterns, suspicious protocols, and command-and-control (C&C) communication. The Network Content Correlation Engine (NCCE) correlates events across time and hosts to identify multi-stage attack campaigns that no single event would reveal alone.\n\nThe Virtual Analyzer (sandbox) receives suspicious files and URLs submitted by the NCIE. It executes them in isolated Windows and other OS virtual machines and observes behaviour — does the file try to disable security software? Does it make outbound connections? Does it create registry keys for persistence? The combination of all engines produces a risk level score and detailed event information. DDI also integrates with Trend Micro's Smart Protection Network for cloud-based threat intelligence lookups.",
+        "notes": "DDI uses several detection engines working together. The Network Content Inspection Engine (NCIE) examines network traffic for known malicious patterns, suspicious protocols, and command-and-control (C&C) communication. The Network Content Correlation Engine (NCCE) correlates events across time and hosts to identify multi-stage attack campaigns that no single event would reveal alone.\n\nThe Virtual Analyzer (sandbox) receives suspicious files and URLs submitted by the NCIE. It executes them in isolated Windows and other OS virtual machines and observes behaviour — does the file try to disable security software? Does it make outbound connections? Does it create registry keys for persistence? The combination of all engines produces a risk level score and detailed event information. DDI also integrates with TrendAI's Smart Protection Network for cloud-based threat intelligence lookups.",
         "terms": [
             ("NCIE", "Network Content Inspection Engine — inspects traffic for known threats and suspicious patterns"),
             ("NCCE", "Network Content Correlation Engine — correlates events across hosts and time to find attack campaigns"),
             ("Virtual Analyzer", "DDI's built-in sandbox — executes suspicious files in isolated VMs to observe behaviour"),
             ("C&C", "Command and Control — communication between malware and the attacker's server"),
-            ("Smart Protection Network", "Trend Micro's cloud threat intelligence service providing real-time lookups"),
+            ("Smart Protection Network", "TrendAI's cloud threat intelligence service providing real-time lookups"),
             ("Risk Score", "DDI's rating of how dangerous a detected event is, based on combined engine analysis"),
         ],
         "questions": [
@@ -36,28 +36,28 @@ LESSON_CONTENT = {
             ("What is C&C traffic?", "Communication between malware installed on a victim's machine and the attacker's server — used to receive instructions and exfiltrate data"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Smart Protection Network", "https://www.trendmicro.com/en_us/business/technologies/smart-protection-network.html"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Smart Protection Network", "https://www.trendmicro.com/en_us/business/technologies/smart-protection-network.html"),
             ("MITRE ATT&CK — C&C Techniques", "https://attack.mitre.org/tactics/TA0011/"),
         ]
     },
     "ddi-1-3": {
-        "notes": "DDI is most effective as part of a layered security architecture, not as a standalone product. In a typical deployment, DDI sits alongside other controls: the firewall controls access, TippingPoint blocks known exploits inline, endpoint security protects individual machines, and DDI monitors network traffic for the sophisticated threats that bypass everything else.\n\nDDI integrates with Trend Micro's other products through the Trend Micro Control Manager (now Apex Central) for centralised management and threat sharing. When DDI detects a C&C server, it can automatically push that indicator to TippingPoint to block future connections. This automated threat sharing — sometimes called Connected Threat Defence — means your security products work together rather than in isolation. DDI also feeds into SIEM platforms via syslog for correlation with non-Trend Micro security data.",
+        "notes": "DDI is most effective as part of a layered security architecture, not as a standalone product. In a typical deployment, DDI sits alongside other controls: the firewall controls access, TippingPoint blocks known exploits inline, endpoint security protects individual machines, and DDI monitors network traffic for the sophisticated threats that bypass everything else.\n\nDDI integrates with TrendAI's other products through the Vision One Platform for centralised management and threat sharing. When DDI detects a C&C server, it can automatically push that indicator to TippingPoint to block future connections. This automated threat sharing — sometimes called Connected Threat Defence — means your security products work together rather than in isolation. DDI also feeds into SIEM platforms via syslog for correlation with non-TrendAI security data.",
         "terms": [
             ("Layered Security", "Using multiple security controls together — each layer catches what others miss"),
-            ("Apex Central", "Trend Micro's centralised management and threat sharing platform (formerly Control Manager)"),
-            ("Connected Threat Defence", "Trend Micro's framework for automatic threat intelligence sharing between products"),
+            ("Vision One", "TrendAI's centralised management and threat sharing platform (formerly Control Manager)"),
+            ("Connected Threat Defence", "TrendAI's framework for automatic threat intelligence sharing between products"),
             ("Indicator of Compromise (IOC)", "Evidence of a breach — malicious IPs, file hashes, domain names shared between security tools"),
             ("SIEM", "Security Information and Event Management — centralised log analysis platform"),
         ],
         "questions": [
             ("What types of threats is DDI specifically designed to catch?", "APTs, targeted attacks, zero-day malware, and C&C communications that bypass signature-based controls"),
             ("How does DDI work with TippingPoint?", "DDI detects C&C servers and shares those IPs/domains with TippingPoint, which then blocks future connections to those addresses"),
-            ("What is Connected Threat Defence?", "Trend Micro's framework where products automatically share threat intelligence with each other to improve collective protection"),
+            ("What is Connected Threat Defence?", "TrendAI's framework where products automatically share threat intelligence with each other to improve collective protection"),
         ],
         "links": [
-            ("Trend Micro Connected Threat Defence", "https://www.trendmicro.com/en_us/business/technologies/connected-threat-defense.html"),
-            ("Trend Micro Apex Central", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
+            ("TrendAI Connected Threat Defence", "https://www.trendmicro.com/en_us/business/technologies/connected-threat-defense.html"),
+            ("TrendAI Vision One", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
         ]
     },
@@ -75,8 +75,8 @@ LESSON_CONTENT = {
             ("Why is DDI needed if you already have a firewall and IPS?", "Firewalls and IPS work against known threats; DDI catches sophisticated, customised attacks specifically designed to evade those controls"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
         ]
     },
@@ -87,7 +87,7 @@ LESSON_CONTENT = {
             ("Management Interface", "Dedicated interface for administration — separate from monitoring interfaces"),
             ("Throughput Rating", "Maximum traffic speed the DDI model can analyse without dropping packets"),
             ("Virtual Analyzer Capacity", "Number of sandbox VMs and concurrent analysis jobs the model supports"),
-            ("DDI 4100", "Example mid-range model — 4Gbps throughput; check current Trend Micro product catalogue for current models"),
+            ("DDI 4100", "Example mid-range model — 4Gbps throughput; check current TrendAI product catalogue for current models"),
         ],
         "questions": [
             ("What is the difference between monitoring and management interfaces on DDI?", "Monitoring interfaces receive traffic copies for analysis; management interface is for SSH/HTTPS administration"),
@@ -95,13 +95,13 @@ LESSON_CONTENT = {
             ("Why does Virtual Analyzer require significant compute resources?", "Executing files in sandboxed VMs is CPU-intensive — each analysis spins up one or more virtual machines"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Inspector Datasheet", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Inspector Datasheet", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-2-2": {
-        "notes": "DDI mounts in a standard rack like any 1U or 2U appliance. The physical installation process: verify the model's U-height, attach rack ears, slide into position, and secure with screws. Connect the management interface to your management network first. Then plan your monitoring interface cabling based on your chosen deployment method.\n\nKey physical consideration: DDI monitoring interfaces are receive-only — they don't transmit. This means you need a separate mechanism to get traffic to them: either a SPAN port on a switch, or a network TAP. Cable planning is critical. For 10Gbps monitoring you need appropriate SFP+ modules and DAC cables or fibre. Label every cable before installation. Document what connects where. The management interface needs connectivity to DNS, NTP, and Trend Micro's update servers — plan firewall rules accordingly before installation day.",
+        "notes": "DDI mounts in a standard rack like any 1U or 2U appliance. The physical installation process: verify the model's U-height, attach rack ears, slide into position, and secure with screws. Connect the management interface to your management network first. Then plan your monitoring interface cabling based on your chosen deployment method.\n\nKey physical consideration: DDI monitoring interfaces are receive-only — they don't transmit. This means you need a separate mechanism to get traffic to them: either a SPAN port on a switch, or a network TAP. Cable planning is critical. For 10Gbps monitoring you need appropriate SFP+ modules and DAC cables or fibre. Label every cable before installation. Document what connects where. The management interface needs connectivity to DNS, NTP, and TrendAI's update servers — plan firewall rules accordingly before installation day.",
         "terms": [
             ("Receive-Only Interface", "DDI monitoring ports only receive traffic — they do not transmit; purely passive"),
             ("SPAN Port", "Switch Port Analyser — copies traffic from specified switch ports to DDI's monitoring interface"),
@@ -112,11 +112,11 @@ LESSON_CONTENT = {
         "questions": [
             ("Why are DDI's monitoring interfaces receive-only?", "DDI is purely passive — it only analyses traffic copies and never injects or modifies traffic"),
             ("What is the difference between a SPAN port and a network TAP?", "SPAN is software-configured on a switch (may drop packets under load); TAP is dedicated hardware that passively copies all traffic (more reliable)"),
-            ("What network access does DDI's management interface need?", "DNS resolution, NTP time sync, and access to Trend Micro update servers for pattern updates"),
+            ("What network access does DDI's management interface need?", "DNS resolution, NTP time sync, and access to TrendAI update servers for pattern updates"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
         ]
     },
@@ -136,9 +136,9 @@ LESSON_CONTENT = {
             ("What is RSPAN?", "Remote SPAN — extends SPAN across multiple switches using a dedicated VLAN to bring traffic to a central monitoring point"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-2-4": {
@@ -153,8 +153,8 @@ LESSON_CONTENT = {
             ("Why configure the SPAN port before powering on DDI?", "So traffic starts flowing to the monitoring interface immediately on first boot, making it easier to verify the setup"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
@@ -173,29 +173,29 @@ LESSON_CONTENT = {
             ("Why does DDI use a web console rather than primarily CLI?", "DDI's complexity — threat dashboards, sandbox results, reports — is better suited to a graphical interface than a command line"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("PuTTY — Free SSH/Serial Client", "https://www.putty.org/"),
         ]
     },
     "ddi-3-2": {
-        "notes": "DDI has multiple network interfaces serving different purposes. The management interface (eth0 or similar) handles all administrative traffic — web console, SSH, software updates, pattern downloads, and integration with other Trend Micro products. Monitoring interfaces receive traffic copies from SPAN ports or TAPs — they have no IP address and do not transmit.\n\nIP configuration: in the web console, go to Administration → Network Interface. Set the management IP, subnet mask, gateway, and DNS servers. The management interface should be on a dedicated management VLAN, separate from production traffic. Routing: DDI needs a default gateway on the management interface to reach update servers and integrate with other products. If your management network is isolated, configure explicit routes to Trend Micro's update servers. Verify connectivity with the built-in ping tool in the web console.",
+        "notes": "DDI has multiple network interfaces serving different purposes. The management interface (eth0 or similar) handles all administrative traffic — web console, SSH, software updates, pattern downloads, and integration with other TrendAI products. Monitoring interfaces receive traffic copies from SPAN ports or TAPs — they have no IP address and do not transmit.\n\nIP configuration: in the web console, go to Administration → Network Interface. Set the management IP, subnet mask, gateway, and DNS servers. The management interface should be on a dedicated management VLAN, separate from production traffic. Routing: DDI needs a default gateway on the management interface to reach update servers and integrate with other products. If your management network is isolated, configure explicit routes to TrendAI's update servers. Verify connectivity with the built-in ping tool in the web console.",
         "terms": [
             ("eth0", "Typical management interface name — verify in your model's documentation"),
             ("Management VLAN", "Dedicated VLAN for administrative traffic — isolates management from production"),
             ("No-IP Monitoring Interface", "Monitoring ports have no IP address — they are purely passive capture interfaces"),
-            ("DNS Configuration", "Required for DDI to resolve Trend Micro update server hostnames"),
+            ("DNS Configuration", "Required for DDI to resolve TrendAI update server hostnames"),
             ("Built-in Ping", "Web console tool for testing management network connectivity"),
         ],
         "questions": [
             ("Why do monitoring interfaces have no IP address?", "They are purely passive receive-only interfaces — no IP needed because they never initiate or respond to connections"),
-            ("What network access does DDI's management interface need?", "DNS, NTP, access to Trend Micro update servers, and connectivity to Apex Central if used"),
+            ("What network access does DDI's management interface need?", "DNS, NTP, access to TrendAI update servers, and connectivity to Vision One if used"),
             ("Where in the DDI web console do you configure IP settings?", "Administration → Network Interface"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-3-3": {
@@ -214,36 +214,36 @@ LESSON_CONTENT = {
             ("What is the trade-off of spanning the core switch?", "Maximum visibility but requires a high-throughput DDI model to handle all internal traffic without dropping packets"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("MITRE ATT&CK — Lateral Movement", "https://attack.mitre.org/tactics/TA0008/"),
         ]
     },
     "ddi-3-4": {
-        "notes": "NTP, DNS, and proxy settings are essential for DDI to function correctly. NTP: accurate time is critical for log correlation and certificate validation. Configure at least two NTP servers. In the web console: Administration → Time. DNS: DDI needs to resolve hostnames for Trend Micro update servers and Smart Protection Network queries. Configure primary and secondary DNS. Administration → Network Interface → DNS.\n\nProxy: many organisations route internet traffic through a proxy. If DDI's management interface needs to go through a proxy to reach Trend Micro update servers, configure it in Administration → Proxy. Without proxy configuration, pattern updates will fail silently. After configuring all three, use the built-in connectivity test tools to verify DDI can reach Trend Micro's servers. Also configure the SMTP settings if you want DDI to send email alerts — Administration → Notifications → SMTP. Test with a test email before relying on email alerts.",
+        "notes": "NTP, DNS, and proxy settings are essential for DDI to function correctly. NTP: accurate time is critical for log correlation and certificate validation. Configure at least two NTP servers. In the web console: Administration → Time. DNS: DDI needs to resolve hostnames for TrendAI update servers and Smart Protection Network queries. Configure primary and secondary DNS. Administration → Network Interface → DNS.\n\nProxy: many organisations route internet traffic through a proxy. If DDI's management interface needs to go through a proxy to reach TrendAI update servers, configure it in Administration → Proxy. Without proxy configuration, pattern updates will fail silently. After configuring all three, use the built-in connectivity test tools to verify DDI can reach TrendAI's servers. Also configure the SMTP settings if you want DDI to send email alerts — Administration → Notifications → SMTP. Test with a test email before relying on email alerts.",
         "terms": [
             ("NTP", "Network Time Protocol — synchronises DDI clock; critical for accurate logs"),
             ("Proxy", "HTTP proxy for outbound internet access from the management interface"),
-            ("Pattern Update", "DDI's threat detection patterns downloaded from Trend Micro — must be kept current"),
+            ("Pattern Update", "DDI's threat detection patterns downloaded from TrendAI — must be kept current"),
             ("SMTP", "Email server settings for DDI alert notifications"),
-            ("Connectivity Test", "Built-in DDI tool to verify it can reach Trend Micro update servers"),
+            ("Connectivity Test", "Built-in DDI tool to verify it can reach TrendAI update servers"),
         ],
         "questions": [
             ("Why is NTP so important for DDI?", "Log timestamps must be accurate for incident investigation and correlation with other security tools"),
             ("What happens if proxy is not configured when required?", "Pattern updates fail silently — DDI appears to be running normally but threat detection becomes outdated"),
-            ("How do you verify DDI can reach Trend Micro update servers?", "Use the built-in connectivity test in the web console after configuring proxy and DNS settings"),
+            ("How do you verify DDI can reach TrendAI update servers?", "Use the built-in connectivity test in the web console after configuring proxy and DNS settings"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("NTP Pool Project", "https://www.ntppool.org/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-3-5": {
         "notes": "Initial configuration lab. Complete these tasks in sequence.\n\nLab tasks: 1) Connect to DDI web console via HTTPS at https://<management-ip>. 2) Accept the certificate warning and log in with default credentials. 3) Change the admin password immediately. 4) Go to Administration → Network Interface — verify management IP is correct. 5) Go to Administration → Time — configure two NTP servers and verify sync. 6) Go to Administration → Proxy — configure if required in your environment. 7) Go to Administration → Pattern Update — trigger a manual update and verify it succeeds. 8) Go to Administration → Notifications → SMTP — configure email server and send a test email. 9) Go to Dashboard — verify monitoring interfaces show traffic (if SPAN is configured). 10) Check Detection → Detections — note whether any initial detections have appeared. 11) Record the current pattern version for your baseline.",
         "terms": [
             ("Pattern Version", "The current threat detection pattern version — record as baseline after initial setup"),
-            ("Default Credentials", "Check Trend Micro documentation for your specific model — change immediately on first login"),
+            ("Default Credentials", "Check TrendAI documentation for your specific model — change immediately on first login"),
             ("Manual Pattern Update", "Trigger immediately after setup to ensure DDI has current threat patterns"),
         ],
         "questions": [
@@ -252,15 +252,15 @@ LESSON_CONTENT = {
             ("Why trigger a manual pattern update immediately after setup?", "The appliance may have been built weeks or months ago — the patterns on disk may be significantly out of date"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-1": {
-        "notes": "DDI uses multiple types of detection patterns that must be kept up to date. Pattern files are the signature database — updated daily by Trend Micro as new threats are discovered. Rule-based detection uses heuristics and behaviour patterns to detect suspicious activity even without specific signatures. The Advanced Threat Scan Engine (ATSE) combines pattern matching with machine learning to detect novel malware variants.\n\nPattern updates are pulled from Trend Micro's update servers automatically on a schedule you configure. Critical updates are pushed immediately when major threats emerge. In the web console: Administration → Pattern Update. Configure the update schedule (hourly is recommended for production), enable automatic updates, and set a rollback point in case a bad pattern causes false positives. Monitor the pattern update status regularly — a failed update means your detection is falling behind. The component status page shows the version and age of each pattern file.",
+        "notes": "DDI uses multiple types of detection patterns that must be kept up to date. Pattern files are the signature database — updated daily by TrendAI as new threats are discovered. Rule-based detection uses heuristics and behaviour patterns to detect suspicious activity even without specific signatures. The Advanced Threat Scan Engine (ATSE) combines pattern matching with machine learning to detect novel malware variants.\n\nPattern updates are pulled from TrendAI's update servers automatically on a schedule you configure. Critical updates are pushed immediately when major threats emerge. In the web console: Administration → Pattern Update. Configure the update schedule (hourly is recommended for production), enable automatic updates, and set a rollback point in case a bad pattern causes false positives. Monitor the pattern update status regularly — a failed update means your detection is falling behind. The component status page shows the version and age of each pattern file.",
         "terms": [
-            ("Pattern File", "Signature database downloaded from Trend Micro — updated daily with new threat signatures"),
+            ("Pattern File", "Signature database downloaded from TrendAI — updated daily with new threat signatures"),
             ("ATSE", "Advanced Threat Scan Engine — combines signatures with machine learning for novel threat detection"),
             ("Rule-Based Detection", "Heuristic rules detecting suspicious behaviour without requiring specific signatures"),
             ("Pattern Rollback", "Reverting to a previous pattern version if a new pattern causes false positives"),
@@ -272,15 +272,15 @@ LESSON_CONTENT = {
             ("Where do you check pattern update status in DDI?", "Administration → Pattern Update — shows current version, last update time, and update schedule"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-2": {
-        "notes": "The Smart Protection Network (SPN) is Trend Micro's cloud-based threat intelligence service. DDI queries SPN in real time to check file reputations, URL reputations, and IP reputations. If a file hash is known malicious, SPN returns a verdict immediately without needing sandbox analysis. URL reputation checks identify malicious websites and phishing pages. C&C callback detection uses SPN to identify known C&C server IPs and domains.\n\nSPN queries require DDI's management interface to have outbound internet access to Trend Micro's cloud servers. In air-gapped or restricted environments, the Smart Protection Server (SPS) can be deployed on-premises as a local SPN proxy. SPS caches reputation data locally and serves queries from DDI without requiring direct internet access. This is the recommended approach for high-security environments. Configure Smart Protection settings in Administration → Smart Protection.",
+        "notes": "The Smart Protection Network (SPN) is TrendAI's cloud-based threat intelligence service. DDI queries SPN in real time to check file reputations, URL reputations, and IP reputations. If a file hash is known malicious, SPN returns a verdict immediately without needing sandbox analysis. URL reputation checks identify malicious websites and phishing pages. C&C callback detection uses SPN to identify known C&C server IPs and domains.\n\nSPN queries require DDI's management interface to have outbound internet access to TrendAI's cloud servers. In air-gapped or restricted environments, the Smart Protection Server (SPS) can be deployed on-premises as a local SPN proxy. SPS caches reputation data locally and serves queries from DDI without requiring direct internet access. This is the recommended approach for high-security environments. Configure Smart Protection settings in Administration → Smart Protection.",
         "terms": [
-            ("Smart Protection Network", "Trend Micro's cloud threat intelligence — file, URL, and IP reputation lookups"),
+            ("Smart Protection Network", "TrendAI's cloud threat intelligence — file, URL, and IP reputation lookups"),
             ("File Reputation", "Cloud lookup to determine if a file hash is known malicious"),
             ("URL Reputation", "Cloud lookup to identify malicious websites and phishing pages"),
             ("C&C Callback Detection", "Identifying traffic to known command-and-control servers using cloud reputation data"),
@@ -292,9 +292,9 @@ LESSON_CONTENT = {
             ("What happens to SPN lookups if DDI loses internet connectivity?", "Reputation checks fall back to local patterns only — protection continues but without cloud intelligence until connectivity is restored"),
         ],
         "links": [
-            ("Trend Micro Smart Protection Network", "https://www.trendmicro.com/en_us/business/technologies/smart-protection-network.html"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Smart Protection Network", "https://www.trendmicro.com/en_us/business/technologies/smart-protection-network.html"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-3": {
@@ -312,8 +312,8 @@ LESSON_CONTENT = {
             ("What is the trade-off of high detection sensitivity?", "Catches more threats but generates more false positives — requires more tuning and analyst time"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("MITRE ATT&CK — Exfiltration Techniques", "https://attack.mitre.org/tactics/TA0010/"),
         ]
     },
@@ -332,9 +332,9 @@ LESSON_CONTENT = {
             ("What should always be documented when creating an exception?", "The reason for the exception, date created, who approved it, and when it should be reviewed or removed"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-4-5": {
@@ -349,9 +349,9 @@ LESSON_CONTENT = {
             ("Why remove test exceptions before going live?", "Test exceptions left in production create blind spots — all exceptions must have a documented business reason"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-1": {
@@ -370,8 +370,8 @@ LESSON_CONTENT = {
             ("Why does Virtual Analyzer use multiple OS versions?", "Malware often targets specific OS versions — testing in multiple environments catches samples that only detonate on certain systems"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Virtual Analyzer Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Virtual Analyzer Overview", "https://www.trendmicro.com/en_us/business/products/network/advanced-threat-protection.html"),
             ("MITRE ATT&CK — Defense Evasion", "https://attack.mitre.org/tactics/TA0005/"),
         ]
     },
@@ -390,13 +390,13 @@ LESSON_CONTENT = {
             ("What is a simulated internet environment?", "A fake DNS/HTTP/SMTP environment that satisfies malware's network requests without real internet connectivity"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-3": {
-        "notes": "File submission to Virtual Analyzer happens automatically based on your submission policy, but you can also submit files manually for investigation. Automatic submission: DDI's inspection engine extracts files from network traffic (email attachments, web downloads, FTP transfers) and submits them to Virtual Analyzer based on file type and risk indicators. The submission queue is visible in Virtual Analyzer → Submissions.\n\nManual submission: useful when investigating a suspected incident. Upload a suspicious file directly to Virtual Analyzer via the web console. You can also submit file hashes for reputation checks without re-analysis. URL submission: DDI can submit suspicious URLs to Virtual Analyzer, which opens them in a sandboxed browser and observes behaviour — useful for detecting drive-by download sites and phishing pages. The submission queue shows pending, in-progress, and completed analyses. Monitor queue depth — a consistently full queue means DDI is overwhelmed and may be dropping submissions.",
+        "notes": "File submission to Virtual Analyzer happens automatically based on your submission policy. Automatic submission: DDI's inspection engine extracts files from network traffic (email attachments, web downloads, FTP transfers) and submits them to Virtual Analyzer based on file type and risk indicators. The submission queue is visible in Virtual Analyzer → Submissions.\n\nManual submission: useful when investigating a suspected incident. Upload a suspicious file directly to Virtual Analyzer via the web console. You can also submit file hashes for reputation checks without re-analysis. URL submission: DDI can submit suspicious URLs to Virtual Analyzer, which opens them in a sandboxed browser and observes behaviour — useful for detecting drive-by download sites and phishing pages. The submission queue shows pending, in-progress, and completed analyses. Monitor queue depth — a consistently full queue means DDI is overwhelmed and may be dropping submissions.",
         "terms": [
             ("Submission Queue", "List of files and URLs pending or in Virtual Analyzer analysis"),
             ("Automatic Submission", "DDI automatically submits suspicious files based on the submission policy"),
@@ -410,9 +410,9 @@ LESSON_CONTENT = {
             ("What does URL submission detect?", "Drive-by download sites, phishing pages, and malicious redirects by opening URLs in a sandboxed browser"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-5-4": {
@@ -431,8 +431,8 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Threat Encyclopedia", "https://www.trendmicro.com/vinfo/us/threat-encyclopedia/"),
         ]
     },
     "ddi-5-5": {
@@ -448,8 +448,8 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("EICAR Test File — Safe Download", "https://www.eicar.org/download-anti-malware-testfile/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-1": {
@@ -467,9 +467,9 @@ LESSON_CONTENT = {
             ("Why create multiple dashboard views?", "Different audiences need different information — NOC needs volume/trends, executives need risk summary, analysts need technical detail"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-2": {
@@ -487,9 +487,9 @@ LESSON_CONTENT = {
             ("What should you extract from DDI before handing off to incident response?", "IOCs (file hashes, IPs, domains), affected host list, timeline of events, and Virtual Analyzer reports"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("MITRE ATT&CK Framework", "https://attack.mitre.org/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-3": {
@@ -507,9 +507,9 @@ LESSON_CONTENT = {
             ("Why store scheduled reports in a document management system?", "As evidence for compliance audits — regulators may require proof of regular security monitoring"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-6-4": {
@@ -524,9 +524,9 @@ LESSON_CONTENT = {
             ("How do you investigate all detections for a specific internal host?", "Filter the detection list by the host's IP address, or click the host in the Affected Hosts view"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-7-1": {
@@ -544,29 +544,29 @@ LESSON_CONTENT = {
             ("What DDI event types should be forwarded to SIEM?", "All detection events and Virtual Analyzer results — be selective with system events to avoid noise"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Graylog — Free SIEM/Log Management", "https://graylog.org/products/open-source/"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-7-2": {
-        "notes": "Splunk and QRadar are the most common SIEM platforms in enterprise environments. For Splunk: install the Trend Micro Deep Discovery add-on from Splunkbase. Configure DDI syslog to point to your Splunk indexer or heavy forwarder. The add-on provides pre-built field extractions, dashboards, and correlation searches for DDI data. Key Splunk searches: `sourcetype=trend_ddi severity=high` for high-severity detections, and `sourcetype=trend_ddi detection_type=*c2*` for C&C callbacks.\n\nFor QRadar: DDI has a pre-built DSM (Device Support Module). Add DDI as a log source in QRadar pointing to your syslog output. QRadar automatically parses and maps DDI events to its taxonomy. The real power comes from cross-source correlation: correlate DDI C&C callback detections with firewall allow logs (did the firewall actually allow the connection?) and endpoint alerts (is the affected host showing other signs of compromise?). This multi-source correlation is what distinguishes a SIEM from simple log collection.",
+        "notes": "Splunk and QRadar are the most common SIEM platforms in enterprise environments. For Splunk: install the TrendAI Deep Discovery add-on from Splunkbase. Configure DDI syslog to point to your Splunk indexer or heavy forwarder. The add-on provides pre-built field extractions, dashboards, and correlation searches for DDI data. Key Splunk searches: `sourcetype=trend_ddi severity=high` for high-severity detections, and `sourcetype=trend_ddi detection_type=*c2*` for C&C callbacks.\n\nFor QRadar: DDI has a pre-built DSM (Device Support Module). Add DDI as a log source in QRadar pointing to your syslog output. QRadar automatically parses and maps DDI events to its taxonomy. The real power comes from cross-source correlation: correlate DDI C&C callback detections with firewall allow logs (did the firewall actually allow the connection?) and endpoint alerts (is the affected host showing other signs of compromise?). This multi-source correlation is what distinguishes a SIEM from simple log collection.",
         "terms": [
-            ("Splunk Add-on", "Trend Micro DDI app from Splunkbase providing field extractions and dashboards"),
+            ("Splunk Add-on", "TrendAI DDI app from Splunkbase providing field extractions and dashboards"),
             ("QRadar DSM", "Device Support Module — pre-built parser for DDI logs in QRadar"),
             ("Cross-Source Correlation", "Combining DDI events with firewall, endpoint, and other logs for full incident context"),
             ("Splunkbase", "Splunk's app marketplace — search 'Deep Discovery' for the official add-on"),
             ("Log Source", "QRadar term for a device sending logs — add DDI as a log source in QRadar"),
         ],
         "questions": [
-            ("What Splunk component is needed for DDI integration?", "The Trend Micro Deep Discovery add-on from Splunkbase"),
+            ("What Splunk component is needed for DDI integration?", "The TrendAI Deep Discovery add-on from Splunkbase"),
             ("What is cross-source correlation?", "Combining DDI detections with data from other sources (firewall, endpoint, DNS) to build a complete picture of an incident"),
             ("Why is a SIEM more powerful than DDI alone for investigation?", "A SIEM correlates DDI events with all other security data — you can see if the firewall allowed a C&C connection that DDI detected"),
         ],
         "links": [
             ("Splunkbase — Search Deep Discovery", "https://splunkbase.splunk.com/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-7-3": {
@@ -581,12 +581,12 @@ LESSON_CONTENT = {
         "questions": [
             ("Why is the disk full SNMP trap critical?", "Full disk means old logs are overwritten (losing evidence) and pattern updates may fail (losing protection)"),
             ("What operational traps should you configure for DDI?", "High CPU, disk full warning, pattern update failure, and management network connectivity failure"),
-            ("Where do you get DDI's MIB files?", "From Trend Micro support portal — import into your NMS for human-readable metric descriptions"),
+            ("Where do you get DDI's MIB files?", "From TrendAI support portal — import into your NMS for human-readable metric descriptions"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("PRTG — Free Network Monitor (up to 100 sensors)", "https://www.paessler.com/prtg"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-7-4": {
@@ -602,7 +602,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("Splunkbase — Search Deep Discovery", "https://splunkbase.splunk.com/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
             ("Graylog — Free SIEM/Log Management", "https://graylog.org/products/open-source/"),
         ]
     },
@@ -621,8 +621,8 @@ LESSON_CONTENT = {
             ("Why use TAPs instead of SPAN for HA deployments?", "TAPs reliably deliver traffic copies to both HA members simultaneously; SPAN may inconsistently deliver to multiple destinations"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
             ("Network TAP vs SPAN Explained", "https://www.garlandtechnology.com/tap-vs-span"),
         ]
     },
@@ -641,9 +641,9 @@ LESSON_CONTENT = {
             ("What must you verify after HA pairing?", "Both appliances show traffic on monitoring interfaces and HA status shows Active/Passive with successful synchronisation"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-8-3": {
@@ -661,9 +661,9 @@ LESSON_CONTENT = {
             ("What should you verify after restoring a failed HA member?", "That it comes up as Passive (not Active), successfully synchronises configuration from the Active, and monitoring interfaces show traffic"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-8-4": {
@@ -678,9 +678,9 @@ LESSON_CONTENT = {
             ("How frequently should HA failover be tested?", "At least annually and after any firmware upgrade or significant configuration change"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-1": {
@@ -698,9 +698,9 @@ LESSON_CONTENT = {
             ("What is in the Audit Log?", "All administrative actions in the DDI web console — who logged in, what settings were changed, when"),
         ],
         "links": [
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-2": {
@@ -718,33 +718,33 @@ LESSON_CONTENT = {
             ("The DDI web console is unreachable. What is your first step?", "Connect via console port or SSH — check if the management interface is up and the web service is running"),
         ],
         "links": [
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
         ]
     },
     "ddi-9-3": {
-        "notes": "DDI provides several built-in diagnostic tools accessible from the web console and CLI. Web console diagnostics: Administration → Diagnostics. Tools include ping (test management connectivity), traceroute (trace path to update servers), DNS lookup (test name resolution), and port connectivity test (verify specific ports are reachable). Pattern update test (verify update server connectivity). These cover most common connectivity issues.\n\nCLI diagnostics: SSH to the management IP and log in. The DDI CLI is Linux-based. Key commands: `ifconfig` or `ip addr` to check interface status, `ping` for connectivity, `netstat -an` to check listening services, `df -h` for disk space, `top` for CPU and memory. Support bundle: when Trend Micro support needs diagnostic data, generate a support bundle from Administration → Diagnostics → Support Bundle. This creates a compressed file containing logs, configuration, and system information. Download and upload to the Trend Micro support portal.",
+        "notes": "DDI provides several built-in diagnostic tools accessible from the web console and CLI. Web console diagnostics: Administration → Diagnostics. Tools include ping (test management connectivity), traceroute (trace path to update servers), DNS lookup (test name resolution), and port connectivity test (verify specific ports are reachable). Pattern update test (verify update server connectivity). These cover most common connectivity issues.\n\nCLI diagnostics: SSH to the management IP and log in. The DDI CLI is Linux-based. Key commands: `ifconfig` or `ip addr` to check interface status, `ping` for connectivity, `netstat -an` to check listening services, `df -h` for disk space, `top` for CPU and memory. Support bundle: when TrendAI support needs diagnostic data, generate a support bundle from Administration → Diagnostics → Support Bundle. This creates a compressed file containing logs, configuration, and system information. Download and upload to the TrendAI support portal.",
         "terms": [
             ("Diagnostics Page", "Administration → Diagnostics — built-in web console tools for connectivity testing"),
-            ("Support Bundle", "Compressed diagnostic package for Trend Micro support — generated from web console"),
+            ("Support Bundle", "Compressed diagnostic package for TrendAI support — generated from web console"),
             ("df -h", "Linux command showing disk space usage — check for full disks"),
             ("netstat -an", "Shows listening services and active connections on DDI"),
             ("ifconfig/ip addr", "Shows network interface status and IP addresses on DDI"),
         ],
         "questions": [
             ("Where are the built-in diagnostic tools in DDI?", "Administration → Diagnostics — includes ping, traceroute, DNS lookup, and connectivity tests"),
-            ("When do you generate a support bundle?", "When Trend Micro support requests diagnostic data to investigate a complex issue"),
+            ("When do you generate a support bundle?", "When TrendAI support requests diagnostic data to investigate a complex issue"),
             ("What Linux command shows disk space on DDI?", "df -h — shows all filesystems and their usage percentage"),
         ],
         "links": [
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
     "ddi-9-4": {
-        "notes": "Troubleshooting lab. Work through this simulated troubleshooting scenario.\n\nLab tasks: 1) Go to Administration → System Log — review entries from the last 24 hours. 2) Identify any errors or warnings. 3) Go to Administration → Diagnostics — run a ping to 8.8.8.8 and note the result. 4) Run a DNS lookup for update.activeupdate.trendmicro.com — verify it resolves. 5) Run the pattern update connectivity test. 6) Go to Administration → Pattern Update — check current pattern version and last update time. 7) Trigger a manual pattern update and observe the process. 8) Go to Virtual Analyzer → Settings — verify VM images are configured. 9) Check disk space from Diagnostics or SSH (df -h). 10) Generate a support bundle: Administration → Diagnostics → Support Bundle → Generate. 11) Download the bundle and note its contents (do not upload to Trend Micro without a support case).",
+        "notes": "Troubleshooting lab. Work through this simulated troubleshooting scenario.\n\nLab tasks: 1) Go to Administration → System Log — review entries from the last 24 hours. 2) Identify any errors or warnings. 3) Go to Administration → Diagnostics — run a ping to 8.8.8.8 and note the result. 4) Run a DNS lookup for update.activeupdate.trendmicro.com — verify it resolves. 5) Run the pattern update connectivity test. 6) Go to Administration → Pattern Update — check current pattern version and last update time. 7) Trigger a manual pattern update and observe the process. 8) Go to Virtual Analyzer → Settings — verify VM images are configured. 9) Check disk space from Diagnostics or SSH (df -h). 10) Generate a support bundle: Administration → Diagnostics → Support Bundle → Generate. 11) Download the bundle and note its contents (do not upload to TrendAI without a support case).",
         "terms": [
             ("System Log Review", "First step in any DDI troubleshooting — look for errors and warnings"),
             ("Pattern Update Connectivity", "Test at Administration → Diagnostics → Pattern Update Test"),
@@ -752,12 +752,12 @@ LESSON_CONTENT = {
         ],
         "questions": [
             ("What is the first action in any DDI troubleshooting workflow?", "Check Administration → System Log for errors and warnings that reveal what went wrong"),
-            ("How do you verify DDI can reach Trend Micro update servers?", "Administration → Diagnostics → run the pattern update connectivity test"),
+            ("How do you verify DDI can reach TrendAI update servers?", "Administration → Diagnostics → run the pattern update connectivity test"),
         ],
         "links": [
-            ("Trend Micro Support Portal", "https://success.trendmicro.com/"),
-            ("Trend Micro Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
-            ("Trend Micro Knowledge Base", "https://success.trendmicro.com/"),
+            ("TrendAI Support Portal", "https://success.trendmicro.com/"),
+            ("TrendAI Deep Discovery Documentation", "https://docs.trendmicro.com/en-us/enterprise/deep-discovery-inspector.aspx"),
+            ("TrendAI Knowledge Base", "https://success.trendmicro.com/"),
         ]
     },
 }
