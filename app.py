@@ -451,7 +451,7 @@ def my_courses():
             'course': COURSES[cid],
             'total': total,
             'done': done,
-            'pct': int(done/total*100) if total else 0,
+            'pct': min(int(done/total*100), 100) if total else 0,
         })
     return render_template('my_courses.html', courses=course_data, user_name=session['user_name'])
 
@@ -472,7 +472,7 @@ def curriculum(course_id):
     course = COURSES[course_id]
     total = course_total(course_id)
     done_count = len(completed)
-    pct = int(done_count / total * 100) if total else 0
+    pct = min(int(done_count / total * 100), 100) if total else 0
     from flask import make_response
     resp = make_response(render_template('curriculum.html',
         course=course, modules=course['modules'],
