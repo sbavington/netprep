@@ -623,7 +623,7 @@ def admin_user(uid):
     for cid in enrolled:
         done = db.execute('SELECT COUNT(*) FROM progress WHERE user_id=? AND course_id=?',
                           (uid, cid)).fetchone()[0]
-        progress[cid] = {'done': min(done, total), 'total': course_total(cid)}
+        progress[cid] = {'done': done, 'total': course_total(cid)}
     invite_url = f"{BASE_URL}/invite/{user['invite_token']}" if user['invite_token'] else None
     return render_template('admin_user.html', user=user, enrolled=enrolled,
                            progress=progress, courses=COURSES, invite_url=invite_url)
