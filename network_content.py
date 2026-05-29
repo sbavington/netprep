@@ -53,34 +53,6 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                             ('Internet Layer', 'Handles IP addressing and routing (maps to OSI layer 3)'),
                             (   'Network Access Layer',
                                 'Handles physical transmission and MAC addressing (maps to OSI 1-2)')]},
-    '1-3': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'Cloudflare — OSI Model Explained',
-                                'https://www.cloudflare.com/learning/ddos/glossary/open-systems-interconnection-model-osi/'),
-                            ('TryHackMe — Free Networking Rooms', 'https://tryhackme.com/hacktivities?tab=practice')],
-               'notes': 'The OSI (Open Systems Interconnection) model is a 7-layer framework that describes how data '
-                        'travels from one device to another across a network. Each layer has a specific job and '
-                        'communicates with the layers above and below it. From top to bottom: Application (layer 7) is '
-                        'where user-facing software lives; Presentation (6) handles data formatting and encryption; '
-                        'Session (5) manages connections; Transport (4) handles reliable delivery with TCP/UDP; '
-                        'Network (3) handles IP addressing and routing; Data Link (2) handles MAC addresses and '
-                        'switches; Physical (1) is the actual cables and signals.\n'
-                        '\n'
-                        'The OSI model is critical for the Network+ exam and for troubleshooting. When something goes '
-                        'wrong, you work from layer 1 upward — is the cable plugged in? Is the IP address correct? Is '
-                        'the application configured properly? Every networking concept maps to a specific OSI layer.',
-               'questions': [   (   'At which OSI layer do routers operate?',
-                                    'Layer 3 — Network layer (routers forward packets based on IP addresses)'),
-                                (   'At which OSI layer do switches operate?',
-                                    'Layer 2 — Data Link layer (switches forward frames based on MAC addresses)'),
-                                (   'Which layer is responsible for encryption and data formatting?',
-                                    'Layer 6 — Presentation layer')],
-               'terms': [   ('OSI Model', 'A 7-layer conceptual framework describing how network communication works'),
-                            ('Layer 1 — Physical', 'Cables, signals, network interface cards, hubs'),
-                            ('Layer 2 — Data Link', 'MAC addresses, switches, frames, error detection'),
-                            ('Layer 3 — Network', 'IP addresses, routers, packets, routing'),
-                            ('Layer 4 — Transport', 'TCP/UDP, ports, segmentation, reliable delivery'),
-                            ('Layer 7 — Application', 'HTTP, FTP, DNS, SMTP — user-facing protocols')]},
     '1-4': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
                                 'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
                             ('Cloudflare Learning Center', 'https://www.cloudflare.com/learning/'),
@@ -319,37 +291,6 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                                 'off-network'),
                             ('Static Route', "Manually configured route that doesn't change automatically"),
                             ('Dynamic Routing', 'Routes learned automatically via protocols like OSPF, EIGRP, BGP')]},
-    '3-2': {   'links': [   (   'Cloudflare — What is a Router?',
-                                'https://www.cloudflare.com/learning/network-layer/what-is-a-router/'),
-                            (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'Packet Tracer — Free Cisco Network Simulator',
-                                'https://www.netacad.com/courses/packet-tracer')],
-               'notes': 'A router is a Layer 3 device that forwards packets between different networks based on IP '
-                        'addresses. Where a switch connects devices within the same network, a router connects '
-                        'different networks together. Routers maintain a routing table — a list of known networks and '
-                        'the best path to reach them. When a packet arrives, the router looks up the destination IP in '
-                        'its routing table and forwards the packet out the appropriate interface.\n'
-                        '\n'
-                        'Routing can be static (manually configured routes) or dynamic (routes learned automatically '
-                        "via protocols like OSPF, EIGRP, or BGP). The default gateway on any device is the router's IP "
-                        "address — it's where traffic is sent when the destination is not on the local network. Every "
-                        'time traffic crosses from one network to another, it passes through at least one router.',
-               'questions': [   ('At which OSI layer do routers operate?', 'Layer 3 — Network layer'),
-                                (   'What is a default gateway?',
-                                    'The IP address of the router that a host sends traffic to for destinations '
-                                    'outside its subnet'),
-                                (   'What is the difference between a router and a switch?',
-                                    'A switch forwards frames within a network using MAC addresses (L2); a router '
-                                    'forwards packets between networks using IP addresses (L3)')],
-               'terms': [   ('Router', 'Layer 3 device that forwards packets between networks based on IP addresses'),
-                            (   'Routing Table',
-                                'List of networks and next-hop addresses a router uses to forward traffic'),
-                            (   'Default Gateway',
-                                'The router IP address that a host sends traffic to when the destination is '
-                                'off-network'),
-                            ('Static Route', "Manually configured route that doesn't change automatically"),
-                            ('Dynamic Routing', 'Routes learned automatically via protocols like OSPF, EIGRP, BGP')]},
     '3-3': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
                                 'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
                             (   'Packet Tracer — Free Cisco Network Simulator',
@@ -526,65 +467,6 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                             ('IPS', 'Intrusion Prevention System — monitors and actively blocks threats; inline'),
                             (   'Load Balancer',
                                 'Distributes traffic across multiple servers for performance and redundancy')]},
-    '4-4': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'Packet Tracer — Free Cisco Network Simulator',
-                                'https://www.netacad.com/courses/packet-tracer'),
-                            ('Cloudflare Learning Center', 'https://www.cloudflare.com/learning/')],
-               'notes': 'A VLAN (Virtual LAN) logically segments a physical network into separate broadcast domains '
-                        'without requiring separate physical switches. Ports on a switch are assigned to VLANs — '
-                        'devices in VLAN 10 cannot communicate directly with devices in VLAN 20 without going through '
-                        'a router (or Layer 3 switch). This improves security, reduces broadcast traffic, and enables '
-                        'logical grouping of users regardless of physical location.\n'
-                        '\n'
-                        'Trunk ports carry traffic for multiple VLANs between switches using 802.1Q tagging — a 4-byte '
-                        'tag is added to the frame header identifying which VLAN it belongs to. Access ports connect '
-                        'to end devices and carry only one VLAN. Inter-VLAN routing requires a router or Layer 3 '
-                        'switch. VLANs are essential for network segmentation — separating staff from guests, or '
-                        'finance from IT.',
-               'questions': [   (   'Can two devices on different VLANs communicate without a router?',
-                                    'No — VLANs are separate broadcast domains; a router or L3 switch is required'),
-                                ('What standard is used for VLAN tagging on trunk links?', 'IEEE 802.1Q'),
-                                (   'What is the difference between a trunk port and an access port?',
-                                    'Trunk port carries multiple VLANs (tagged); access port carries one VLAN '
-                                    '(untagged) for end devices')],
-               'terms': [   ('VLAN', 'Virtual LAN — logical network segment on a physical switch'),
-                            ('802.1Q', 'The standard for VLAN tagging on trunk links'),
-                            ('Trunk Port', 'Switch port carrying traffic for multiple VLANs, tagged with 802.1Q'),
-                            ('Access Port', 'Switch port assigned to a single VLAN, connects to end devices'),
-                            ('Inter-VLAN Routing', 'Routing traffic between VLANs using a router or Layer 3 switch')]},
-    '5-1': {   'links': [   (   'Cloudflare — What is a Firewall?',
-                                'https://www.cloudflare.com/learning/security/what-is-a-firewall/'),
-                            (   'Cloudflare — IDS vs IPS',
-                                'https://www.cloudflare.com/learning/security/glossary/intrusion-detection-prevention/'),
-                            (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/')],
-               'notes': 'A firewall filters traffic based on rules, blocking unauthorised access while allowing '
-                        'legitimate traffic. Stateful firewalls track the state of connections — they know whether an '
-                        'incoming packet is part of an established connection or a new unsolicited one. Next-gen '
-                        'firewalls (NGFW) add deep packet inspection, application awareness, and intrusion '
-                        'prevention.\n'
-                        '\n'
-                        'An IDS (Intrusion Detection System) monitors traffic and alerts on suspicious activity but '
-                        "doesn't block it. An IPS (Intrusion Prevention System) actively blocks threats in real time — "
-                        'it sits inline in the network path. A load balancer distributes incoming traffic across '
-                        'multiple servers to prevent overload and provide redundancy. These devices all appear in the '
-                        "Network+ exam's security and infrastructure domains.",
-               'questions': [   (   'What is the difference between an IDS and an IPS?',
-                                    'IDS detects and alerts (passive); IPS detects and blocks (active, inline)'),
-                                (   'What makes a stateful firewall different from a simple packet filter?',
-                                    'A stateful firewall tracks connection state so it can distinguish established '
-                                    'traffic from new unsolicited connections'),
-                                (   'What does a load balancer do?',
-                                    'Distributes incoming connections across multiple servers to balance load and '
-                                    'provide redundancy')],
-               'terms': [   ('Firewall', 'Filters network traffic based on rules; blocks unauthorised access'),
-                            (   'Stateful Firewall',
-                                'Tracks connection state; knows if traffic is part of an established session'),
-                            ('IDS', 'Intrusion Detection System — monitors and alerts on suspicious traffic; passive'),
-                            ('IPS', 'Intrusion Prevention System — monitors and actively blocks threats; inline'),
-                            (   'Load Balancer',
-                                'Distributes traffic across multiple servers for performance and redundancy')]},
     '5-2': {   'links': [   (   'Cloudflare — TLS Explained',
                                 'https://www.cloudflare.com/learning/ssl/transport-layer-security-tls/'),
                             (   'Cloudflare — What is a VPN?',
@@ -710,107 +592,7 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                             ('Telnet', 'Unencrypted remote access; port 23; never use on production networks'),
                             ('SNMP', 'Simple Network Management Protocol — network monitoring; port 161 (UDP)'),
                             ('Syslog', 'Standard for sending log messages; UDP port 514')]},
-    '6-1': {   'links': [   (   'Cloudflare — DDoS Explained',
-                                'https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attack/'),
-                            (   'Cloudflare — What is a MITM Attack?',
-                                'https://www.cloudflare.com/learning/security/threats/man-in-the-middle-attack/'),
-                            (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/')],
-               'notes': 'Common network attacks you must know for Network+: A Man-in-the-Middle (MITM) attack '
-                        'intercepts communication between two parties — the attacker secretly relays and potentially '
-                        "alters messages. ARP Spoofing/Poisoning sends fake ARP replies to associate the attacker's "
-                        'MAC with a legitimate IP, enabling MITM on local networks. A DoS (Denial of Service) attack '
-                        'floods a target with traffic to overwhelm it; a DDoS uses many compromised systems '
-                        'simultaneously.\n'
-                        '\n'
-                        'Other attacks: VLAN Hopping allows an attacker to send traffic to a different VLAN by '
-                        'exploiting trunk ports. DNS Spoofing/Poisoning inserts false DNS records to redirect users to '
-                        'malicious sites. A Rogue DHCP server gives clients incorrect network configuration. '
-                        'Recognising these attacks and knowing their mitigations is a significant portion of the '
-                        'Network+ security domain.',
-               'questions': [   (   'How does ARP spoofing enable a MITM attack?',
-                                    'The attacker sends fake ARP replies mapping their MAC to a legitimate IP, so '
-                                    'traffic intended for that IP goes to the attacker instead'),
-                                (   'What is the difference between DoS and DDoS?',
-                                    'DoS is from one source; DDoS uses many compromised systems (botnet) to overwhelm '
-                                    'the target'),
-                                (   'What mitigation prevents rogue DHCP servers?',
-                                    'DHCP snooping on switches — only trusted ports can send DHCP offers')],
-               'terms': [   ('MITM', 'Man-in-the-Middle — attacker intercepts communication between two parties'),
-                            (   'ARP Spoofing',
-                                "Sending fake ARP replies to associate attacker's MAC with a legitimate IP"),
-                            ('DoS', 'Denial of Service — flooding a target to make it unavailable'),
-                            ('DDoS', 'Distributed DoS — DoS using many compromised systems simultaneously'),
-                            ('VLAN Hopping', 'Exploiting trunk port configuration to send traffic to another VLAN'),
-                            ('Rogue DHCP', 'Unauthorised DHCP server giving clients incorrect network configuration')]},
     '6-2': {   'links': [   ('Wi-Fi Alliance — Security Overview', 'https://www.wi-fi.org/discover-wi-fi/security'),
-                            (   'Cloudflare — WPA3 Explained',
-                                'https://www.cloudflare.com/learning/network-layer/what-is-wpa3/'),
-                            (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/')],
-               'notes': 'Wireless security has evolved significantly. WEP (Wired Equivalent Privacy) was the original '
-                        'standard but is completely broken and should never be used. WPA (Wi-Fi Protected Access) '
-                        'improved on WEP but also has vulnerabilities. WPA2 uses AES encryption and is the current '
-                        'standard for home and business networks — WPA2-Personal uses a pre-shared key (PSK); '
-                        'WPA2-Enterprise uses 802.1X with RADIUS for per-user authentication.\n'
-                        '\n'
-                        'WPA3 is the latest standard with stronger encryption and protection against offline '
-                        'dictionary attacks. It uses SAE (Simultaneous Authentication of Equals) instead of PSK. For '
-                        'enterprise networks, WPA2/WPA3-Enterprise with 802.1X is the gold standard — each user '
-                        'authenticates individually and a compromised password only affects one account. Common '
-                        'wireless attacks include evil twin (rogue AP), deauth attacks, and WPS brute-forcing (disable '
-                        'WPS on all networks).',
-               'questions': [   (   'Why should WEP never be used?',
-                                    "WEP's encryption is completely broken and can be cracked in minutes with freely "
-                                    'available tools'),
-                                (   'What is the difference between WPA2-Personal and WPA2-Enterprise?',
-                                    'Personal uses a shared passphrase; Enterprise uses 802.1X with individual user '
-                                    'credentials via RADIUS'),
-                                (   "What attack does WPA3 protect against that WPA2 doesn't?",
-                                    "Offline dictionary attacks — WPA3's SAE handshake doesn't allow captured "
-                                    'handshakes to be brute-forced offline')],
-               'terms': [   (   'WEP',
-                                'Wired Equivalent Privacy — original wireless security; completely broken; never use'),
-                            ('WPA2-Personal', 'Uses a pre-shared key (PSK/passphrase); suitable for home networks'),
-                            (   'WPA2-Enterprise',
-                                'Uses 802.1X and RADIUS for individual user authentication; business standard'),
-                            ('WPA3', 'Latest Wi-Fi security standard; SAE handshake; resistant to offline attacks'),
-                            ('Evil Twin', 'Rogue access point mimicking a legitimate one to capture traffic'),
-                            ('SAE', 'Simultaneous Authentication of Equals — WPA3 handshake replacing PSK')]},
-    '6-3': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'Cloudflare — What is 802.1X?',
-                                'https://www.cloudflare.com/learning/access-management/what-is-802.1x/'),
-                            (   'ExamCompass — Free Network+ Practice',
-                                'https://www.comptia.org/training/certmaster-practice/network')],
-               'notes': 'Authentication protocols verify the identity of users and devices trying to access a network. '
-                        'RADIUS (Remote Authentication Dial-In User Service) is a centralised AAA (Authentication, '
-                        'Authorisation, Accounting) protocol. When a user tries to connect to a network, the '
-                        'authenticator (e.g. a switch or VPN server) forwards credentials to the RADIUS server, which '
-                        'approves or denies access. RADIUS uses UDP ports 1812/1813.\n'
-                        '\n'
-                        'TACACS+ (Terminal Access Controller Access-Control System Plus) is a Cisco proprietary AAA '
-                        'protocol that encrypts the entire payload (RADIUS only encrypts the password). TACACS+ uses '
-                        'TCP port 49 and separates authentication, authorisation, and accounting into separate '
-                        'functions. RADIUS is typically used for network access (Wi-Fi, VPN); TACACS+ is used for '
-                        'device administration (router/switch login). 802.1X is a port-based access control standard '
-                        "that uses RADIUS for authenticating devices before they're allowed network access.",
-               'questions': [   ('What ports does RADIUS use?', 'UDP 1812 (authentication) and 1813 (accounting)'),
-                                (   'What is the key security difference between RADIUS and TACACS+?',
-                                    'TACACS+ encrypts the entire packet; RADIUS only encrypts the password'),
-                                ('What does AAA stand for?', 'Authentication, Authorisation, Accounting'),
-                                ('What protocol is used with 802.1X?', 'RADIUS')],
-               'terms': [   ('RADIUS', 'Remote Authentication Dial-In User Service — centralised AAA; UDP 1812/1813'),
-                            ('TACACS+', 'Cisco AAA protocol; encrypts full payload; TCP port 49'),
-                            (   'AAA',
-                                'Authentication (who are you?), Authorisation (what can you do?), Accounting (what did '
-                                'you do?)'),
-                            (   '802.1X',
-                                'Port-based network access control; uses RADIUS to authenticate devices before network '
-                                'access'),
-                            (   'Authenticator',
-                                'The device (switch, AP) that forwards credentials to the RADIUS server')]},
-    '6-4': {   'links': [   ('Wi-Fi Alliance — Security Overview', 'https://www.wi-fi.org/discover-wi-fi/security'),
                             (   'Cloudflare — WPA3 Explained',
                                 'https://www.cloudflare.com/learning/network-layer/what-is-wpa3/'),
                             (   'Professor Messer — Network+ Course (Free)',
@@ -991,122 +773,6 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                                 '169.254.x.x — automatic address assigned when DHCP fails; indicates DHCP problem'),
                             (   'Default Gateway',
                                 'Missing or wrong gateway = can reach local network but not internet')]},
-    '8-1': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'CompTIA Network+ Exam Objectives (Free PDF)',
-                                'https://www.comptia.org/training/resources/exam-objectives'),
-                            (   'ExamCompass — Free Network+ Practice',
-                                'https://www.comptia.org/training/certmaster-practice/network')],
-               'notes': "CompTIA's official troubleshooting methodology has seven steps: 1) Identify the problem — "
-                        'gather information and symptoms. 2) Establish a theory of probable cause — what do you think '
-                        'is wrong? 3) Test the theory — confirm or deny your hypothesis. 4) Establish a plan of action '
-                        '— how will you fix it with minimal disruption? 5) Implement the solution — make the change. '
-                        '6) Verify full functionality — confirm the fix worked and nothing else broke. 7) Document '
-                        'findings — record what happened and how you fixed it.\n'
-                        '\n'
-                        'In practice, experienced engineers often jump to step 2 based on intuition — but the '
-                        'methodology exists to avoid missing obvious causes. Always start at Layer 1 (is the cable '
-                        'plugged in?) and work up. The OSI model is your troubleshooting map: Physical → Data Link → '
-                        'Network → Transport → Application.',
-               'questions': [   (   "What is the first step in CompTIA's troubleshooting methodology?",
-                                    'Identify the problem — gather information, question users, observe symptoms'),
-                                (   'Why is documentation the final step?',
-                                    'To create a record for future reference, track recurring issues, and help other '
-                                    'engineers'),
-                                (   'If a user can ping by IP but not by name, which layer/service is the problem?',
-                                    'DNS — name resolution failure (application layer service)')],
-               'terms': [   (   'Troubleshooting Methodology',
-                                "CompTIA's 7-step process: Identify, Theory, Test, Plan, Implement, Verify, Document"),
-                            (   'Bottom-Up Approach',
-                                'Start troubleshooting at Layer 1 (physical) and work up through OSI layers'),
-                            (   'Top-Down Approach',
-                                'Start at Layer 7 (application) and work down — used when software issues are '
-                                'suspected'),
-                            (   'Divide and Conquer',
-                                'Start at Layer 3 (network) and work up or down based on test results'),
-                            (   'Documentation',
-                                'Recording the problem, cause, and solution — essential for future reference')]},
-    '8-2': {   'links': [   ('SS64 — Windows Command Reference', 'https://ss64.com/nt/'),
-                            ('SS64 — Linux Command Reference', 'https://ss64.com/bash/'),
-                            ('MXToolbox — Network Tools', 'https://mxtoolbox.com/NetworkTools.aspx')],
-               'notes': 'Essential CLI tools for every network engineer. ping tests basic connectivity — if it fails, '
-                        'work down the OSI model. tracert (Windows) / traceroute (Linux) shows the path to a '
-                        'destination and identifies where failures or latency occur. netstat shows active connections, '
-                        "listening ports, and network statistics — useful for finding what's using a port or how many "
-                        'connections exist. arp -a shows the ARP cache; arp -d clears it.\n'
-                        '\n'
-                        'route print (Windows) / ip route (Linux) shows the routing table — essential for diagnosing '
-                        'routing issues. nslookup and dig diagnose DNS. netstat -an shows all connections and '
-                        'listening ports numerically. On Cisco devices: show ip interface brief, show ip route, show '
-                        'mac address-table, show vlan brief, and show running-config are the essential show commands. '
-                        "Practice all of these until they're instinctive.",
-               'questions': [   (   'A user can ping 8.8.8.8 but not google.com. What is likely wrong?',
-                                    "DNS resolution is failing — the IP stack works but name resolution doesn't"),
-                                ('What command shows which ports are listening on a Windows machine?', 'netstat -an'),
-                                (   'What does traceroute help you identify?',
-                                    'The path packets take and where failures or high latency occur along the route')],
-               'terms': [   ('ping', 'Tests ICMP reachability; measures round-trip time'),
-                            ('tracert/traceroute', 'Maps the path to a destination hop by hop'),
-                            ('netstat', 'Shows active connections and listening ports'),
-                            ('netstat -an', 'Shows all connections and ports numerically (no DNS resolution)'),
-                            ('route print', 'Shows the Windows routing table (ip route on Linux)'),
-                            ('arp -a', 'Displays the ARP cache — IP to MAC address mappings')]},
-    '8-3': {   'links': [   ('Wireshark — Free Download', 'https://www.wireshark.org/download.html'),
-                            ('Wireshark User Guide', 'https://www.wireshark.org/docs/wsug_html_chunked/'),
-                            ('Wireshark Display Filter Reference', 'https://www.wireshark.org/docs/dfref/')],
-               'notes': 'Wireshark is the industry-standard free packet analyser. It captures all network traffic '
-                        'passing through a network interface and displays it in a human-readable format. You can '
-                        'filter by protocol (tcp, udp, icmp, dns, http), by IP address (ip.addr == 192.168.1.1), or by '
-                        'port (tcp.port == 443). Wireshark is essential for troubleshooting and understanding how '
-                        'protocols actually work in practice.\n'
-                        '\n'
-                        'For this lab: install Wireshark from wireshark.org, start a capture on your network '
-                        'interface, then open a browser or run ping. Watch the packets appear. Try filtering for '
-                        "'icmp' and run a ping — you'll see the Echo Request and Reply packets. Try 'dns' and browse "
-                        "to a website — you'll see the DNS query and response. This hands-on practice cements the "
-                        'theory in a way reading never can.',
-               'questions': [   ('What Wireshark filter shows only ICMP traffic?', 'icmp'),
-                                ('What Wireshark filter shows traffic to/from a specific IP?', 'ip.addr == x.x.x.x'),
-                                ('What Wireshark filter shows only DNS traffic?', 'dns or udp.port == 53')],
-               'terms': [   ('Packet Capture', 'Recording network traffic for analysis; also called a pcap'),
-                            ('Display Filter', "Wireshark filter to show only specific traffic, e.g. 'tcp.port == 80'"),
-                            ('Promiscuous Mode', 'NIC mode that captures all packets, not just those addressed to it'),
-                            (   'Follow TCP Stream',
-                                'Wireshark feature to reconstruct and read an entire TCP conversation'),
-                            ('.pcap file', 'Standard file format for saved packet captures')]},
-    '8-4': {   'links': [   (   'Professor Messer — Network+ Course (Free)',
-                                'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
-                            (   'ExamCompass — Free Network+ Practice',
-                                'https://www.comptia.org/training/certmaster-practice/network'),
-                            (   'Packet Tracer — Free Cisco Network Simulator',
-                                'https://www.netacad.com/courses/packet-tracer')],
-               'notes': 'Troubleshooting scenarios test your ability to apply methodology and tools to realistic '
-                        'problems. Common scenarios: 1) Duplicate IP address — two devices share an IP; symptoms are '
-                        'intermittent connectivity for both. Fix: use arp -a to find the conflict, assign a unique IP. '
-                        "2) Wrong subnet mask — device can't reach some hosts but not others. Fix: ipconfig /all to "
-                        'verify mask. 3) Default gateway missing — device can reach local network but not the '
-                        'internet. Fix: verify gateway config. 4) DNS failure — can ping IPs but not names. Fix: '
-                        'nslookup to test, check DNS server assignment.\n'
-                        '\n'
-                        '5) Switching loop — broadcast storm, all ports at 100%, network unusable. Fix: STP should '
-                        'prevent this; check for disabled STP or non-managed switches. 6) VLAN mismatch — devices on '
-                        "the wrong VLAN can't communicate. Fix: verify switchport access vlan on Cisco. Practice "
-                        "recognising these patterns — they're exactly what appears in Network+ performance-based "
-                        'questions.',
-               'questions': [   (   'A device gets a 169.254.x.x address. What does this indicate?',
-                                    'APIPA — the device failed to get a DHCP lease; check DHCP server and '
-                                    'connectivity'),
-                                (   'A user can reach local servers but not the internet. What should you check first?',
-                                    'The default gateway — it may be missing, wrong, or the router may be down'),
-                                (   'What protocol prevents switching loops?',
-                                    'STP — Spanning Tree Protocol (or RSTP, the faster version)')],
-               'terms': [   ('Duplicate IP', 'Two devices with the same IP; causes intermittent connectivity for both'),
-                            ('Broadcast Storm', 'Network flooding caused by a switching loop; STP prevents this'),
-                            ('STP', 'Spanning Tree Protocol — prevents switching loops by blocking redundant paths'),
-                            (   'APIPA',
-                                '169.254.x.x — automatic address assigned when DHCP fails; indicates DHCP problem'),
-                            (   'Default Gateway',
-                                'Missing or wrong gateway = can reach local network but not internet')]},
     '8-5': {   'links': [   (   'Professor Messer — Free Practice Exams',
                                 'https://www.professormesser.com/network-plus/n10-009/n10-009-video/n10-009-training-course/'),
                             (   'ExamCompass — Free Network+ Quizzes',
@@ -1135,30 +801,4 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                                 'the answer'),
                             (   'Flag and Return',
                                 "Flag uncertain questions and return to them — don't spend too long on any single "
-                                'question')]},
-    '8-6': {   'links': [   ('draw.io — Free Network Diagram Tool', 'https://app.diagrams.net'),
-                            ('Lucidchart — Network Diagram Tool', 'https://www.lucidchart.com/pages/network-diagram'),
-                            (   'Packet Tracer — Free Cisco Network Simulator',
-                                'https://www.netacad.com/courses/packet-tracer')],
-               'notes': 'Network diagrams visually represent the layout of a network. A physical diagram shows actual '
-                        'hardware locations, cable runs, and rack layouts. A logical diagram shows IP addressing, '
-                        'VLANs, routing, and how traffic flows — regardless of physical location. Both types appear in '
-                        'Network+ performance-based questions.\n'
-                        '\n'
-                        'Standard symbols: clouds represent the internet or an ISP, cylinders represent servers, '
-                        'rectangles are switches, the routing symbol is a circle with arrows, firewalls are '
-                        'represented by brick wall icons (varies by tool). Cisco uses specific icons for its devices. '
-                        'Being able to read and draw network diagrams is essential for planning, documentation, and '
-                        'troubleshooting. Tools like draw.io (free) or Lucidchart are commonly used.',
-               'questions': [   (   'What is the difference between a physical and logical network diagram?',
-                                    'Physical shows actual hardware and cables; logical shows IP addressing and '
-                                    'traffic flow'),
-                                (   'Why are network diagrams important for troubleshooting?',
-                                    'They provide a reference for understanding how the network is connected, making '
-                                    'it faster to identify where a failure might be')],
-               'terms': [   ('Physical Diagram', 'Shows actual hardware, locations, and cable connections'),
-                            (   'Logical Diagram',
-                                'Shows IP addressing, VLANs, and traffic flow regardless of physical layout'),
-                            ('Network Topology', 'The arrangement of network components shown in a diagram'),
-                            ('Rack Diagram', 'Shows equipment installed in server racks with U-space measurements'),
-                            ('draw.io', 'Free online tool for creating network diagrams')]}}
+                                'question')]},}
