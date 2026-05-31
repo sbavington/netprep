@@ -39,7 +39,6 @@ COURSES = {
             {"id":1,"title":"Network Fundamentals","icon":"🌐","hours":5,"lessons":[
                 {"id":"1-1","title":"The OSI Model — all 7 layers explained","type":"concept"},
                 {"id":"1-2","title":"TCP/IP model vs OSI model","type":"concept"},
-                {"id":"1-3","title":"How data encapsulation works","type":"concept"},
                 {"id":"1-4","title":"Network topologies and their trade-offs","type":"concept"},
                 {"id":"1-5","title":"Module 1 Quiz","type":"quiz"},
             ]},
