@@ -128,7 +128,7 @@ LESSON_CONTENT = {
         "terms": [
             ("POST", "Power-On Self Test — hardware diagnostics run at startup"),
             ("Console Port", "Serial port for out-of-band management access during initial setup"),
-            ("115,200 8N1", "Console port settings: 9600 baud, 8 data bits, No parity, 1 stop bit"),
+            ("115,200 8N1", "Console port settings: 115200 baud, 8 data bits, No parity, 1 stop bit"),
             ("Out-of-Band Management", "Management access via a separate path from production traffic"),
             ("Boot Sequence", "The startup process: POST, BIOS, OS load, application start"),
             ("Management IP", "IP address assigned to the management interface for SSH/HTTPS access"),
