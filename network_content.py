@@ -802,3 +802,143 @@ LESSON_CONTENT = {   '1-1': {   'links': [   (   'Professor Messer — Network+ 
                             (   'Flag and Return',
                                 "Flag uncertain questions and return to them — don't spend too long on any single "
                                 'question')]},}
+
+# ---------------------------------------------------------------------------
+# Added lessons: previously-empty curriculum sections
+# 3-2 Static vs dynamic routing, 4-4 VLANs, 5-1 Firewalls,
+# 6-1 802.11 standards, 6-3 Authentication Protocols, 6-4 Wireless troubleshooting
+# ---------------------------------------------------------------------------
+LESSON_CONTENT.update({
+    '3-2': {
+        'notes': "Static routing means an administrator manually configures each route in the routing table; the routes never change unless edited by hand. It is predictable, uses no CPU or bandwidth for route exchange, and is ideal for small or stub networks. Its weakness is scale: every topology change requires manual updates, and there is no automatic failover. Dynamic routing uses protocols (OSPF, EIGRP, RIP, BGP) so routers learn routes from each other and recalculate paths automatically when links go up or down. Dynamic routing scales well and self-heals, at the cost of CPU, memory, bandwidth, and added complexity. Distance-vector protocols (RIP) choose paths by hop count; link-state protocols (OSPF) build a full map of the network and run shortest-path-first. A default route (0.0.0.0/0) is a special static route used as a last resort when no more specific route matches.",
+        'links': [
+            ('Cisco - Static vs Dynamic Routing', 'https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html'),
+            ('Cloudflare - What is Routing?', 'https://www.cloudflare.com/learning/network-layer/what-is-routing/'),
+            ('Professor Messer - Routing Technologies', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('Static route', 'A route manually entered by an administrator that does not change automatically.'),
+            ('Dynamic route', 'A route learned and maintained automatically by a routing protocol.'),
+            ('Default route', 'The 0.0.0.0/0 route of last resort used when no more specific route matches.'),
+            ('Distance-vector', 'A protocol family (e.g. RIP) that selects routes based on hop count.'),
+            ('Link-state', 'A protocol family (e.g. OSPF) that builds a full topology map and runs SPF.'),
+            ('Administrative distance', 'A trust ranking used to choose between routes learned from different sources.'),
+        ],
+        'questions': [
+            ('When is static routing usually preferred over dynamic routing?', 'On small, stable, or stub networks where routes rarely change and predictability matters.'),
+            ('What is the main advantage of dynamic routing?', 'It learns routes automatically and reroutes around failures without manual intervention.'),
+            ('What does a default route (0.0.0.0/0) do?', 'It forwards traffic that matches no more specific route, acting as the route of last resort.'),
+            ('How does a distance-vector protocol differ from a link-state protocol?', 'Distance-vector picks paths by hop count; link-state builds a full topology map and runs shortest-path-first.'),
+        ],
+    },
+    '4-4': {
+        'notes': "A VLAN (Virtual LAN) logically segments a single physical switch into multiple broadcast domains, so devices can be grouped by function instead of physical location. Each VLAN is its own broadcast domain, which reduces broadcast traffic and improves security by isolating groups (for example separating staff, guests, and VoIP). An access port belongs to a single VLAN and connects to an end device. A trunk port carries traffic for multiple VLANs between switches and tags each frame using the 802.1Q standard, which inserts a 4-byte tag containing the VLAN ID (12 bits, so 1-4094 usable). Devices in different VLANs cannot talk directly; inter-VLAN routing through a router or a Layer 3 switch (often a 'router on a stick' with subinterfaces) is required. The native VLAN on a trunk carries untagged frames and should be changed from the default VLAN 1 as a security best practice.",
+        'links': [
+            ('Cisco - VLANs Explained', 'https://www.cisco.com/c/en/us/support/docs/lan-switching/vlan/10023-3.html'),
+            ('Cloudflare - What is a VLAN?', 'https://www.cloudflare.com/learning/network-layer/what-is-a-vlan/'),
+            ('Professor Messer - VLANs and Trunking', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('VLAN', 'A logical broadcast domain created on a switch to group devices independent of location.'),
+            ('Access port', 'A switch port that belongs to a single VLAN and connects to an end device.'),
+            ('Trunk port', 'A switch port that carries multiple VLANs between switches, tagging frames with 802.1Q.'),
+            ('802.1Q', 'The IEEE standard that tags Ethernet frames with a VLAN ID using a 4-byte tag.'),
+            ('Native VLAN', 'The VLAN whose frames are sent untagged on a trunk; should be changed from default VLAN 1.'),
+            ('Inter-VLAN routing', 'Routing traffic between VLANs using a router or a Layer 3 switch.'),
+        ],
+        'questions': [
+            ('Can two devices on different VLANs communicate without a router?', 'No - VLANs are separate broadcast domains; a router or Layer 3 switch is required.'),
+            ('What is the difference between an access port and a trunk port?', 'A trunk port carries multiple VLANs (tagged with 802.1Q); an access port carries a single VLAN.'),
+            ('What standard is used to tag frames on a trunk?', '802.1Q, which inserts a 4-byte VLAN tag into the Ethernet frame.'),
+            ('Why segment a network into VLANs?', 'To reduce broadcast domains, improve performance, and isolate groups for security.'),
+        ],
+    },
+    '5-1': {
+        'notes': "A firewall enforces a security policy by permitting or denying traffic based on rules. Packet-filtering (stateless) firewalls inspect each packet against an ACL of source/destination IP, port, and protocol with no memory of prior packets - fast but blunt. Stateful firewalls track the state of connections so return traffic for an established session is allowed automatically, which is the modern baseline. Next-generation firewalls (NGFW) add deep packet inspection, application awareness, and IPS features. Placement matters: a perimeter firewall sits at the network edge between the inside and the internet, often creating a DMZ (screened subnet) for public-facing servers like web and mail so they are isolated from the internal LAN. Internal/segmentation firewalls sit between internal zones to limit lateral movement. Host-based firewalls run on individual endpoints. Rules are processed top-down, and most firewalls end with an implicit deny-all.",
+        'links': [
+            ('Cloudflare - What is a Firewall?', 'https://www.cloudflare.com/learning/security/what-is-a-firewall/'),
+            ('Cisco - Firewall Basics', 'https://www.cisco.com/c/en/us/products/security/firewalls/what-is-a-firewall.html'),
+            ('Professor Messer - Firewalls', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('Packet-filtering firewall', 'A stateless firewall that allows or blocks packets by IP, port, and protocol.'),
+            ('Stateful firewall', 'A firewall that tracks connection state and allows return traffic for established sessions.'),
+            ('NGFW', 'Next-generation firewall adding deep packet inspection, app awareness, and IPS.'),
+            ('DMZ / screened subnet', 'An isolated zone for public-facing servers, separated from the internal LAN.'),
+            ('Implicit deny', 'The default final rule that blocks any traffic not explicitly permitted.'),
+            ('ACL', 'An access control list of ordered permit/deny rules a firewall evaluates top-down.'),
+        ],
+        'questions': [
+            ('What is the difference between a stateless and a stateful firewall?', 'Stateless filters each packet independently; stateful tracks connections and allows return traffic automatically.'),
+            ('Where would you place a public web server relative to the firewall?', 'In a DMZ (screened subnet), isolated from the internal LAN but reachable from the internet.'),
+            ('What is an implicit deny?', 'A default final rule that blocks all traffic not explicitly allowed by earlier rules.'),
+            ('What does a next-generation firewall add over a stateful firewall?', 'Deep packet inspection, application awareness, and integrated IPS capabilities.'),
+        ],
+    },
+    '6-1': {
+        'notes': "The IEEE 802.11 family defines Wi-Fi standards. 802.11a (1999) used the 5 GHz band at up to 54 Mbps. 802.11b (1999) used 2.4 GHz at up to 11 Mbps with greater range but more interference. 802.11g (2003) brought 54 Mbps to 2.4 GHz and is backward compatible with b. 802.11n (Wi-Fi 4, 2009) introduced MIMO and channel bonding across both 2.4 and 5 GHz for hundreds of Mbps. 802.11ac (Wi-Fi 5, 2013) is 5 GHz only, adding wider channels, more spatial streams, and MU-MIMO for gigabit-class speeds. 802.11ax (Wi-Fi 6/6E, 2019+) operates on 2.4, 5, and (6E) 6 GHz, using OFDMA and improved MU-MIMO for higher efficiency in dense environments. The 2.4 GHz band penetrates walls better but is crowded and has only three non-overlapping channels (1, 6, 11); 5 GHz offers more channels and speed with shorter range.",
+        'links': [
+            ('Cisco - 802.11 Wi-Fi Standards', 'https://www.cisco.com/c/en/us/products/wireless/what-is-wi-fi.html'),
+            ('Wi-Fi Alliance - Wi-Fi Generations', 'https://www.wi-fi.org/discover-wi-fi'),
+            ('Professor Messer - Wireless Standards', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('802.11n (Wi-Fi 4)', 'Dual-band (2.4/5 GHz) standard introducing MIMO and channel bonding.'),
+            ('802.11ac (Wi-Fi 5)', '5 GHz-only standard with wider channels and MU-MIMO for gigabit speeds.'),
+            ('802.11ax (Wi-Fi 6/6E)', 'Standard using OFDMA across 2.4/5/6 GHz for efficiency in dense areas.'),
+            ('MIMO', 'Multiple-Input Multiple-Output: multiple antennas/streams to boost throughput.'),
+            ('Non-overlapping channels', 'In 2.4 GHz, channels 1, 6, and 11 that do not interfere with each other.'),
+            ('Channel bonding', 'Combining adjacent channels into a wider channel for more bandwidth.'),
+        ],
+        'questions': [
+            ('Which bands does 802.11ax operate on?', '2.4 GHz, 5 GHz, and (with 6E) the 6 GHz band.'),
+            ('Why is 802.11ac 5 GHz only?', 'It targets higher throughput with wider channels available in the 5 GHz band.'),
+            ('What are the three non-overlapping channels in 2.4 GHz?', 'Channels 1, 6, and 11.'),
+            ('What is the trade-off between 2.4 GHz and 5 GHz?', '2.4 GHz has better range/wall penetration but more interference; 5 GHz is faster with more channels but shorter range.'),
+        ],
+    },
+    '6-3': {
+        'notes': "Authentication protocols verify identity before granting network access. WPA2 and WPA3 are wireless security standards: WPA2 uses AES-CCMP encryption, while WPA3 adds SAE (Simultaneous Authentication of Equals) to resist offline password guessing. Wireless networks run in two modes: Personal (PSK), where everyone shares one pre-shared key, and Enterprise (802.1X), where each user authenticates individually against a RADIUS server. 802.1X is the port-based access control framework with three roles: the supplicant (client), the authenticator (switch or access point), and the authentication server (RADIUS). EAP (Extensible Authentication Protocol) is the framework that carries the actual credential exchange, with variants like EAP-TLS (certificate-based, strongest), PEAP, and EAP-TTLS. AAA servers - RADIUS (UDP, encrypts only the password) and TACACS+ (TCP, encrypts the whole payload and separates authentication, authorization, and accounting) - centralize these decisions. Kerberos uses time-sensitive tickets for single sign-on in Windows domains.",
+        'links': [
+            ('Cloudflare - What is 802.1X / RADIUS?', 'https://www.cloudflare.com/learning/access-management/what-is-radius/'),
+            ('Cisco - RADIUS vs TACACS+', 'https://www.cisco.com/c/en/us/support/docs/security-vpn/remote-authentication-dial-user-service-radius/13838-10.html'),
+            ('Professor Messer - Authentication Protocols', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('802.1X', 'Port-based network access control using supplicant, authenticator, and auth server.'),
+            ('EAP', 'Extensible Authentication Protocol - the framework carrying credential exchanges.'),
+            ('RADIUS', 'AAA protocol over UDP that encrypts only the password; common for Wi-Fi.'),
+            ('TACACS+', 'Cisco AAA protocol over TCP that encrypts the full payload and separates AAA functions.'),
+            ('WPA2 / WPA3', 'Wireless security standards; WPA3 adds SAE to resist offline password attacks.'),
+            ('Kerberos', 'Ticket-based authentication providing single sign-on in Windows domains.'),
+        ],
+        'questions': [
+            ('What are the three roles in 802.1X?', 'Supplicant (client), authenticator (switch/AP), and authentication server (RADIUS).'),
+            ('How does RADIUS differ from TACACS+?', 'RADIUS uses UDP and encrypts only the password; TACACS+ uses TCP, encrypts the whole payload, and separates AAA.'),
+            ('What does WPA3 add over WPA2?', 'SAE (Simultaneous Authentication of Equals) to resist offline dictionary/password attacks.'),
+            ('What is the difference between WPA2-Personal and WPA2-Enterprise?', 'Personal uses a shared pre-shared key; Enterprise authenticates each user individually via 802.1X/RADIUS.'),
+        ],
+    },
+    '6-4': {
+        'notes': "Wireless troubleshooting follows a structured approach to common RF and configuration problems. Low signal strength (RSSI) usually points to distance, obstructions, or AP placement - relocate or add access points. Interference comes from other networks or non-Wi-Fi sources (microwaves, Bluetooth, cordless phones); use a Wi-Fi analyzer to find clean channels and stick to non-overlapping channels 1, 6, 11 in 2.4 GHz. Channel overlap and co-channel contention slow throughput in dense deployments. Authentication failures often mean a wrong passphrase, mismatched security mode (WPA2 vs WPA3), or a misconfigured RADIUS server. Roaming issues occur when clients cling to a distant AP ('sticky client') instead of switching to a closer one. Throughput problems can stem from band steering, too many clients per AP, or falling back to a slower standard. A site survey and heat map help validate coverage, channel plan, and AP density. Always check the basics first: SSID broadcast, correct band, client driver, and whether the issue is one device or all devices.",
+        'links': [
+            ('Cisco - Wireless Troubleshooting', 'https://www.cisco.com/c/en/us/support/wireless/index.html'),
+            ('Cloudflare - What is Wi-Fi Interference?', 'https://www.cloudflare.com/learning/network-layer/what-is-wi-fi/'),
+            ('Professor Messer - Wireless Troubleshooting', 'https://www.professormesser.com/network-plus/n10-008/n10-008-training-course/'),
+        ],
+        'terms': [
+            ('RSSI', 'Received Signal Strength Indicator - a measure of how strong the wireless signal is.'),
+            ('Interference', 'Unwanted RF from other networks or devices that degrades the wireless signal.'),
+            ('Channel overlap', 'When nearby APs use overlapping channels, causing contention and slowdowns.'),
+            ('Site survey / heat map', 'A coverage assessment used to plan AP placement, channels, and density.'),
+            ('Sticky client', 'A device that stays connected to a distant AP instead of roaming to a closer one.'),
+            ('Band steering', 'A feature that pushes capable clients onto the less-congested 5 GHz band.'),
+        ],
+        'questions': [
+            ('A user reports a weak Wi-Fi signal far from the AP. What is the likely cause?', 'Low RSSI due to distance/obstructions - relocate or add an access point closer to the user.'),
+            ('How do you reduce interference in the 2.4 GHz band?', 'Use a Wi-Fi analyzer and select non-overlapping channels 1, 6, or 11.'),
+            ('A client cannot authenticate to a WPA2-Enterprise network. What should you check?', 'The RADIUS server config, correct credentials, and matching security mode/EAP method.'),
+            ('What tool validates wireless coverage and channel planning?', 'A site survey that produces a heat map of signal strength and coverage.'),
+        ],
+    },
+})
