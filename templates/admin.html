@@ -46,8 +46,15 @@
 {% block content %}
 <div class="container-wide" style="padding-top:24px;">
   <span style="font-family:var(--mono);font-size:10px;color:var(--warn);letter-spacing:2px;text-transform:uppercase;">⬡ ADMIN DASHBOARD</span>
-  <div class="page-title" style="margin-top:8px;">Student Overview</div>
-  <div class="page-sub">NetPrep Training Platform</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+    <div>
+      <div class="page-title">Student Overview</div>
+      <div class="page-sub">NetPrep Training Platform</div>
+    </div>
+    <a href="/admin/campaigns" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">📋 Campaigns</a>
+    <a href="/admin/backups" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">💾 Backups</a>
+    <a href="/admin/assessments" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:9px 20px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">📊 Assessments</a>
+  </div>
 
   <div class="stats-row">
     <div class="stat-box"><div class="stat-num">{{ users|length }}</div><div class="stat-label">Enrolled</div></div>
@@ -117,8 +124,15 @@
   <div class="section-title">// Student Roster</div>
   <input class="filter-input" type="text" id="filter" placeholder="Filter by name or email..." onkeyup="filterTable()">
   <table class="student-table" id="student-table">
+    <div style="margin-bottom:10px;display:flex;gap:10px;align-items:center;">
+      <button onclick="toggleAllStudents()" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:5px 14px;border-radius:4px;font-size:12px;cursor:pointer;">Select All</button>
+      <button onclick="bulkDelete()" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);padding:5px 14px;border-radius:4px;font-size:12px;cursor:pointer;">Delete Selected</button>
+      <span id="selected-count" style="font-size:12px;color:#64748b;">0 selected</span>
+    </div>
+    <form id="bulk-delete-form" method="POST" action="/admin/users/bulk-delete">
     <thead>
       <tr>
+        <th style="width:32px;"></th>
         <th>Name</th>
         <th>Email</th>
         <th>Courses</th>
@@ -130,6 +144,11 @@
     <tbody>
       {% for u in users %}
       <tr onclick="window.location='/admin/user/{{ u.id }}'" style="cursor:pointer;">
+        <td onclick="event.stopPropagation()" style="width:32px;">
+          <input type="checkbox" name="user_ids" value="{{ u.id }}" class="student-checkbox"
+            onchange="updateSelectedCount()"
+            style="accent-color:#00d4ff;width:16px;height:16px;cursor:pointer;">
+        </td>
         <td><strong>{{ u.name }}</strong></td>
         <td style="color:var(--muted);">{{ u.email }}</td>
         <td>
@@ -143,15 +162,49 @@
           <div class="prog-bar"><div class="prog-fill" style="width:{% if u.total_lessons %}{{ (u.lessons_done/u.total_lessons*100)|int }}{% else %}0{% endif %}%"></div></div>
           <span style="font-size:11px;color:var(--muted);">{{ u.lessons_done }}/{{ u.total_lessons }}</span>
         </td>
-        <td><span class="badge {% if u.is_active %}badge-active{% else %}badge-pending{% endif %}">{% if u.is_active %}active{% else %}invite pending{% endif %}</span></td>
+        <td>
+          {% if u.left_platform %}
+            <span class="badge" style="background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3);">left platform</span>
+            <form method="POST" action="/admin/user/{{ u.id }}/reinvite" style="display:inline;" onclick="event.stopPropagation()">
+              <button type="submit" style="background:rgba(0,212,255,.15);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:3px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-left:6px;">Re-invite</button>
+            </form>
+          {% elif u.is_active %}
+            <span class="badge badge-active">active</span>
+          {% else %}
+            <span class="badge badge-pending">invite pending</span>
+          {% endif %}
+        </td>
         <td style="color:var(--muted);font-size:12px;">{{ u.created_at[:10] if u.created_at else '' }}</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+</form>
 </div>
 
 <script>
+function toggleAllStudents() {
+  const boxes = document.querySelectorAll('.student-checkbox');
+  const allChecked = [...boxes].every(b => b.checked);
+  boxes.forEach(b => b.checked = !allChecked);
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  const count = document.querySelectorAll('.student-checkbox:checked').length;
+  document.getElementById('selected-count').textContent = count + ' selected';
+}
+
+function bulkDelete() {
+  const checked = document.querySelectorAll('.student-checkbox:checked');
+  if (checked.length === 0) {
+    alert('No students selected.');
+    return;
+  }
+  if (!confirm('Delete ' + checked.length + ' student(s)? This cannot be undone.')) return;
+  document.getElementById('bulk-delete-form').submit();
+}
+
 function showTab(id, btn) {
   document.querySelectorAll('.inv-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.inv-body').forEach(b => b.classList.remove('active'));

@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:800px;margin:0 auto;padding:32px 16px;">
+
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff6b00;letter-spacing:2px;margin-bottom:6px;">// SELF ASSESSMENT</div>
+    <h1 style="font-size:28px;font-weight:700;margin:0 0 4px;">Network Engineering Skills Assessment</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">95 questions across 12 sections. Rate your proficiency honestly — results are used to personalise your training path.</p>
+  </div>
+
+  {% if existing %}
+  <div style="background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;">
+    <span style="color:#00d4ff;font-size:14px;">You have already completed this assessment.</span>
+    <div style="display:flex;gap:10px;">
+      <a href="/assessment/results" style="background:#00d4ff;color:#000;padding:7px 16px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;">View Results</a>
+      <span style="color:#64748b;font-size:13px;padding:7px 0;">or retake below</span>
+    </div>
+  </div>
+  {% endif %}
+
+  <div style="background:#111827;border:1px solid rgba(0,212,255,.2);border-radius:8px;padding:16px 20px;margin-bottom:28px;">
+    <p style="color:#e2e8f0;font-size:13px;margin:0 0 8px;font-weight:600;">Proficiency Scale</p>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#f87171;">1</strong> — No Experience</span>
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#f59e0b;">2</strong> — Basic</span>
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#fbbf24;">3</strong> — Proficient</span>
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#34d399;">4</strong> — Advanced</span>
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#00c853;">5</strong> — Expert</span>
+      <span style="font-size:12px;color:#64748b;"><strong style="color:#475569;">N/A</strong> — Not Applicable</span>
+    </div>
+  </div>
+
+  <form method="POST" id="assessment-form">
+
+    {% for section in sections %}
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:20px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;cursor:pointer;" onclick="toggleSection('{{ section.id }}')">
+        <p style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#00d4ff;letter-spacing:2px;margin:0;">// {{ section.title | upper }}</p>
+        <span id="{{ section.id }}-chevron" style="color:#64748b;font-size:16px;">▼</span>
+      </div>
+      <div id="{{ section.id }}-body">
+
+      {% if section.type == "rated" %}
+        {% for q in section.questions %}
+        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #1e293b;">
+          <p style="color:#e2e8f0;font-size:13px;margin:0 0 10px;">{{ loop.index }}. {{ q.text }}</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            {% for r in [1,2,3,4,5] %}
+            <label style="cursor:pointer;text-align:center;min-width:60px;">
+              <input type="radio" name="{{ q.id }}" value="{{ r }}" style="display:none;" class="rating-input">
+              <div class="rating-btn" data-qid="{{ q.id }}" data-val="{{ r }}"
+                style="padding:6px 12px;border-radius:6px;border:1px solid #1e293b;font-size:13px;font-weight:600;transition:.15s;background:#0a0f1e;color:#64748b;">
+                {{ r }}
+              </div>
+              <div style="font-size:10px;color:#475569;margin-top:3px;">
+                {% if r==1 %}None{% elif r==2 %}Basic{% elif r==3 %}Prof{% elif r==4 %}Adv{% else %}Expert{% endif %}
+              </div>
+            </label>
+            {% endfor %}
+            <label style="cursor:pointer;text-align:center;min-width:40px;">
+              <input type="radio" name="{{ q.id }}" value="na" style="display:none;" class="rating-input">
+              <div class="rating-btn" data-qid="{{ q.id }}" data-val="na"
+                style="padding:6px 12px;border-radius:6px;border:1px solid #1e293b;font-size:12px;transition:.15s;background:#0a0f1e;color:#475569;">
+                N/A
+              </div>
+            </label>
+          </div>
+        </div>
+        {% endfor %}
+
+      {% elif section.type == "multiple_choice" %}
+        {% for q in section.questions %}
+        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #1e293b;">
+          <p style="color:#e2e8f0;font-size:13px;margin:0 0 10px;">{{ q.text }}</p>
+          {% if q.get("multi") %}
+            {% for opt in q.options %}
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;font-size:13px;color:#94a3b8;">
+              <input type="checkbox" name="{{ q.id }}" value="{{ opt }}" style="accent-color:#00d4ff;">
+              {{ opt }}
+            </label>
+            {% endfor %}
+          {% else %}
+            {% for opt in q.options %}
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;font-size:13px;color:#94a3b8;">
+              <input type="radio" name="{{ q.id }}" value="{{ opt }}" style="accent-color:#00d4ff;">
+              {{ opt }}
+            </label>
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% endfor %}
+
+      {% elif section.type == "open" %}
+        {% for q in section.questions %}
+        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #1e293b;">
+          <p style="color:#e2e8f0;font-size:13px;margin:0 0 8px;">{{ q.text }}</p>
+          {% if q.get("options") %}
+            {% for opt in q.options %}
+            <label style="display:flex;align-items:center;gap:8px;margin-bottom:6px;cursor:pointer;font-size:13px;color:#94a3b8;">
+              <input type="radio" name="{{ q.id }}" value="{{ opt }}" style="accent-color:#00d4ff;">
+              {{ opt }}
+            </label>
+            {% endfor %}
+          {% else %}
+          <textarea name="{{ q.id }}" rows="3" placeholder="Your response..."
+            style="width:100%;box-sizing:border-box;background:#0a0f1e;border:1px solid #1e293b;border-radius:6px;padding:10px;color:#e2e8f0;font-size:13px;font-family:inherit;outline:none;resize:vertical;"></textarea>
+          {% endif %}
+        </div>
+        {% endfor %}
+      {% endif %}
+
+      </div>
+    </div>
+    {% endfor %}
+
+    <div style="text-align:center;margin-top:32px;padding-bottom:32px;">
+      <button type="submit" style="background:#00d4ff;color:#000;border:none;border-radius:8px;padding:14px 48px;font-size:16px;font-weight:700;cursor:pointer;">
+        Submit Assessment
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+function toggleSection(id) {
+  const body = document.getElementById(id + '-body');
+  const chevron = document.getElementById(id + '-chevron');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    chevron.textContent = '▼';
+  } else {
+    body.style.display = 'none';
+    chevron.textContent = '▶';
+  }
+}
+
+document.querySelectorAll('.rating-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    const qid = btn.dataset.qid;
+    const val = btn.dataset.val;
+    // Check the hidden radio
+    const radio = btn.previousElementSibling;
+    radio.checked = true;
+    // Update all buttons for this question
+    document.querySelectorAll('.rating-btn[data-qid="' + qid + '"]').forEach(function(b) {
+      b.style.background = '#0a0f1e';
+      b.style.color = '#64748b';
+      b.style.borderColor = '#1e293b';
+    });
+    btn.style.background = 'rgba(0,212,255,.15)';
+    btn.style.color = '#00d4ff';
+    btn.style.borderColor = 'rgba(0,212,255,.4)';
+  });
+});
+</script>
+{% endblock %}

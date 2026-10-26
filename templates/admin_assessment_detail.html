@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:900px;margin:0 auto;padding:32px 16px;">
+
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff6b00;letter-spacing:2px;margin-bottom:6px;">// ASSESSMENT DETAIL</div>
+    <h1 style="font-size:28px;font-weight:700;margin:0 0 4px;">{{ student_name }}</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">{{ student_email }} &nbsp;·&nbsp; Completed {{ completed_at }}</p>
+  </div>
+
+  <!-- Domain Score Cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:32px;">
+    {% for domain, data in domain_scores.items() %}
+    {% set avg = data.avg %}
+    {% set color = "#f87171" if avg < 2 else "#f59e0b" if avg < 3 else "#fbbf24" if avg < 3.75 else "#34d399" if avg < 4.5 else "#00c853" %}
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:10px;padding:14px;">
+      <div style="font-size:10px;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">{{ domain }}</div>
+      <div style="font-size:24px;font-weight:800;color:{{ color }};">{{ avg }}</div>
+      <div style="font-size:11px;color:{{ color }};margin-top:2px;">{{ data.competency }}</div>
+      <div style="background:#1e293b;border-radius:4px;height:3px;margin-top:8px;overflow:hidden;">
+        <div style="background:{{ color }};height:3px;width:{{ (avg/5*100)|int }}%;border-radius:4px;"></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Full Responses -->
+  {% for section in sections %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:16px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 16px;">// {{ section.title | upper }}</p>
+    {% for q in section.questions %}
+    {% set resp = responses.get(q.id) %}
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #1e293b;">
+      <span style="color:#94a3b8;font-size:13px;flex:1;padding-right:16px;">{{ q.text }}</span>
+      {% if resp %}
+        {% if section.type == "rated" and resp != "na" %}
+          {% set rv = resp|int %}
+          {% set rc = "#f87171" if rv < 2 else "#f59e0b" if rv < 3 else "#fbbf24" if rv < 4 else "#34d399" if rv < 5 else "#00c853" %}
+          <span style="color:{{ rc }};font-weight:700;font-size:14px;white-space:nowrap;">{{ resp }} — {{ rating_labels[rv] }}</span>
+        {% elif resp == "na" %}
+          <span style="color:#475569;font-size:13px;">N/A</span>
+        {% elif resp is iterable and resp is not string %}
+          <span style="color:#e2e8f0;font-size:13px;">{{ resp | join(", ") }}</span>
+        {% else %}
+          <span style="color:#e2e8f0;font-size:13px;max-width:400px;text-align:right;">{{ resp }}</span>
+        {% endif %}
+      {% else %}
+        <span style="color:#475569;font-size:13px;">—</span>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <div style="margin-top:20px;">
+    <a href="/admin/assessments" style="color:#64748b;font-size:13px;text-decoration:none;">← Back to Assessments</a>
+  </div>
+</div>
+{% endblock %}

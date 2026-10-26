@@ -49,7 +49,7 @@
         <div class="course-stats">
           <div class="course-stat"><strong>{{ item.course.modules|length }}</strong>Modules</div>
           <div class="course-stat"><strong>{{ item.total }}</strong>Lessons</div>
-          <div class="course-stat"><strong>~h</strong>Study time</div>
+          {% if item.exam_passed %}<div class="course-stat" style="color:#00c853;"><strong>✓</strong>Exam Passed</div>{% endif %}
         </div>
         <div class="progress-bar"><div class="progress-fill" style="width:{{ item.pct }}%"></div></div>
         <div class="progress-label">{{ item.done }} / {{ item.total }} lessons · {{ item.pct }}% complete</div>
@@ -63,4 +63,28 @@
     </div>
   {% endif %}
 </div>
+
+<div style="text-align:center;margin-top:48px;padding-bottom:32px;display:flex;flex-direction:column;align-items:center;gap:16px;">
+  <a href="/assessment" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:10px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;">📋 Take Skills Assessment</a>
+  <button onclick="confirmLeave()" style="background:transparent;border:1px solid rgba(239,68,68,.3);color:#f87171;padding:8px 20px;border-radius:6px;font-size:12px;cursor:pointer;">Leave Platform</button>
+</div>
+
+<script>
+async function confirmLeave() {
+  if (!confirm('Are you sure you want to leave the platform?\n\nYour progress will be saved but your access will be removed. An admin will need to re-invite you to regain access.')) return;
+  try {
+    const res = await fetch('/api/leave', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'}
+    });
+    const data = await res.json();
+    if (data.ok) {
+      alert('You have left the platform. Goodbye!');
+      window.location.href = '/logout';
+    }
+  } catch(e) {
+    alert('Something went wrong. Please try again.');
+  }
+}
+</script>
 {% endblock %}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:900px;margin:0 auto;padding:32px 16px;">
+
+  <div style="margin-bottom:28px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff6b00;letter-spacing:2px;margin-bottom:6px;">// ADMIN</div>
+    <h1 style="font-size:28px;font-weight:700;margin:0 0 4px;">Database Backup & Restore</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">Current DB size: {{ (db_size / 1024)|round(1) }} KB &nbsp;·&nbsp; Backups kept: last 30 (archives kept forever)</p>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in messages %}
+      <div style="padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:14px;
+        background:{% if cat=='error' %}rgba(239,68,68,.15){% else %}rgba(0,212,255,.15){% endif %};
+        border:1px solid {% if cat=='error' %}rgba(239,68,68,.4){% else %}rgba(0,212,255,.4){% endif %};
+        color:{% if cat=='error' %}#f87171{% else %}#00d4ff{% endif %};">{{ msg }}</div>
+    {% endfor %}
+  {% endwith %}
+
+  <!-- Create Backup -->
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:28px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 16px;">// CREATE BACKUP</p>
+    <form method="POST" action="/admin/backups/create">
+      <button type="submit" style="background:#00d4ff;color:#000;border:none;border-radius:6px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;">
+        💾 Create Backup Now
+      </button>
+      <span style="color:#64748b;font-size:13px;margin-left:16px;">Creates a timestamped copy of the current database.</span>
+    </form>
+  </div>
+
+  <!-- Backup List -->
+  {% if backups %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;overflow:hidden;">
+    <div style="padding:16px 20px;border-bottom:1px solid #1e293b;">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0;">// BACKUP FILES</p>
+    </div>
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+      <thead>
+        <tr style="background:#0a0f1e;">
+          <th align="left" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Filename</th>
+          <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Created</th>
+          <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Size</th>
+          <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Status</th>
+          <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in backups %}
+        <tr style="border-top:1px solid #1e293b;">
+          <td style="padding:10px 16px;color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:12px;">{{ b.filename }}</td>
+          <td align="center" style="padding:10px 16px;color:#64748b;font-size:13px;">{{ b.mtime }}</td>
+          <td align="center" style="padding:10px 16px;color:#64748b;font-size:13px;">{{ (b.size / 1024)|round(1) }} KB</td>
+          <td align="center" style="padding:10px 16px;">
+            {% if b.archived %}
+              <span style="background:rgba(255,199,0,.15);color:#ffc700;border:1px solid rgba(255,199,0,.3);padding:3px 10px;border-radius:10px;font-size:11px;">ARCHIVED</span>
+            {% else %}
+              <span style="background:rgba(0,200,83,.15);color:#00c853;border:1px solid rgba(0,200,83,.3);padding:3px 10px;border-radius:10px;font-size:11px;">BACKUP</span>
+            {% endif %}
+          </td>
+          <td align="center" style="padding:10px 16px;">
+            <div style="display:flex;gap:6px;justify-content:center;">
+              <a href="/admin/backups/download/{{ b.filename }}" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:4px 10px;border-radius:4px;font-size:11px;text-decoration:none;">Download</a>
+              <form method="POST" action="/admin/backups/restore" style="display:inline;" onsubmit="return confirm('Restore from {{ b.filename }}? Current database will be backed up first.')">
+                <input type="hidden" name="filename" value="{{ b.filename }}">
+                <button type="submit" style="background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.3);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">Restore</button>
+              </form>
+              {% if not b.archived %}
+              <form method="POST" action="/admin/backups/archive" style="display:inline;">
+                <input type="hidden" name="filename" value="{{ b.filename }}">
+                <button type="submit" style="background:rgba(255,199,0,.1);color:#ffc700;border:1px solid rgba(255,199,0,.3);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">Archive</button>
+              </form>
+              {% endif %}
+              <form method="POST" action="/admin/backups/delete" style="display:inline;" onsubmit="return confirm('Delete {{ b.filename }}? This cannot be undone.')">
+                <input type="hidden" name="filename" value="{{ b.filename }}">
+                <button type="submit" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div style="text-align:center;padding:48px;color:#64748b;">No backups yet. Create one above.</div>
+  {% endif %}
+
+  <div style="margin-top:20px;">
+    <a href="/admin" style="color:#64748b;font-size:13px;text-decoration:none;">← Back to Admin</a>
+  </div>
+</div>
+{% endblock %}

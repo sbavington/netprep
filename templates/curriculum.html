@@ -107,12 +107,35 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
   <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:{{ pct }}%"></div></div>
 </div>
 
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+  <a href="/exam/{{ course.id }}" style="background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.3);color:#00d4ff;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;">📝 Take Course Exam</a>
+  <button onclick="confirmResetCourse()" style="background:transparent;border:1px solid rgba(239,68,68,.3);color:#f87171;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">↺ Reset Course Progress</button>
+</div>
+
 {% if pct == 100 %}
 <div style="text-align:center;margin-bottom:32px;">
   <a href="{{ url_for('diploma', course_id=course.id) }}"
      style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.3);color:#00d4ff;padding:14px 28px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;text-decoration:none;">
     🎓 View Your Certificate of Completion →
   </a>
+</div>
+{% endif %}
+
+{% if bookmarked %}
+<div id="bookmark-wrapper" style="background:#111827;border:1px solid rgba(255,199,0,.3);border-radius:12px;padding:20px;margin-bottom:24px;">
+  <p style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:#ffc700;margin:0 0 14px;">// BOOKMARKS</p>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;" id="bookmark-panel">
+    {% for mod in modules %}
+      {% for lesson in mod.lessons %}
+        {% if lesson.id in bookmarked %}
+        <button onclick="openDrawer('{{ lesson.id }}', '{{ lesson.title|e }}', '{{ lesson.type }}')"
+          style="background:rgba(255,199,0,.1);border:1px solid rgba(255,199,0,.3);color:#ffc700;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;">
+          🔖 {{ lesson.title }}
+        </button>
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  </div>
 </div>
 {% endif %}
 
@@ -170,6 +193,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
     <div class="drawer-title" id="d-title"></div>
     <div id="d-body"></div>
     <button class="mark-btn" id="d-mark-btn" onclick="markFromDrawer()">Mark as Complete</button>
+    <button class="mark-btn" id="d-bookmark-btn" onclick="toggleBookmark()" style="background:rgba(255,199,0,.1);color:#ffc700;border:1px solid rgba(255,199,0,.3);margin-top:8px;">🔖 Bookmark</button>
   </div>
 </div>
 
@@ -179,8 +203,82 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
 const TOTAL = {{ total }};
 const CONTENT = {{ lesson_content|tojson }};
 const COURSE_ID = '{{ course.id }}';
+let BOOKMARKS = new Set({{ bookmarked|tojson }});
 let currentLessonId = null;
 let saveTimer = null;
+
+async function toggleBookmark() {
+  if (!currentLessonId) return;
+  const isBookmarked = BOOKMARKS.has(currentLessonId);
+  const action = isBookmarked ? 'remove' : 'add';
+  try {
+    const res = await fetch('/api/bookmark', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({course_id: COURSE_ID, lesson_id: currentLessonId, action})
+    });
+    const data = await res.json();
+    BOOKMARKS = new Set(data.bookmarks);
+    updateBookmarkButton(currentLessonId);
+    updateBookmarkPanel();
+    showSaver(isBookmarked ? 'Bookmark removed' : '🔖 Bookmarked!');
+  } catch(e) {
+    showSaver('⚠ bookmark failed');
+  }
+}
+
+function updateBookmarkPanel() {
+  // Find or create the bookmark panel container
+  let panel = document.getElementById('bookmark-panel');
+  let wrapper = document.getElementById('bookmark-wrapper');
+
+  if (!wrapper) {
+    // Create wrapper if it doesn't exist yet
+    wrapper = document.createElement('div');
+    wrapper.id = 'bookmark-wrapper';
+    wrapper.style.cssText = 'background:#111827;border:1px solid rgba(255,199,0,.3);border-radius:12px;padding:20px;margin-bottom:24px;';
+    wrapper.innerHTML = '<p style="font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:2px;color:#ffc700;margin:0 0 14px;">// BOOKMARKS</p><div style="display:flex;flex-wrap:wrap;gap:8px;" id="bookmark-panel"></div>';
+    const modulesTitle = document.querySelector('.section-title');
+    if (modulesTitle) modulesTitle.parentNode.insertBefore(wrapper, modulesTitle);
+    panel = document.getElementById('bookmark-panel');
+  }
+
+  if (!panel) return;
+
+  if (BOOKMARKS.size === 0) {
+    if (wrapper) wrapper.style.display = 'none';
+    return;
+  }
+
+  wrapper.style.display = 'block';
+  panel.innerHTML = '';
+
+  BOOKMARKS.forEach(lessonId => {
+    // Find lesson title from DOM
+    const lessonEl = document.querySelector(`.lesson-item[data-id="${lessonId}"]`);
+    const title = lessonEl ? lessonEl.querySelector('.lesson-title-text').textContent : lessonId;
+    const type = lessonEl ? (lessonEl.querySelector('.lesson-type') ? lessonEl.querySelector('.lesson-type').textContent : 'concept') : 'concept';
+    const btn = document.createElement('button');
+    btn.style.cssText = 'background:rgba(255,199,0,.1);border:1px solid rgba(255,199,0,.3);color:#ffc700;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;';
+    btn.textContent = '🔖 ' + title;
+    btn.onclick = () => openDrawer(lessonId, title, type);
+    panel.appendChild(btn);
+  });
+}
+
+function updateBookmarkButton(lessonId) {
+  const btn = document.getElementById('d-bookmark-btn');
+  if (!btn) return;
+  if (BOOKMARKS.has(lessonId)) {
+    btn.textContent = '🔖 Bookmarked — Remove';
+    btn.style.background = 'rgba(255,199,0,.25)';
+    btn.style.color = '#ffc700';
+  } else {
+    btn.textContent = '🔖 Bookmark';
+    btn.style.background = 'rgba(255,199,0,.1)';
+    btn.style.color = '#ffc700';
+  }
+}
 
 function showSaver(msg) {
   const el = document.getElementById('saver');
@@ -244,6 +342,14 @@ function openDrawer(lessonId, title, type) {
 
   let html = '';
 
+  // Diagram
+  if (c.diagram) {
+    html += `<div class="drawer-section">
+      <div class="drawer-section-label">Diagram</div>
+      <div style="background:#0a0f1e;border-radius:8px;padding:16px;margin-bottom:4px;">${c.diagram}</div>
+    </div>`;
+  }
+
   // Notes
   if (c.notes) {
     const paras = c.notes.split('\n\n').map(p => `<p>${p}</p>`).join('');
@@ -291,6 +397,7 @@ function openDrawer(lessonId, title, type) {
 
   document.getElementById('d-body').innerHTML = html;
   updateDrawerButton(lessonId);
+  updateBookmarkButton(lessonId);
   document.getElementById('drawer-overlay').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
@@ -313,6 +420,24 @@ function markFromDrawer() {
   if (item) {
     const checkEl = item.querySelector('.check');
     toggleLesson(currentLessonId, checkEl);
+  }
+}
+
+async function confirmResetCourse() {
+  if (!confirm('Reset all progress and bookmarks for this course? This cannot be undone.')) return;
+  try {
+    const res = await fetch('/api/course/reset', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({course_id: COURSE_ID})
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showSaver('Course reset — reloading...');
+      setTimeout(() => location.reload(), 1200);
+    }
+  } catch(e) {
+    showSaver('⚠ reset failed');
   }
 }
 

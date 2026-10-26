@@ -55,6 +55,7 @@ a{color:var(--accent);text-decoration:none;}
       {% if session.get('is_admin') %}
         <a href="{{ url_for('admin') }}" class="btn-admin">Admin</a>
       {% endif %}
+      <a href="/change-password" style="font-size:11px;color:var(--muted);">Password</a>
       <a href="{{ url_for('logout') }}" class="btn-logout">Log out</a>
     {% endif %}
   </nav>

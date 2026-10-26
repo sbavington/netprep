@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:800px;margin:0 auto;padding:32px 16px;">
+  <div style="margin-bottom:24px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff6b00;letter-spacing:2px;margin-bottom:6px;">// COURSE EXAM</div>
+    <h1 style="font-size:28px;font-weight:700;margin:0 0 4px;">{{ course.title }}</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">25 questions · 30 minute time limit · 80% required to pass</p>
+  </div>
+  {% if attempts %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:24px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 12px;">// YOUR ATTEMPTS</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px;">
+      {% for a in attempts %}
+      <div style="background:#0a0f1e;border:1px solid {% if a.passed %}rgba(0,200,83,.3){% else %}rgba(239,68,68,.3){% endif %};border-radius:8px;padding:10px 16px;text-align:center;">
+        <div style="font-size:20px;font-weight:700;color:{% if a.passed %}#00c853{% else %}#f87171{% endif %};">{{ a.score }}/{{ a.total }}</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px;">{{ '✓ PASSED' if a.passed else '✗ FAILED' }}</div>
+        <div style="font-size:10px;color:#475569;margin-top:2px;">{{ a.completed_at[:10] }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% if passed %}
+    <div style="background:rgba(0,200,83,.1);border:1px solid rgba(0,200,83,.3);border-radius:8px;padding:12px 16px;margin-top:8px;">
+      <span style="color:#00c853;font-weight:700;">✓ You have passed this exam.</span>
+      <a href="{{ url_for('feedback', course_id=course.id) }}" style="margin-left:16px;color:#00d4ff;font-size:13px;">View Certificate →</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div id="exam-container">
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;">// EXAM IN PROGRESS</div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="font-size:13px;color:#64748b;">Questions: <span id="answered-count">0</span>/25</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:#ffc700;" id="timer">30:00</div>
+      </div>
+    </div>
+    {% for q in questions %}
+    <div class="question-card" style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:12px;">
+      <p style="color:#e2e8f0;font-size:15px;font-weight:600;margin:0 0 16px;">{{ loop.index }}. {{ q.q }}</p>
+      <div class="options">
+        {% set qnum = loop.index0 %}
+        {% for opt in q.shuffled_options %}
+        <label style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-radius:8px;border:1px solid #1e293b;margin-bottom:8px;cursor:pointer;" class="option-label">
+          <input type="radio" name="q{{ qnum }}" value="{{ opt }}" style="margin-top:3px;accent-color:#00d4ff;">
+          <span style="color:#94a3b8;font-size:14px;">{{ opt }}</span>
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    <div style="text-align:center;margin-top:24px;">
+      <button onclick="submitExam()" id="submit-btn" style="background:#00d4ff;color:#000;border:none;border-radius:8px;padding:14px 40px;font-size:16px;font-weight:700;cursor:pointer;">Submit Exam</button>
+      <p style="color:#475569;font-size:12px;margin-top:8px;">Make sure you have answered all questions before submitting.</p>
+    </div>
+  </div>
+  <div id="results-container" style="display:none;">
+    <div id="results-summary" style="border-radius:12px;padding:32px;text-align:center;margin-bottom:24px;"></div>
+    <div id="results-detail"></div>
+    <div style="text-align:center;margin-top:24px;">
+      <button onclick="location.reload()" style="background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);border-radius:8px;padding:12px 28px;font-size:14px;font-weight:700;cursor:pointer;">Retake Exam</button>
+      <a href="{{ url_for('curriculum', course_id=course.id) }}" style="display:inline-block;margin-left:12px;background:transparent;color:#64748b;border:1px solid #1e293b;border-radius:8px;padding:12px 28px;font-size:14px;text-decoration:none;">← Back to Course</a>
+    </div>
+  </div>
+</div>
+<script>
+const COURSE_ID = '{{ course.id }}';
+const QUESTIONS = {{ js_questions|tojson }};
+const STARTED_AT = new Date().toISOString();
+let timerInterval;
+let secondsLeft = 30 * 60;
+
+function startTimer() {
+  timerInterval = setInterval(function() {
+    secondsLeft--;
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    document.getElementById('timer').textContent = m + ':' + String(s).padStart(2, '0');
+    if (secondsLeft <= 300) document.getElementById('timer').style.color = '#f87171';
+    if (secondsLeft <= 0) { clearInterval(timerInterval); submitExam(true); }
+  }, 1000);
+}
+
+document.querySelectorAll('input[type=radio]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    const answered = new Set();
+    document.querySelectorAll('input[type=radio]:checked').forEach(function(c) { answered.add(c.name); });
+    document.getElementById('answered-count').textContent = answered.size;
+  });
+});
+
+document.querySelectorAll('.option-label').forEach(function(label) {
+  label.addEventListener('click', function() {
+    const name = label.querySelector('input').name;
+    document.querySelectorAll('input[name="' + name + '"]').forEach(function(r) {
+      r.closest('.option-label').style.borderColor = '#1e293b';
+      r.closest('.option-label').style.background = 'transparent';
+    });
+    label.style.borderColor = 'rgba(0,212,255,.4)';
+    label.style.background = 'rgba(0,212,255,.05)';
+  });
+});
+
+async function submitExam(timeout) {
+  clearInterval(timerInterval);
+  if (!timeout) {
+    const answeredSet = new Set();
+    document.querySelectorAll('input[type=radio]:checked').forEach(function(c) { answeredSet.add(c.name); });
+    const answered = answeredSet.size;
+    if (answered < QUESTIONS.length) {
+      if (!confirm('You have only answered ' + answered + ' of ' + QUESTIONS.length + ' questions. Submit anyway?')) {
+        startTimer();
+        return;
+      }
+    }
+  }
+  const answers = {};
+  document.querySelectorAll('input[type=radio]:checked').forEach(function(r) {
+    const idx = parseInt(r.name.replace('q',''));
+    answers[QUESTIONS[idx].q] = r.value;
+  });
+  document.getElementById('submit-btn').disabled = true;
+  document.getElementById('submit-btn').textContent = 'Submitting...';
+  try {
+    const res = await fetch('/api/exam/submit', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      credentials: 'same-origin',
+      body: JSON.stringify({course_id: COURSE_ID, answers: answers, questions: QUESTIONS, started_at: STARTED_AT})
+    });
+    if (res.status === 401) {
+      alert('Your session has expired. Please log in again.');
+      window.location.href = '/login';
+      return;
+    }
+    const data = await res.json();
+    showResults(data);
+  } catch(e) {
+    alert('Submission failed. Please try again.');
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('submit-btn').textContent = 'Submit Exam';
+  }
+}
+
+function showResults(data) {
+  document.getElementById('exam-container').style.display = 'none';
+  document.getElementById('results-container').style.display = 'block';
+  const passed = data.passed;
+  const color = passed ? '#00c853' : '#f87171';
+  const bg = passed ? 'rgba(0,200,83,.1)' : 'rgba(239,68,68,.1)';
+  const border = passed ? 'rgba(0,200,83,.3)' : 'rgba(239,68,68,.3)';
+  const summary = document.getElementById('results-summary');
+  summary.style.background = bg;
+  summary.style.border = '1px solid ' + border;
+  summary.innerHTML = '<div style="font-size:48px;margin-bottom:8px;">' + (passed ? '🎉' : '📚') + '</div>'
+    + '<div style="font-size:36px;font-weight:800;color:' + color + ';">' + data.score + '/' + data.total + '</div>'
+    + '<div style="font-size:20px;color:' + color + ';font-weight:700;margin:8px 0;">' + data.pct + '% — ' + (passed ? 'PASSED' : 'FAILED') + '</div>'
+    + '<div style="color:#94a3b8;font-size:14px;">' + (passed ? 'Congratulations! You have passed the exam.' : 'You need 80% to pass. Review the material and try again.') + '</div>'
+    + (passed ? '<a href="/feedback/' + COURSE_ID + '" style="display:inline-block;margin-top:16px;background:#00c853;color:#000;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:700;">Continue to Certificate →</a>' : '');
+  let detailHtml = '<div style="font-family:monospace;font-size:11px;color:#64748b;letter-spacing:2px;margin-bottom:12px;">// QUESTION REVIEW</div>';
+  data.results.forEach(function(r, i) {
+    const ok = r.is_correct;
+    detailHtml += '<div style="background:#111827;border:1px solid ' + (ok ? 'rgba(0,200,83,.2)' : 'rgba(239,68,68,.2)') + ';border-radius:10px;padding:16px;margin-bottom:10px;">'
+      + '<div style="font-size:14px;color:#e2e8f0;font-weight:600;margin-bottom:8px;">' + (i+1) + '. ' + r.q + '</div>'
+      + (ok ? '' : '<div style="font-size:13px;color:#f87171;margin-bottom:4px;">Your answer: ' + (r.given || 'No answer') + '</div>')
+      + '<div style="font-size:13px;color:#00c853;">Correct answer: ' + r.correct + '</div>'
+      + '</div>';
+  });
+  document.getElementById('results-detail').innerHTML = detailHtml;
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+startTimer();
+</script>
+{% endblock %}
