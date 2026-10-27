@@ -371,18 +371,7 @@ function openDrawer(lessonId, title, type) {
   }
 
   // Practice Questions
-  if (c.questions && c.questions.length) {
-    html += `<div class="drawer-section">
-      <div class="drawer-section-label">Practice Questions</div>`;
-    c.questions.forEach(([q, a], i) => {
-      html += `<div class="question-block">
-        <div class="question-text">${i+1}. ${q}</div>
-        <button class="answer-toggle" onclick="this.nextElementSibling.classList.toggle('show');this.textContent=this.nextElementSibling.classList.contains('show')?'Hide Answer':'Show Answer'">Show Answer</button>
-        <div class="answer-text">${a}</div>
-      </div>`;
-    });
-    html += `</div>`;
-  }
+
 
   // Resources
   if (c.links && c.links.length) {

@@ -87,16 +87,35 @@ def build_report(campaign_id=None):
                 ).fetchone()[0]
                 tot = COURSE_TOTALS[cid]
                 pct = min(int(done / tot * 100), 100) if tot else 0
-                course_data[cid] = {'done': done, 'total': tot, 'pct': pct}
+                exam = db.execute(
+                    'SELECT score, total, passed, completed_at FROM exam_attempts WHERE user_id=? AND course_id=? ORDER BY completed_at DESC LIMIT 1',
+                    (u['id'], cid)).fetchone()
+                best = db.execute(
+                    'SELECT MAX(score) FROM exam_attempts WHERE user_id=? AND course_id=? AND passed=1',
+                    (u['id'], cid)).fetchone()[0]
+                attempts = db.execute(
+                    'SELECT COUNT(*) FROM exam_attempts WHERE user_id=? AND course_id=?',
+                    (u['id'], cid)).fetchone()[0]
+                course_data[cid] = {
+                    'done': done, 'total': tot, 'pct': pct,
+                    'exam_passed': bool(exam and exam['passed']),
+                    'exam_score': exam['score'] if exam else None,
+                    'exam_total': exam['total'] if exam else None,
+                    'exam_best': best,
+                    'exam_attempts': attempts,
+                    'exam_date': (exam['completed_at'] or '')[:10] if exam else None,
+                }
                 total_done += done
 
             overall_pct = min(int(total_done / total_possible * 100), 100) if total_possible else 0
+            exams_passed = sum(1 for cid in COURSE_ORDER if course_data[cid]['exam_passed'])
             students.append({
                 'id': u['id'], 'name': u['name'], 'email': u['email'],
                 'status': status, 'enrolled': (u['created_at'] or '')[:10],
                 'courses': course_data,
                 'total_done': total_done, 'total_possible': total_possible,
                 'overall_pct': overall_pct,
+                'exams_passed': exams_passed,
             })
 
         # Sort by overall progress desc
@@ -107,9 +126,10 @@ def build_report(campaign_id=None):
         active_count = sum(1 for s in students if s['status'] == 'ACTIVE')
         pending_count = sum(1 for s in students if s['status'] == 'INVITE PENDING')
         left_count = sum(1 for s in students if s['status'] == 'LEFT PLATFORM')
+        all_exams_passed = sum(1 for s in students if s['exams_passed'] == 3)
 
         now_str = datetime.now().strftime('%Y-%m-%d')
-        html = build_html(campaign, students, active_count, pending_count, left_count, now_str)
+        html = build_html(campaign, students, active_count, pending_count, left_count, all_exams_passed, now_str)
         csv_data = build_csv(students)
 
         recipients = [e.strip() for e in campaign['report_emails'].split(',') if e.strip()]
@@ -125,7 +145,7 @@ def color_for_pct(pct):
     if pct > 0:    return '#ff6b00'
     return '#666666'
 
-def build_html(campaign, students, active, pending, left, date_str):
+def build_html(campaign, students, active, pending, left, all_passed, date_str):
     total = len(students)
     rows_html = ''
     for s in students:
@@ -134,7 +154,13 @@ def build_html(campaign, students, active, pending, left, date_str):
         for cid in COURSE_ORDER:
             cd = s['courses'][cid]
             c = color_for_pct(cd['pct'])
-            course_cells += f'<td align="center" style="padding:8px 6px;border-bottom:1px solid #1b2a3d;"><span style="display:inline-block;background-color:{c};color:#0d1b2a;font-weight:bold;font-size:12px;padding:3px 8px;border-radius:10px;font-family:Arial,Helvetica,sans-serif;">{cd["pct"]}% &nbsp;{cd["done"]}/{cd["total"]}</span></td>'
+            if cd['exam_passed']:
+                exam_badge = f'<br><span style="display:inline-block;background-color:#00c853;color:#000;font-weight:bold;font-size:10px;padding:2px 6px;border-radius:8px;margin-top:3px;">&#10003; PASSED {cd["exam_score"]}/{cd["exam_total"]}</span>'
+            elif cd['exam_attempts'] > 0:
+                exam_badge = f'<br><span style="display:inline-block;background-color:#ff6b00;color:#fff;font-weight:bold;font-size:10px;padding:2px 6px;border-radius:8px;margin-top:3px;">&#10007; {cd["exam_attempts"]} attempt{"s" if cd["exam_attempts"]!=1 else ""}</span>'
+            else:
+                exam_badge = '<br><span style="display:inline-block;background-color:#1b2a3d;color:#666;font-size:10px;padding:2px 6px;border-radius:8px;margin-top:3px;">No exam yet</span>'
+            course_cells += f'<td align="center" style="padding:8px 6px;border-bottom:1px solid #1b2a3d;"><span style="display:inline-block;background-color:{c};color:#0d1b2a;font-weight:bold;font-size:12px;padding:3px 8px;border-radius:10px;font-family:Arial,Helvetica,sans-serif;">{cd["pct"]}% &nbsp;{cd["done"]}/{cd["total"]}</span>{exam_badge}</td>'
 
         bar_w = s['overall_pct']
         bar_color = color_for_pct(bar_w)
@@ -166,6 +192,8 @@ def build_html(campaign, students, active, pending, left, date_str):
 <td width="20%" style="padding:14px 12px;background-color:#13243a;border:1px solid #1b2a3d;border-radius:8px;"><div style="color:#ffaa00;font-size:26px;font-weight:bold;">{pending}</div><div style="color:#9fb3c8;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Invite Pending</div></td>
 <td width="12">&nbsp;</td>
 <td width="20%" style="padding:14px 12px;background-color:#13243a;border:1px solid #1b2a3d;border-radius:8px;"><div style="color:#f87171;font-size:26px;font-weight:bold;">{left}</div><div style="color:#9fb3c8;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">Left Platform</div></td>
+<td width="12">&nbsp;</td>
+<td width="20%" style="padding:14px 12px;background-color:#13243a;border:1px solid #1b2a3d;border-radius:8px;"><div style="color:#00c853;font-size:26px;font-weight:bold;">{all_passed}</div><div style="color:#9fb3c8;font-size:12px;text-transform:uppercase;letter-spacing:1px;margin-top:2px;">All Exams Passed</div></td>
 </tr></table></td></tr>
 <tr><td style="padding:0 0 16px 0;color:#9fb3c8;font-size:12px;"><span style="color:#00b4d8;font-weight:bold;">DDI</span> = Deep Discovery Inspector &nbsp;|&nbsp; <span style="color:#00b4d8;font-weight:bold;">TCP</span> = TCP/IP Networking &nbsp;|&nbsp; <span style="color:#00b4d8;font-weight:bold;">TIP</span> = TippingPoint IPS</td></tr>
 <tr><td><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;background-color:#0f1f33;border:1px solid #1b2a3d;border-radius:8px;">
@@ -174,9 +202,9 @@ def build_html(campaign, students, active, pending, left, date_str):
 <th align="left" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">Name</th>
 <th align="left" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">Email</th>
 <th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">Status</th>
-<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">DDI</th>
-<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">TCP</th>
-<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">TIP</th>
+<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">DDI<br><span style="color:#475569;font-size:9px;">lessons / exam</span></th>
+<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">TCP<br><span style="color:#475569;font-size:9px;">lessons / exam</span></th>
+<th align="center" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">TIP<br><span style="color:#475569;font-size:9px;">lessons / exam</span></th>
 <th align="left" style="padding:11px 8px;color:#9fb3c8;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1b2a3d;">Overall Progress</th>
 </tr>
 {rows_html}
@@ -188,17 +216,26 @@ def build_csv(students):
     out = io.StringIO()
     writer = csv.writer(out)
     writer.writerow(['Rank','ID','Name','Email','Status','Enrolled',
-                     'DDI Done','DDI Total','DDI %',
-                     'TCP Done','TCP Total','TCP %',
-                     'TIP Done','TIP Total','TIP %',
-                     'Total Lessons','Overall %'])
+                     'DDI Done','DDI Total','DDI %','DDI Exam Passed','DDI Exam Score','DDI Attempts',
+                     'TCP Done','TCP Total','TCP %','TCP Exam Passed','TCP Exam Score','TCP Attempts',
+                     'TIP Done','TIP Total','TIP %','TIP Exam Passed','TIP Exam Score','TIP Attempts',
+                     'Total Lessons','Overall %','Exams Passed'])
     for s in students:
         writer.writerow([
             s['rank'], s['id'], s['name'], s['email'], s['status'], s['enrolled'],
             s['courses']['ddi']['done'], s['courses']['ddi']['total'], s['courses']['ddi']['pct'],
+            'YES' if s['courses']['ddi']['exam_passed'] else 'NO',
+            f"{s['courses']['ddi']['exam_score']}/{s['courses']['ddi']['exam_total']}" if s['courses']['ddi']['exam_score'] else '-',
+            s['courses']['ddi']['exam_attempts'],
             s['courses']['network']['done'], s['courses']['network']['total'], s['courses']['network']['pct'],
+            'YES' if s['courses']['network']['exam_passed'] else 'NO',
+            f"{s['courses']['network']['exam_score']}/{s['courses']['network']['exam_total']}" if s['courses']['network']['exam_score'] else '-',
+            s['courses']['network']['exam_attempts'],
             s['courses']['tippingpoint']['done'], s['courses']['tippingpoint']['total'], s['courses']['tippingpoint']['pct'],
-            s['total_done'], s['overall_pct'],
+            'YES' if s['courses']['tippingpoint']['exam_passed'] else 'NO',
+            f"{s['courses']['tippingpoint']['exam_score']}/{s['courses']['tippingpoint']['exam_total']}" if s['courses']['tippingpoint']['exam_score'] else '-',
+            s['courses']['tippingpoint']['exam_attempts'],
+            s['total_done'], s['overall_pct'], s['exams_passed'],
         ])
     return out.getvalue()
 

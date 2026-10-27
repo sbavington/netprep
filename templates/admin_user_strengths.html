@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:900px;margin:0 auto;padding:32px 16px;">
+
+  <div style="margin-bottom:24px;">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#ff6b00;letter-spacing:2px;margin-bottom:6px;">// STUDENT SUMMARY</div>
+    <h1 style="font-size:26px;font-weight:700;margin:0 0 4px;">{{ user.name }}</h1>
+    <p style="color:#64748b;font-size:14px;margin:0;">{{ user.email }} &nbsp;·&nbsp;
+      <a href="/admin/user/{{ user.id }}" style="color:#00d4ff;text-decoration:none;">← Back to profile</a>
+    </p>
+  </div>
+
+  <!-- Exam Results -->
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:20px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 16px;">// EXAM RESULTS</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      {% for cid, data in exams.items() %}
+      {% set passed = data.attempts and data.attempts[0].passed %}
+      {% set latest = data.attempts[0] if data.attempts else None %}
+      <div style="background:#0a0f1e;border:1px solid {% if passed %}rgba(0,200,83,.4){% elif data.attempts %}rgba(255,107,0,.4){% else %}#1e293b{% endif %};border-radius:8px;padding:16px;">
+        <div style="font-size:12px;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">{{ data.course.title }}</div>
+        {% if latest %}
+          {% if passed %}
+            <div style="font-size:22px;font-weight:800;color:#00c853;">✓ PASSED</div>
+            <div style="font-size:13px;color:#94a3b8;margin-top:4px;">Latest: {{ latest.score }}/{{ latest.total }}</div>
+            {% if data.best %}
+            <div style="font-size:12px;color:#64748b;">Best: {{ data.best }}/{{ latest.total }}</div>
+            {% endif %}
+          {% else %}
+            <div style="font-size:22px;font-weight:800;color:#f59e0b;">✗ NOT PASSED</div>
+            <div style="font-size:13px;color:#94a3b8;margin-top:4px;">Latest: {{ latest.score }}/{{ latest.total }}</div>
+          {% endif %}
+          <div style="font-size:11px;color:#475569;margin-top:4px;">{{ data.attempts|length }} attempt{{ 's' if data.attempts|length != 1 }}</div>
+        {% else %}
+          <div style="font-size:16px;color:#475569;">No attempts yet</div>
+        {% endif %}
+        <!-- Progress -->
+        {% set prog = progress.get(cid, {}) %}
+        {% set pct = ((prog.done / prog.total * 100)|int) if prog.total else 0 %}
+        <div style="margin-top:10px;background:#1e293b;border-radius:4px;height:4px;overflow:hidden;">
+          <div style="background:#00d4ff;height:4px;width:{{ pct }}%;"></div>
+        </div>
+        <div style="font-size:11px;color:#475569;margin-top:3px;">{{ prog.done }}/{{ prog.total }} lessons · {{ pct }}%</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Skills Assessment -->
+  {% if domain_scores %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:20px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 4px;">// SKILLS ASSESSMENT</p>
+    <p style="color:#64748b;font-size:13px;margin:0 0 16px;">Self-assessment completed {{ assessment_data.completed_at }}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;">
+      {% for domain, data in domain_scores.items() %}
+      {% set avg = data.avg %}
+      {% set color = "#f87171" if avg < 2 else "#f59e0b" if avg < 3 else "#fbbf24" if avg < 3.75 else "#34d399" if avg < 4.5 else "#00c853" %}
+      <div style="background:#0a0f1e;border:1px solid #1e293b;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">{{ domain }}</div>
+        <div style="font-size:24px;font-weight:800;color:{{ color }};">{{ avg }}</div>
+        <div style="font-size:11px;color:{{ color }};margin-top:2px;">{{ data.competency }}</div>
+        <div style="background:#1e293b;border-radius:4px;height:3px;margin-top:8px;overflow:hidden;">
+          <div style="background:{{ color }};height:3px;width:{{ (avg/5*100)|int }}%;"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- Strongest and weakest domains -->
+    {% set sorted_domains = domain_scores.items()|list|sort(attribute='1.avg', reverse=True) %}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+      <div style="background:#0f4c35;border:1px solid rgba(0,200,83,.3);border-radius:8px;padding:12px;">
+        <div style="font-size:11px;color:#00c853;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Strongest areas</div>
+        {% for domain, data in sorted_domains[:3] %}
+        <div style="font-size:13px;color:#e2e8f0;margin-bottom:4px;">{{ domain }} <span style="color:#00c853;">{{ data.avg }}</span></div>
+        {% endfor %}
+      </div>
+      <div style="background:#3d1a0c;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:12px;">
+        <div style="font-size:11px;color:#f87171;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Development areas</div>
+        {% for domain, data in sorted_domains[-3:] %}
+        <div style="font-size:13px;color:#e2e8f0;margin-bottom:4px;">{{ domain }} <span style="color:#f87171;">{{ data.avg }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:20px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 8px;">// SKILLS ASSESSMENT</p>
+    <p style="color:#64748b;font-size:14px;margin:0;">No assessment submitted yet.</p>
+  </div>
+  {% endif %}
+
+  <div style="margin-top:8px;">
+    <a href="/admin" style="color:#64748b;font-size:13px;text-decoration:none;">← Back to Admin</a>
+  </div>
+</div>
+{% endblock %}

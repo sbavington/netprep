@@ -149,7 +149,11 @@
             onchange="updateSelectedCount()"
             style="accent-color:#00d4ff;width:16px;height:16px;cursor:pointer;">
         </td>
-        <td><strong>{{ u.name }}</strong></td>
+        <td>
+          <strong>{{ u.name }}</strong>
+          <a href="/admin/user/{{ u.id }}/strengths" onclick="event.stopPropagation()"
+            style="display:inline-block;margin-left:8px;background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:4px;font-size:11px;text-decoration:none;">📊 Strengths</a>
+        </td>
         <td style="color:var(--muted);">{{ u.email }}</td>
         <td>
           {% for cid in u.courses %}

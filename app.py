@@ -889,6 +889,55 @@ def admin_user(uid):
     return render_template('admin_user.html', user=user, enrolled=enrolled,
                            progress=progress, courses=COURSES, invite_url=invite_url)
 
+@app.route('/admin/user/<int:uid>/strengths')
+@admin_required
+def admin_user_strengths(uid):
+    import json
+    db = get_db()
+    user = db.execute('SELECT * FROM users WHERE id=?', (uid,)).fetchone()
+    if not user:
+        return redirect(url_for('admin'))
+    # Exam results
+    exams = {}
+    for cid, course in COURSES.items():
+        attempts = db.execute(
+            'SELECT score, total, passed, completed_at FROM exam_attempts WHERE user_id=? AND course_id=? ORDER BY completed_at DESC',
+            (uid, cid)).fetchall()
+        best = db.execute(
+            'SELECT MAX(score) FROM exam_attempts WHERE user_id=? AND course_id=? AND passed=1',
+            (uid, cid)).fetchone()[0]
+        exams[cid] = {'attempts': attempts, 'best': best, 'course': course}
+    # Assessment
+    assessment = db.execute(
+        'SELECT * FROM assessments WHERE user_id=? ORDER BY created_at DESC LIMIT 1',
+        (uid,)).fetchone()
+    assessment_data = None
+    domain_scores = {}
+    if assessment:
+        from assessment_content import ASSESSMENT_SECTIONS, RATING_LABELS, get_competency
+        responses = json.loads(assessment['responses'])
+        for section in ASSESSMENT_SECTIONS:
+            if section['type'] == 'rated':
+                scores = []
+                for q in section['questions']:
+                    val = responses.get(q['id'])
+                    if val and val != 'na':
+                        try: scores.append(int(val))
+                        except: pass
+                if scores:
+                    avg = round(sum(scores)/len(scores), 2)
+                    domain_scores[section['title']] = {'avg': avg, 'competency': get_competency(avg)}
+        assessment_data = {'responses': responses, 'completed_at': assessment['created_at'][:10]}
+    # Progress
+    progress = {}
+    for cid in COURSES:
+        done = db.execute('SELECT COUNT(*) FROM progress WHERE user_id=? AND course_id=?',
+                          (uid, cid)).fetchone()[0]
+        progress[cid] = {'done': done, 'total': course_total(cid)}
+    return render_template('admin_user_strengths.html',
+        user=user, exams=exams, domain_scores=domain_scores,
+        assessment_data=assessment_data, progress=progress, courses=COURSES)
+
 @app.route('/admin/user/<int:uid>/enrol', methods=['POST'])
 @admin_required
 def admin_enrol(uid):
