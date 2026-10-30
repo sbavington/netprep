@@ -1144,6 +1144,67 @@ def admin_campaign_detail(cid):
         student_ids=student_ids, all_students=all_students,
         courses=COURSES)
 
+@app.route('/admin/campaigns/<int:cid>/bulk-invite', methods=['POST'])
+@admin_required
+def admin_campaign_bulk_invite(cid):
+    campaign = get_db().execute('SELECT * FROM campaigns WHERE id=?', (cid,)).fetchone()
+    if not campaign:
+        return redirect(url_for('admin_campaigns'))
+    bulk_list = request.form.get('bulk_list', '').strip()
+    courses = request.form.getlist('courses')
+    if not bulk_list or not courses:
+        flash('Please provide students and select at least one course.', 'error')
+        return redirect(url_for('admin_campaign_detail', cid=cid))
+    db = get_db()
+    sent = 0
+    skipped = 0
+    errors = []
+    for line in bulk_list.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        parts = [p.strip() for p in line.split(',', 1)]
+        if len(parts) != 2:
+            errors.append(f'Invalid format: {line}')
+            continue
+        name, email = parts
+        if not name or not email or '@' not in email:
+            errors.append(f'Invalid entry: {line}')
+            continue
+        # Check if already exists
+        existing = db.execute('SELECT id FROM users WHERE email=?', (email,)).fetchone()
+        if existing:
+            uid = existing['id']
+            # Add to campaign if not already
+            already = db.execute('SELECT 1 FROM campaign_students WHERE campaign_id=? AND user_id=?',
+                                 (cid, uid)).fetchone()
+            if not already:
+                db.execute('INSERT INTO campaign_students (campaign_id, user_id) VALUES (?,?)', (cid, uid))
+            skipped += 1
+            continue
+        import secrets
+        token = secrets.token_urlsafe(32)
+        db.execute('INSERT INTO users (name, email, invite_token) VALUES (?,?,?)', (name, email, token))
+        uid = db.execute('SELECT last_insert_rowid()').fetchone()[0]
+        for course_id in courses:
+            if course_id in COURSES:
+                db.execute('INSERT OR IGNORE INTO enrolments (user_id, course_id) VALUES (?,?)', (uid, course_id))
+        db.execute('INSERT OR IGNORE INTO campaign_students (campaign_id, user_id) VALUES (?,?)', (cid, uid))
+        invite_url = f"{BASE_URL}/invite/{token}"
+        try:
+            send_invite_email(name, email, invite_url, courses)
+            sent += 1
+        except Exception as e:
+            errors.append(f'Email failed for {email}: {e}')
+    db.commit()
+    msg = f'{sent} invite(s) sent.'
+    if skipped:
+        msg += f' {skipped} already existed (added to campaign).'
+    if errors:
+        msg += f' Errors: {"; ".join(errors)}'
+    flash(msg, 'info')
+    return redirect(url_for('admin_campaign_detail', cid=cid))
+
 @app.route('/admin/campaigns/<int:cid>/invite', methods=['POST'])
 @admin_required
 def admin_campaign_invite(cid):

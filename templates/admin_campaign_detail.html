@@ -53,6 +53,25 @@
       </form>
     </div>
 
+    <!-- Bulk Invite -->
+    <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 8px;">// BULK INVITE</p>
+      <p style="color:#64748b;font-size:12px;margin:0 0 14px;">One student per line: <code style="color:#00d4ff;">Full Name, email@example.com</code></p>
+      <form method="POST" action="/admin/campaigns/{{ campaign.id }}/bulk-invite">
+        <textarea name="bulk_list" rows="6" placeholder="Amy McMahon, amy_mcmahon@trendmicro.com&#10;John Smith, jsmith@company.com&#10;Jane Doe, jane@example.com"
+          style="width:100%;box-sizing:border-box;background:#0a0f1e;border:1px solid #1e293b;border-radius:6px;padding:10px 12px;color:#e2e8f0;font-size:13px;font-family:'JetBrains Mono',monospace;outline:none;resize:vertical;"></textarea>
+        <div style="margin:12px 0;">
+          <label style="display:block;font-size:12px;color:#64748b;margin-bottom:6px;">Enrol In</label>
+          {% for cid, course in courses.items() %}
+          <label style="display:inline-flex;align-items:center;gap:6px;margin-right:16px;font-size:13px;color:#e2e8f0;cursor:pointer;">
+            <input type="checkbox" name="courses" value="{{ cid }}" checked> {{ course.icon }} {{ course.title }}
+          </label>
+          {% endfor %}
+        </div>
+        <button type="submit" style="background:#00d4ff;color:#000;border:none;border-radius:6px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;">Send Bulk Invites</button>
+      </form>
+    </div>
+
     <!-- Student Count -->
     <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;">
       <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 16px;">// SUMMARY</p>
@@ -88,7 +107,10 @@
       <tbody>
         {% for u in students %}
         <tr style="border-top:1px solid #1e293b;">
-          <td style="padding:10px 16px;color:#e2e8f0;font-weight:600;">{{ u.name }}</td>
+          <td style="padding:10px 16px;color:#e2e8f0;font-weight:600;">
+            <a href="/admin/user/{{ u.id }}" style="color:#e2e8f0;text-decoration:none;">{{ u.name }}</a>
+            <a href="/admin/user/{{ u.id }}/strengths" style="display:inline-block;margin-left:8px;background:rgba(0,212,255,.1);color:#00d4ff;border:1px solid rgba(0,212,255,.3);padding:2px 8px;border-radius:4px;font-size:11px;text-decoration:none;">📊</a>
+          </td>
           <td style="padding:10px 16px;color:#64748b;font-size:13px;">{{ u.email }}</td>
           <td align="center" style="padding:10px 16px;">
             {% if u.activated_at %}
