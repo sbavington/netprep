@@ -148,5 +148,12 @@
     <div style="text-align:center;padding:48px;color:#64748b;margin-top:24px;">No students in this campaign yet. Invite some above.</div>
   {% endif %}
 
+  <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;">
+    <a href="/admin/campaigns" style="color:#64748b;font-size:13px;text-decoration:none;">← Back to Campaigns</a>
+    <form method="POST" action="/admin/campaigns/{{ campaign.id }}/delete" onsubmit="return confirm('Delete campaign {{ campaign.name }}? This cannot be undone.')">
+      <button type="submit" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);padding:7px 16px;border-radius:6px;font-size:13px;cursor:pointer;">🗑 Delete Campaign</button>
+    </form>
+  </div>
+
 </div>
 {% endblock %}

@@ -1144,6 +1144,16 @@ def admin_campaign_detail(cid):
         student_ids=student_ids, all_students=all_students,
         courses=COURSES)
 
+@app.route('/admin/campaigns/<int:cid>/delete', methods=['POST'])
+@admin_required
+def admin_campaign_delete(cid):
+    db = get_db()
+    db.execute('DELETE FROM campaign_students WHERE campaign_id=?', (cid,))
+    db.execute('DELETE FROM campaigns WHERE id=?', (cid,))
+    db.commit()
+    flash('Campaign deleted.', 'info')
+    return redirect(url_for('admin_campaigns'))
+
 @app.route('/admin/campaigns/<int:cid>/bulk-invite', methods=['POST'])
 @admin_required
 def admin_campaign_bulk_invite(cid):
