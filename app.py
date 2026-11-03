@@ -1192,7 +1192,7 @@ def admin_campaign_bulk_invite(cid):
         db.execute('INSERT OR IGNORE INTO campaign_students (campaign_id, user_id) VALUES (?,?)', (cid, uid))
         invite_url = f"{BASE_URL}/invite/{token}"
         try:
-            send_invite_email(name, email, invite_url, courses)
+            send_invite_email(name, email, courses, invite_url)
             sent += 1
         except Exception as e:
             errors.append(f'Email failed for {email}: {e}')
