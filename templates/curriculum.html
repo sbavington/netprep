@@ -20,7 +20,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
 .module:hover{border-color:rgba(0,212,255,.25);}
 .module.completed{border-left:3px solid var(--accent3);}
 .module.in-progress{border-left:3px solid var(--accent);}
-.module.locked{opacity:.45;pointer-events:none;}
+.module.locked{opacity:1;pointer-events:auto;}
 .module-header{display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;user-select:none;}
 .module-num{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:24px;}
 .module-icon{width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:rgba(255,255,255,.04);}
@@ -145,14 +145,7 @@ h1{font-size:clamp(24px,4vw,40px);font-weight:700;background:linear-gradient(135
   {% set mod_lessons = mod.lessons|map(attribute='id')|list %}
   {% set mod_done = mod_lessons|select('in', completed)|list|length %}
   {% set mod_total = mod_lessons|length %}
-  {% if loop.index == 1 %}
-    {% set unlocked = true %}
-  {% else %}
-    {% set prev_mod = modules[loop.index0 - 1] %}
-    {% set prev_lessons = prev_mod.lessons|map(attribute='id')|list %}
-    {% set prev_done = prev_lessons|select('in', completed)|list|length %}
-    {% set unlocked = (prev_done == prev_lessons|length) %}
-  {% endif %}
+  {% set unlocked = true %}
   {% set is_complete = (mod_done == mod_total) %}
   {% set is_first = (loop.index == 1) %}
 
