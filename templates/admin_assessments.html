@@ -8,6 +8,45 @@
     <p style="color:#64748b;font-size:14px;margin:0;">Student self-assessment results across all network engineering domains.</p>
   </div>
 
+  <!-- Rollup Summary -->
+  {% if rollup %}
+  <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;padding:24px;margin-bottom:24px;">
+    <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 6px;">// TEAM ROLLUP</p>
+    <p style="color:#64748b;font-size:13px;margin:0 0 16px;">Average scores across {{ total_assessments }} completed assessment{{ 's' if total_assessments != 1 }}</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
+      {% for domain, data in rollup.items() %}
+      {% set avg = data.avg %}
+      {% set color = "#f87171" if avg < 2 else "#f59e0b" if avg < 3 else "#fbbf24" if avg < 3.75 else "#34d399" if avg < 4.5 else "#00c853" %}
+      <div style="background:#0a0f1e;border:1px solid #1e293b;border-radius:8px;padding:12px;">
+        <div style="font-size:10px;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px;">{{ domain }}</div>
+        <div style="font-size:24px;font-weight:800;color:{{ color }};">{{ avg }}</div>
+        <div style="font-size:11px;color:{{ color }};margin-top:2px;">{{ data.competency }}</div>
+        <div style="font-size:10px;color:#475569;margin-top:2px;">{{ data.count }} response{{ 's' if data.count != 1 }}</div>
+        <div style="background:#1e293b;border-radius:4px;height:3px;margin-top:8px;overflow:hidden;">
+          <div style="background:{{ color }};height:3px;width:{{ (avg/5*100)|int }}%;border-radius:4px;"></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- Strongest and weakest -->
+    {% set sorted_rollup = rollup.items()|list|sort(attribute='1.avg', reverse=True) %}
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
+      <div style="background:#0f4c35;border:1px solid rgba(0,200,83,.3);border-radius:8px;padding:12px;">
+        <div style="font-size:11px;color:#00c853;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Team strengths</div>
+        {% for domain, data in sorted_rollup[:3] %}
+        <div style="font-size:13px;color:#e2e8f0;margin-bottom:4px;">{{ domain }} <span style="color:#00c853;font-weight:700;">{{ data.avg }}</span></div>
+        {% endfor %}
+      </div>
+      <div style="background:#3d1a0c;border:1px solid rgba(239,68,68,.3);border-radius:8px;padding:12px;">
+        <div style="font-size:11px;color:#f87171;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Team development areas</div>
+        {% for domain, data in sorted_rollup[-3:] %}
+        <div style="font-size:13px;color:#e2e8f0;margin-bottom:4px;">{{ domain }} <span style="color:#f87171;font-weight:700;">{{ data.avg }}</span></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
   {% if students %}
   <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;overflow:hidden;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">

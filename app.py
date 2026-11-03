@@ -1367,9 +1367,28 @@ def admin_assessments():
             'domain_scores': domain_scores,
             'assessment_id': row['id']
         })
+    # Calculate rollup averages across all students
+    rollup = {}
+    for section in ASSESSMENT_SECTIONS:
+        if section['type'] == 'rated':
+            all_scores = []
+            for student in students:
+                ds = student['domain_scores'].get(section['title'])
+                if ds:
+                    all_scores.append(ds['avg'])
+            if all_scores:
+                avg = round(sum(all_scores) / len(all_scores), 2)
+                rollup[section['title']] = {
+                    'avg': avg,
+                    'competency': get_competency(avg),
+                    'count': len(all_scores)
+                }
+
     return render_template('admin_assessments.html',
         students=students,
-        sections=[s for s in ASSESSMENT_SECTIONS if s['type'] == 'rated'])
+        sections=[s for s in ASSESSMENT_SECTIONS if s['type'] == 'rated'],
+        rollup=rollup,
+        total_assessments=len(students))
 
 @app.route('/admin/assessments/<int:assessment_id>')
 @admin_required
