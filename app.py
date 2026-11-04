@@ -1154,6 +1154,43 @@ def admin_campaign_delete(cid):
     flash('Campaign deleted.', 'info')
     return redirect(url_for('admin_campaigns'))
 
+@app.route('/admin/campaigns/<int:cid>/reinvite/<int:uid>', methods=['POST'])
+@admin_required
+def admin_campaign_reinvite(cid, uid):
+    import secrets
+    db = get_db()
+    user = db.execute('SELECT * FROM users WHERE id=? AND is_admin=0', (uid,)).fetchone()
+    if not user:
+        flash('User not found.', 'error')
+        return redirect(url_for('admin_campaign_detail', cid=cid))
+    if user['activated_at']:
+        # Active user — send password reset so they keep their progress
+        token = secrets.token_urlsafe(32)
+        expires = (datetime.utcnow().replace(microsecond=0).isoformat())
+        db.execute('DELETE FROM password_reset_tokens WHERE user_id=?', (uid,))
+        db.execute('INSERT INTO password_reset_tokens (user_id, token) VALUES (?,?)',
+                   (uid, token))
+        db.commit()
+        reset_url = f"{BASE_URL}/reset-password/{token}"
+        try:
+            send_password_reset_email(user['name'], user['email'], reset_url)
+            flash(f'Password reset sent to {user["email"]} (active user — progress preserved).', 'info')
+        except Exception as e:
+            flash(f'Failed to send reset: {e}', 'error')
+    else:
+        # Pending user — resend original invite
+        courses = [e['course_id'] for e in db.execute(
+            'SELECT course_id FROM enrolments WHERE user_id=?', (uid,)).fetchall()]
+        if not courses:
+            courses = list(COURSES.keys())
+        invite_url = f"{BASE_URL}/invite/{user['invite_token']}"
+        try:
+            send_invite_email(user['name'], user['email'], courses, invite_url)
+            flash(f'Invite resent to {user["email"]}.', 'info')
+        except Exception as e:
+            flash(f'Failed to resend: {e}', 'error')
+    return redirect(url_for('admin_campaign_detail', cid=cid))
+
 @app.route('/admin/campaigns/<int:cid>/bulk-invite', methods=['POST'])
 @admin_required
 def admin_campaign_bulk_invite(cid):
@@ -1185,12 +1222,21 @@ def admin_campaign_bulk_invite(cid):
         existing = db.execute('SELECT id FROM users WHERE email=?', (email,)).fetchone()
         if existing:
             uid = existing['id']
-            # Add to campaign if not already
             already = db.execute('SELECT 1 FROM campaign_students WHERE campaign_id=? AND user_id=?',
                                  (cid, uid)).fetchone()
             if not already:
                 db.execute('INSERT INTO campaign_students (campaign_id, user_id) VALUES (?,?)', (cid, uid))
-            skipped += 1
+            # Resend invite if still pending
+            user = db.execute('SELECT * FROM users WHERE id=?', (uid,)).fetchone()
+            if user['invite_token'] and not user['activated_at']:
+                invite_url = f"{BASE_URL}/invite/{user['invite_token']}"
+                try:
+                    send_invite_email(user['name'], user['email'], courses, invite_url)
+                    sent += 1
+                except:
+                    pass
+            else:
+                skipped += 1
             continue
         import secrets
         token = secrets.token_urlsafe(32)

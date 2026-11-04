@@ -134,6 +134,9 @@
             {% endfor %}
           </td>
           <td align="center" style="padding:10px 16px;">
+            <form method="POST" action="/admin/campaigns/{{ campaign.id }}/reinvite/{{ u.id }}" style="display:inline;">
+              <button type="submit" style="background:rgba(255,170,0,.1);color:#ffaa00;border:1px solid rgba(255,170,0,.3);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;margin-right:4px;">{% if u.activated_at %}Reset PW{% else %}Resend{% endif %}</button>
+            </form>
             <form method="POST" action="/admin/campaigns/{{ campaign.id }}/remove_student" style="display:inline;">
               <input type="hidden" name="user_id" value="{{ u.id }}">
               <button type="submit" style="background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.3);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;">Remove</button>
