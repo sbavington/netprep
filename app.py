@@ -633,15 +633,26 @@ def my_courses():
         total = course_total(cid)
         done = db.execute('SELECT COUNT(*) FROM progress WHERE user_id=? AND course_id=?',
                           (session['user_id'], cid)).fetchone()[0]
-        exam_passed = db.execute(
-            'SELECT 1 FROM exam_attempts WHERE user_id=? AND course_id=? AND passed=1',
-            (session['user_id'], cid)).fetchone() is not None
+        exam_attempt = db.execute(
+            'SELECT score, total, passed, completed_at FROM exam_attempts WHERE user_id=? AND course_id=? ORDER BY completed_at DESC LIMIT 1',
+            (session['user_id'], cid)).fetchone()
+        exam_passed = exam_attempt and exam_attempt['passed']
+        exam_best = db.execute(
+            'SELECT MAX(score) FROM exam_attempts WHERE user_id=? AND course_id=? AND passed=1',
+            (session['user_id'], cid)).fetchone()[0]
+        exam_attempts = db.execute(
+            'SELECT COUNT(*) FROM exam_attempts WHERE user_id=? AND course_id=?',
+            (session['user_id'], cid)).fetchone()[0]
         course_data.append({
             'course': COURSES[cid],
             'total': total,
             'done': min(done, total),
             'pct': min(int(done/total*100), 100) if total else 0,
             'exam_passed': exam_passed,
+            'exam_score': exam_attempt['score'] if exam_attempt else None,
+            'exam_total': exam_attempt['total'] if exam_attempt else None,
+            'exam_best': exam_best,
+            'exam_attempts': exam_attempts,
         })
     return render_template('my_courses.html', courses=course_data, user_name=session['user_name'])
 
@@ -759,6 +770,17 @@ def admin():
         total_lessons = sum(course_total(c) for c in enrolled_courses)
         done = db.execute('SELECT COUNT(*) FROM progress WHERE user_id=?', (u['id'],)).fetchone()[0]
         left = u['activated_at'] is None and u['invite_token'] is None and u['password_hash'] is None
+        exams = {}
+        for cid in COURSES:
+            attempt = db.execute(
+                'SELECT score, total, passed FROM exam_attempts WHERE user_id=? AND course_id=? ORDER BY completed_at DESC LIMIT 1',
+                (u['id'], cid)).fetchone()
+            exams[cid] = {
+                'passed': bool(attempt and attempt['passed']),
+                'score': attempt['score'] if attempt else None,
+                'total': attempt['total'] if attempt else None,
+            }
+        exams_passed = sum(1 for e in exams.values() if e['passed'])
         students.append({
             'id': u['id'], 'name': u['name'], 'email': u['email'],
             'courses': enrolled_courses,
@@ -767,6 +789,8 @@ def admin():
             'left_platform': left,
             'invite_token': u['invite_token'],
             'created_at': u['created_at'] or '',
+            'exams': exams,
+            'exams_passed': exams_passed,
         })
     return render_template('admin.html', users=students, courses=COURSES)
 
@@ -1139,9 +1163,24 @@ def admin_campaign_detail(cid):
     ''', (cid,)).fetchall()
     student_ids = [s['id'] for s in students]
     all_students = db.execute('SELECT id, name, email FROM users WHERE is_admin=0 ORDER BY name').fetchall()
+    # Build exam data per student
+    student_exams = {}
+    for s in students:
+        exams = {}
+        for cid2 in COURSES:
+            attempt = db.execute(
+                'SELECT score, total, passed FROM exam_attempts WHERE user_id=? AND course_id=? ORDER BY completed_at DESC LIMIT 1',
+                (s['id'], cid2)).fetchone()
+            exams[cid2] = {
+                'passed': bool(attempt and attempt['passed']),
+                'score': attempt['score'] if attempt else None,
+                'total': attempt['total'] if attempt else None,
+            }
+        student_exams[s['id']] = exams
     return render_template('admin_campaign_detail.html',
         campaign=campaign, students=students,
         student_ids=student_ids, all_students=all_students,
+        student_exams=student_exams,
         courses=COURSES)
 
 @app.route('/admin/campaigns/<int:cid>/delete', methods=['POST'])
@@ -1178,7 +1217,13 @@ def admin_campaign_reinvite(cid, uid):
         except Exception as e:
             flash(f'Failed to send reset: {e}', 'error')
     else:
-        # Pending user — resend original invite
+        # LEFT or pending user — generate fresh token if needed
+        if not user['invite_token']:
+            new_token = secrets.token_urlsafe(32)
+            db.execute('UPDATE users SET invite_token=?, activated_at=NULL, password_hash=NULL WHERE id=?',
+                       (new_token, uid))
+            db.commit()
+            user = db.execute('SELECT * FROM users WHERE id=?', (uid,)).fetchone()
         courses = [e['course_id'] for e in db.execute(
             'SELECT course_id FROM enrolments WHERE user_id=?', (uid,)).fetchall()]
         if not courses:
@@ -1186,9 +1231,9 @@ def admin_campaign_reinvite(cid, uid):
         invite_url = f"{BASE_URL}/invite/{user['invite_token']}"
         try:
             send_invite_email(user['name'], user['email'], courses, invite_url)
-            flash(f'Invite resent to {user["email"]}.', 'info')
+            flash(f'Invite sent to {user["email"]}.', 'info')
         except Exception as e:
-            flash(f'Failed to resend: {e}', 'error')
+            flash(f'Failed to send: {e}', 'error')
     return redirect(url_for('admin_campaign_detail', cid=cid))
 
 @app.route('/admin/campaigns/<int:cid>/bulk-invite', methods=['POST'])

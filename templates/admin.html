@@ -137,6 +137,7 @@
         <th>Email</th>
         <th>Courses</th>
         <th>Progress</th>
+        <th>Exams</th>
         <th>Status</th>
         <th>Created</th>
       </tr>
@@ -165,6 +166,18 @@
         <td>
           <div class="prog-bar"><div class="prog-fill" style="width:{% if u.total_lessons %}{{ (u.lessons_done/u.total_lessons*100)|int }}{% else %}0{% endif %}%"></div></div>
           <span style="font-size:11px;color:var(--muted);">{{ u.lessons_done }}/{{ u.total_lessons }}</span>
+        </td>
+        <td>
+          {% for cid, abbr in [('ddi','DDI'),('network','TCP'),('tippingpoint','TIP')] %}
+            {% set ex = u.exams.get(cid, {}) %}
+            {% if ex.passed %}
+              <span style="display:inline-block;background:rgba(0,200,83,.15);color:#00c853;border:1px solid rgba(0,200,83,.3);padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;margin:1px;">✓ {{ abbr }}</span>
+            {% elif ex.score is not none %}
+              <span style="display:inline-block;background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.3);padding:2px 6px;border-radius:6px;font-size:10px;margin:1px;">✗ {{ abbr }} {{ ex.score }}/{{ ex.total }}</span>
+            {% else %}
+              <span style="display:inline-block;background:rgba(100,116,139,.1);color:#475569;border:1px solid rgba(100,116,139,.2);padding:2px 6px;border-radius:6px;font-size:10px;margin:1px;">{{ abbr }}</span>
+            {% endif %}
+          {% endfor %}
         </td>
         <td>
           {% if u.left_platform %}

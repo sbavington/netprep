@@ -101,6 +101,7 @@
           <th align="left" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Email</th>
           <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Status</th>
           <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Courses</th>
+          <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Exams</th>
           <th align="center" style="padding:10px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;">Actions</th>
         </tr>
       </thead>
@@ -131,6 +132,18 @@
                   {{ course.abbr if course.abbr else cid }} ✕
                 </button>
               </form>
+            {% endfor %}
+          </td>
+          <td align="center" style="padding:10px 16px;">
+            {% for cid, abbr in [('ddi','DDI'),('network','TCP'),('tippingpoint','TIP')] %}
+              {% set ex = student_exams.get(u.id, {}).get(cid, {}) %}
+              {% if ex.passed %}
+                <span style="display:inline-block;background:rgba(0,200,83,.15);color:#00c853;border:1px solid rgba(0,200,83,.3);padding:2px 6px;border-radius:6px;font-size:10px;font-weight:700;margin:1px;">&#10003; {{ abbr }}</span>
+              {% elif ex.score is not none %}
+                <span style="display:inline-block;background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.3);padding:2px 6px;border-radius:6px;font-size:10px;margin:1px;">&#10007; {{ abbr }} {{ ex.score }}/{{ ex.total }}</span>
+              {% else %}
+                <span style="display:inline-block;background:rgba(100,116,139,.1);color:#475569;border:1px solid rgba(100,116,139,.2);padding:2px 6px;border-radius:6px;font-size:10px;margin:1px;">{{ abbr }}</span>
+              {% endif %}
             {% endfor %}
           </td>
           <td align="center" style="padding:10px 16px;">

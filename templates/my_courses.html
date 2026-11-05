@@ -49,7 +49,13 @@
         <div class="course-stats">
           <div class="course-stat"><strong>{{ item.course.modules|length }}</strong>Modules</div>
           <div class="course-stat"><strong>{{ item.total }}</strong>Lessons</div>
-          {% if item.exam_passed %}<div class="course-stat" style="color:#00c853;"><strong>✓</strong>Exam Passed</div>{% endif %}
+          {% if item.exam_passed %}
+            <div class="course-stat" style="color:#00c853;"><strong>✓</strong>Exam Passed</div>
+            <div class="course-stat" style="color:#00c853;"><strong>{{ item.exam_best }}/{{ item.exam_total }}</strong>Best score</div>
+          {% elif item.exam_attempts %}
+            <div class="course-stat" style="color:#f59e0b;"><strong>{{ item.exam_score }}/{{ item.exam_total }}</strong>Latest score</div>
+            <div class="course-stat" style="color:#64748b;"><strong>{{ item.exam_attempts }}</strong>Attempt{{ 's' if item.exam_attempts != 1 }}</div>
+          {% endif %}
         </div>
         <div class="progress-bar"><div class="progress-fill" style="width:{{ item.pct }}%"></div></div>
         <div class="progress-label">{{ item.done }} / {{ item.total }} lessons · {{ item.pct }}% complete</div>
