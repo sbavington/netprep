@@ -17,7 +17,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("TrendAI TippingPoint Overview", "https://www.trendmicro.com/en_us/business/products/network/intrusion-prevention.html"),
-            ("Cloudflare — What is an IPS?", "https://www.cloudflare.com/learning/security/glossary/intrusion-detection-prevention/"),
+            ("TechTarget — What is an Intrusion Prevention System (IPS)?", "https://www.techtarget.com/cybersecurity/definition/intrusion-prevention-system-IPS"),
             ("NIST — IPS Guide", "https://csrc.nist.gov/pubs/sp/800/94/r1/final"),
         ]
     },
@@ -61,7 +61,7 @@ LESSON_CONTENT = {
         ],
         "links": [
             ("TrendAI TippingPoint Documentation", "https://docs.trendmicro.com/en-us/documentation/threat-protection-system/"),
-            ("Cloudflare — What is Deep Packet Inspection?", "https://www.cloudflare.com/learning/network-layer/what-is-deep-packet-inspection/"),
+            ("JumpCloud — What is Deep Packet Inspection (DPI)?", "https://jumpcloud.com/it-index/what-is-deep-packet-inspection-dpi"),
             ("TrendAI Support Portal", "https://success.trendmicro.com/"),
         ]
     },
