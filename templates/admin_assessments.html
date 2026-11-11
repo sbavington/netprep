@@ -49,10 +49,10 @@
 
   {% if students %}
   <div style="background:#111827;border:1px solid #1e293b;border-radius:12px;overflow:hidden;">
-    <div style="overflow-x:auto;">
+    <div style="max-height:70vh;overflow-y:auto;overflow-x:auto;">
     <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;min-width:900px;">
       <thead>
-        <tr style="background:#0a0f1e;position:sticky;top:0;z-index:10;">
+        <tr style="background:#0a0f1e;position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.8);">
           <th align="left" style="padding:12px 16px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;min-width:180px;">Student</th>
           <th align="center" style="padding:12px 8px;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;">Date</th>
           {% for s in sections %}
